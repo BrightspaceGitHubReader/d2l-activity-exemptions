@@ -3,7 +3,9 @@
   "description": "Activity exemptions",
   "main": "activity-exemptions.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "d2l-table": "^0.6.8",
+    "d2l-checkbox": "^0.1.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

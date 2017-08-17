@@ -1,4 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-table/d2l-table.html">
+<link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
 
 <!--
 `activity-exemptions`
@@ -14,7 +16,38 @@ Activity exemptions
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+
+    <table is="d2l-table">
+      <thead>
+        <tr>
+          <th><d2l-checkbox></d2l-checkbox></th>
+          <th><button is="d2l-table-col-sort-button">Last Name, First Name</button></th>
+          <th><button is="d2l-table-col-sort-button" desc>Enrollment Date</button></th>
+          <th><button is="d2l-table-col-sort-button">Exempt Status</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr active selected>
+          <td><d2l-checkbox></d2l-checkbox></td>
+          <td>Wong, Lawrence</td>
+          <td>August 17, 2017</td>
+          <td>Exempt</td>
+        </tr>
+        <tr>
+          <td><d2l-checkbox></d2l-checkbox></td>
+          <td>Wong, Lawrence</td>
+          <td>August 17, 2017</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><d2l-checkbox></d2l-checkbox></td>
+          <td>Wong, Lawrence</td>
+          <td>August 17, 2017</td>
+          <td>Exempt</td>
+        </tr>
+      </tbody>
+    </table>
+
   </template>
 
   <script>
