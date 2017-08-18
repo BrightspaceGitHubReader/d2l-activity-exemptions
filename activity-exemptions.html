@@ -74,30 +74,28 @@ Activity exemptions
 					type: String,
 					value: 'activity-exemptions',
 				},
-        exemptions: {
-          type: Object,
-          value: []
-        }
+				exemptions: {
+					type: Object,
+					value: []
+				}
 			},
 
-      selectAll: function(e) {
-        var checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
-        if( e.target.checked ) {
-          checkboxes.forEach(function(element){
-            //if( element.style.display != "none"){
-              element.checked = true;
-            //}
-          });
-        } else {
-          checkboxes.forEach(function(element){
-            element.checked = false;
-          });
-        }
-      },
+			selectAll: function(e) {
+				var checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
+				if ( e.target.checked ) {
+					checkboxes.forEach(function(element) {
+						element.checked = true;
+					});
+				} else {
+					checkboxes.forEach(function(element) {
+						element.checked = false;
+					});
+				}
+			},
 
-      handleResponse: function(e) {
-        this.set( 'exemptions', e.detail.response );
-      }
+			handleResponse: function(e) {
+				this.set( 'exemptions', e.detail.response );
+			}
 
 		});
 	</script>
