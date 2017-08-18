@@ -2,12 +2,14 @@
 <link rel="import" href="../d2l-table/d2l-table.html">
 <link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
 <link rel="import" href="../d2l-button/d2l-button.html">
+<link rel="import" href="../d2l-offscreen/d2l-offscreen.html">
+
 
 <!--
 `activity-exemptions`
 Activity exemptions
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="activity-exemptions">
@@ -16,37 +18,78 @@ Activity exemptions
       :host {
         display: block;
       }
+      d2l-button {
+        margin: 10px;
+      }
     </style>
 
-    <div>
-      <d2l-button primary>Exempt</d2l-button>
-      <d2l-button>Unexempt</d2l-button>
-      <table is="d2l-table">
+    <div role="main">
+      <d2l-button aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+      <d2l-button aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+      <table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
+        <caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
         <thead>
-          <tr>
-            <th><d2l-checkbox></d2l-checkbox></th>
-            <th><button is="d2l-table-col-sort-button">Last Name, First Name</button></th>
-            <th><button is="d2l-table-col-sort-button">Exempt Status</button></th>
+          <tr role="row">
+            <th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
+            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" nosort>Last Name, First Name</button></th>
+            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" nosort>Exempt Status</button></th>
           </tr>
         </thead>
         <tbody>
-          <tr active selected>
-            <td><d2l-checkbox></d2l-checkbox></td>
-            <td>Wong, Lawrence</td>
-            <td>Exempt</td>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Wong, Lawrence"></d2l-checkbox></td>
+            <th scope="row">Wong, Lawrence</th>
+            <th scope="row">Exempt</th>
           </tr>
-          <tr>
-            <td><d2l-checkbox></d2l-checkbox></td>
-            <td>Wong, Lawrence</td>
-            <td></td>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Sweet, Ryan"></d2l-checkbox></td>
+            <th scope="row">Sweet, Ryan</th>
+            <th scope="row"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
           </tr>
-          <tr>
-            <td><d2l-checkbox></d2l-checkbox></td>
-            <td>Wong, Lawrence</td>
-            <td>Exempt</td>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Bergstrom, Tony"></d2l-checkbox></td>
+            <th scope="row">Bergstrom, Tony</th>
+            <th scope="row">Exempt</th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Horgan, Mike"></d2l-checkbox></td>
+            <th scope="row">Horgan, Mike</th>
+            <th scope="row"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Wong, Joseph"></d2l-checkbox></td>
+            <th scope="row">Wong, Joseph</th>
+            <th scope="row"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Bydeley, Jared"></d2l-checkbox></td>
+            <th scope="row">Bydeley, Jared</th>
+            <th scope="row">Exempt</th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Casagrande, Steve"></d2l-checkbox></td>
+            <th scope="row">Casagrande, Steve</th>
+            <th scope="row"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Power, Max"></d2l-checkbox></td>
+            <th scope="row">Power, Max</th>
+            <th scope="row">Exempt</th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Inglis, Tiffany"></d2l-checkbox></td>
+            <th scope="row">Inglis, Tiffany</th>
+            <th scope="row">Exempt</th>
+          </tr>
+          <tr role="row">
+            <td><d2l-checkbox class="checkbox-user" aria-label="Select Vannatter, Ed"></d2l-checkbox></td>
+            <th scope="row">Vannatter, Ed</th>
+            <th scope="row">Exempt</th>
           </tr>
         </tbody>
       </table>
+      <d2l-button aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+      <d2l-button aria-label="Unexempt Selected Users">Unexempt</d2l-button>
     </div>
   </template>
 
@@ -61,6 +104,21 @@ Activity exemptions
           value: 'activity-exemptions',
         },
       },
+
+      selectAll: function(e) {
+        var checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
+        if( e.target.checked ) {
+          checkboxes.forEach(function(element){
+            //if( element.style.display != "none"){
+              element.checked = true;
+            //}
+          });
+        } else {
+          checkboxes.forEach(function(element){
+            element.checked = false;
+          });
+        }
+      }
 
     });
   </script>
