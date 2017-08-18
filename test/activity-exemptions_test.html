@@ -1,30 +1,31 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>activity-exemptions test</title>
+		<title>activity-exemptions test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../activity-exemptions.html">
-  </head>
-  <body>
-    <test-fixture id="basic">
-      <template>
-        <activity-exemptions></activity-exemptions>
-      </template>
-    </test-fixture>
+		<link rel="import" href="../activity-exemptions.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<activity-exemptions></activity-exemptions>
+			</template>
+		</test-fixture>
 
-    <script>
-      suite('activity-exemptions', function() {
-        test('instantiating the element works', function() {
-          var element = fixture('basic');
-          assert.equal(element.is, 'activity-exemptions');
-        });
-      });
-    </script>
-  </body>
+		<script>
+			/*global describe it expect fixture*/
+			describe('activity-exemptions', function() {
+				it('should instantiate the element', function() {
+					var element = fixture('basic');
+					expect(element.is).to.equal('activity-exemptions');
+				});
+			});
+		</script>
+	</body>
 </html>
