@@ -1,6 +1,6 @@
 {
     "entrypoint": "index.html",
-    "shell": "bulk-exemptions.html",
+    "shell": "activity-exemptions.html",
     "fragments": [
       "activity-exemptions.html"
     ],
