@@ -33,34 +33,34 @@ Activity exemptions
     </iron-ajax>
 
     <div role="main">
-      <d2l-button aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+      <d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
       <table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
         <caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
         <thead>
           <tr role="row">
             <th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
-            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" nosort>Last Name, First Name</button></th>
-            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" nosort>Exempt Status</button></th>
+            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
+            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
           </tr>
         </thead>
         <tbody>
           <template is="dom-repeat" items="[[exemptions]]">
             <tr role="row">
               <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.lastname]], [[item.firstname]]"></d2l-checkbox></td>
-              <th scope="row">[[item.lastname]], [[item.firstname]]</th>
+              <th scope="row" role="rowheader">[[item.lastname]], [[item.firstname]]</th>
               <template is="dom-if" if="[[item.isExempt]]">
-                <th scope="row">Exempt</th>
+                <th scope="row" role="rowheader">Exempt</th>
               </template>
               <template is="dom-if" if="[[!item.isExempt]]">
-                <th scope="row"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+                <th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
               </template>
             </tr>
           </template>
         </tbody>
       </table>
-      <d2l-button aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+      <d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
     </div>
   </template>
 
@@ -80,6 +80,10 @@ Activity exemptions
 				}
 			},
 
+			handleResponse: function(e) {
+				this.set( 'exemptions', e.detail.response );
+			},
+
 			selectAll: function(e) {
 				var checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
 				if ( e.target.checked ) {
@@ -91,10 +95,6 @@ Activity exemptions
 						element.checked = false;
 					});
 				}
-			},
-
-			handleResponse: function(e) {
-				this.set( 'exemptions', e.detail.response );
 			}
 
 		});
