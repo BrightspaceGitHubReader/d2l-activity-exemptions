@@ -9,7 +9,7 @@ Activity exemptions
 	<template>
 		<style>
 		</style>
-    [[data.LastName]], [[data.FirstName]]
+    [[displayName]]
   </template>
 
 	<script>
@@ -18,9 +18,9 @@ Activity exemptions
 			is: 'activity-exemptions-username',
 
 			properties: {
-				data: {
-					type: Object,
-					value: []
+				displayName: {
+					type: String,
+					value: ""
 				}
 			}
 

@@ -66,8 +66,8 @@ Activity exemptions
 				<tbody>
 					<template is="dom-repeat" items="[[userData]]">
 						<tr role="row">
-							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
-							<th scope="row" role="rowheader"><activity-exemptions-username data="[[item]]"></activity-exemptions-username></th>
+							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.DisplayName]]"></d2l-checkbox></td>
+							<th scope="row" role="rowheader"><activity-exemptions-username display-name="[[item.DisplayName]]"></activity-exemptions-username></th>
 							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
 						</tr>
 					</template>
@@ -123,8 +123,7 @@ Activity exemptions
 					this.push('userData',
 						{
 							'UserId' : user.Identifier,
-							'FirstName' : user.FirstName,
-							'LastName' : user.LastName,
+							'DisplayName' : user.FirstName + ", " + user.LastName,
 							'IsExempt' : isExempt
 						}
 					);
