@@ -1,0 +1,29 @@
+<!--
+`activity-exemptions`
+Activity exemptions
+
+@demo demo/index.html
+-->
+
+<dom-module id="activity-exemptions-username">
+	<template>
+		<style>
+		</style>
+    [[data.LastName]], [[data.FirstName]]
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'activity-exemptions-username',
+
+			properties: {
+				data: {
+					type: Object,
+					value: []
+				}
+			}
+
+		});
+	</script>
+</dom-module>

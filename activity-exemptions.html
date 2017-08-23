@@ -5,7 +5,8 @@
 <link rel="import" href="../d2l-button/d2l-button.html">
 <link rel="import" href="../d2l-offscreen/d2l-offscreen.html">
 <link rel="import" href="../d2l-ajax/d2l-ajax.html">
-
+<link rel="import" href="src/activity-exemptions-username.html">
+<link rel="import" href="src/activity-exemptions-exemptstatus.html">
 
 <!--
 `activity-exemptions`
@@ -28,7 +29,7 @@ Activity exemptions
 		<iron-ajax
 		id="getClasslist"
     url="https://qa10768188g.bspc.com/d2l/api/le/1.12/123780/classlist/"
-		headers='{ "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNhMzJmZWM3LTgyMmYtNDNkZC05NTNmLWI0NjUzY2RhYzFmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6ImI1NDg5N2ExLTc0MjYtNDAwMi1iYzQxLWJlMTJlNWI2NjI3ZCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiI3ZTY1OWM1YS00OWZlLTQ2MTYtYmI1Ni04ZTdkZTNjYzI2ZDkiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTAzNTEyMTYzLCJuYmYiOjE1MDM1MDg1NjN9.JOI_hzsOQugM2VUbLmiAvZkt-d9FHVjrdKg-q2rDt0cUMAY2yGs41--wfzdpPQzZEqDFEGf3wwtmrVzA7Ljchfl84JbseDsHVcRCEKeEygIlhI9X9gjaf9R7dVWgQQHNmKp_snWG0HIbFvFPUg5-39tiEWRxBNRVucQIoW3mfblGzEeIAk1FXdO4H6SmTzraq3w7GnCPJF_c1yhj7foTrCCbgMNCg2JSj4uV_iK69_aa9Ozqfu41A5u-9sOR1pspKWeYDXUcKFTCRUK92TtmmK1Uf6BnuwfRYWLBXH4xBEfAOT1V3ciT5IKmON-28kNEfCjsIZ_m2xR56qfb6tpuRg"}'
+		headers='{ "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZlN2U0YTM4LTg2NzctNGRjZC1hZGQ0LWY2N2YxZDE4NTczZiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6ImI1NDg5N2ExLTc0MjYtNDAwMi1iYzQxLWJlMTJlNWI2NjI3ZCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiI3NmUxOTBhNC0wZDEwLTQyMzgtOGYzZi1iMDg3YjZmZjllY2QiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTAzNTE3Njk4LCJuYmYiOjE1MDM1MTQwOTh9.lXcWd4Al7ks6PNM6nH0-2rgrizUKOPe5FArT-BOg-X_ylj2i_8aHahi_RQPSG-ZZz7lrjrNeMgScku6hbdGnzsu0n_oVgBWkWaIueJyMSzF5N83IhFhf41igAI4WLRvVaJ7DLQHPwCBJ9tkgb3Dyw39vZXG8DQpl53JBVJdAyFV-Zt1loszNVWOWEcSJ5djiTtvV82XqU4c-NqyRv6LSBljma4qZJtlxCt82DyAqXXqXWuPiGyH40Fiq9tUw-xOoWXVOIUEoQjh1UMLUv7QM5mxq7Y_q2P7fHmZVATwxzyEVZ11PoZ5HL1BjJ55jtgfNP55PQAkbGylKdXZ8fGcPxA"}'
     handle-as="json"
     on-response="handleClasslistResponse"
 		method="GET"
@@ -66,13 +67,8 @@ Activity exemptions
           <template is="dom-repeat" items="[[userData]]">
             <tr role="row">
               <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
-              <th scope="row" role="rowheader">[[item.LastName]], [[item.FirstName]]</th>
-              <template is="dom-if" if="[[item.IsExempt]]">
-                <th scope="row" role="rowheader">Exempt</th>
-              </template>
-              <template is="dom-if" if="[[!item.IsExempt]]">
-                <th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
-              </template>
+              <th scope="row" role="rowheader"><activity-exemptions-username data="[[item]]"></activity-exemptions-username></th>
+              <th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
             </tr>
           </template>
         </tbody>
