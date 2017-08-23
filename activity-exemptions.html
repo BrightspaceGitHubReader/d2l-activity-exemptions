@@ -33,52 +33,53 @@ Activity exemptions
     handle-as="json"
     on-response="handleClasslistResponse"
 		method="GET"
-    ></iron-ajax>
+		></iron-ajax>
 
 		<iron-ajax
 		id="getExemptions"
-    url="http://demo5254249.mockable.io/getExemptions"
+		url="http://demo5254249.mockable.io/getExemptions"
 		handle-as="json"
     on-response="handleExemptionsResponse"
 		method="GET"
-    ></iron-ajax>
+		></iron-ajax>
 
-    <!-- <iron-ajax
-      auto
-      url="http://192.168.138.12:30610/grades"
-      handle-as="json"
-      on-response="handleResponse"
-      id="loaddata">
-    </iron-ajax> -->
+		<!-- <iron-ajax
+		auto
+		url="http://192.168.138.12:30610/grades"
+		handle-as="json"
+		on-response="handleResponse"
+		id="loaddata">
+		</iron-ajax> -->
 
-    <div role="main">
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-      <table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
-        <caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
-        <thead>
-          <tr role="row">
-            <th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
-            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
-            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
-          </tr>
-        </thead>
-        <tbody>
-          <template is="dom-repeat" items="[[userData]]">
-            <tr role="row">
-              <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
-              <th scope="row" role="rowheader"><activity-exemptions-username data="[[item]]"></activity-exemptions-username></th>
-              <th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-    </div>
-  </template>
+		<div role="main">
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+			<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
+				<caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
+				<thead>
+					<tr role="row">
+						<th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
+						<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
+						<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
+					</tr>
+				</thead>
+				<tbody>
+					<template is="dom-repeat" items="[[userData]]">
+						<tr role="row">
+							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
+							<th scope="row" role="rowheader"><activity-exemptions-username data="[[item]]"></activity-exemptions-username></th>
+							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+			<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			</div>
+		</template>
 
 	<script>
+		/*eslint-env es6*/
 		Polymer({
 
 			is: 'activity-exemptions',
@@ -98,13 +99,13 @@ Activity exemptions
 				}
 			},
 
-			ready: function(e) {
+			ready: function() {
 				Promise.all([
 					this.$.getClasslist.generateRequest().completes,
 					this.$.getExemptions.generateRequest().completes ])
-						.then( () => {
-							this.mapUserData();
-				});
+					.then( () => {
+						this.mapUserData();
+					});
 			},
 
 			handleClasslistResponse: function(e) {
@@ -115,19 +116,19 @@ Activity exemptions
 				this.set( 'rawExemptions', e.detail.response );
 			},
 
-			mapUserData: function(e) {
+			mapUserData: function() {
 				this.rawClasslist.forEach( (user) =>{
 					const isExempt = this.rawExemptions.some( (exemptions) => {
-						return exemptions["UserId"] == user.Identifier
-					})
+						return exemptions['UserId'] === user.Identifier;
+					});
 					this.push('userData',
 						{
-							"UserId" : user.Identifier,
-							"FirstName" : user.FirstName,
-							"LastName" : user.LastName,
-							"IsExempt" : isExempt
+							'UserId' : user.Identifier,
+							'FirstName' : user.FirstName,
+							'LastName' : user.LastName,
+							'IsExempt' : isExempt
 						}
-					)
+					);
 				});
 			},
 
