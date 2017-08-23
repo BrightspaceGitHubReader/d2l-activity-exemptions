@@ -6,7 +6,6 @@
 <link rel="import" href="../d2l-offscreen/d2l-offscreen.html">
 <link rel="import" href="../d2l-ajax/d2l-ajax.html">
 
-
 <!--
 `activity-exemptions`
 Activity exemptions
@@ -27,62 +26,63 @@ Activity exemptions
 
 		<iron-ajax
 		id="getClasslist"
-    url="https://qa10768188g.bspc.com/d2l/api/le/1.12/123780/classlist/"
+		url="https://qa10768188g.bspc.com/d2l/api/le/1.12/123780/classlist/"
 		headers='{ "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNhMzJmZWM3LTgyMmYtNDNkZC05NTNmLWI0NjUzY2RhYzFmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6ImI1NDg5N2ExLTc0MjYtNDAwMi1iYzQxLWJlMTJlNWI2NjI3ZCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiI3ZTY1OWM1YS00OWZlLTQ2MTYtYmI1Ni04ZTdkZTNjYzI2ZDkiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTAzNTEyMTYzLCJuYmYiOjE1MDM1MDg1NjN9.JOI_hzsOQugM2VUbLmiAvZkt-d9FHVjrdKg-q2rDt0cUMAY2yGs41--wfzdpPQzZEqDFEGf3wwtmrVzA7Ljchfl84JbseDsHVcRCEKeEygIlhI9X9gjaf9R7dVWgQQHNmKp_snWG0HIbFvFPUg5-39tiEWRxBNRVucQIoW3mfblGzEeIAk1FXdO4H6SmTzraq3w7GnCPJF_c1yhj7foTrCCbgMNCg2JSj4uV_iK69_aa9Ozqfu41A5u-9sOR1pspKWeYDXUcKFTCRUK92TtmmK1Uf6BnuwfRYWLBXH4xBEfAOT1V3ciT5IKmON-28kNEfCjsIZ_m2xR56qfb6tpuRg"}'
-    handle-as="json"
-    on-response="handleClasslistResponse"
+		handle-as="json"
+		on-response="handleClasslistResponse"
 		method="GET"
-    ></iron-ajax>
+		></iron-ajax>
 
 		<iron-ajax
 		id="getExemptions"
-    url="http://demo5254249.mockable.io/getExemptions"
+		url="http://demo5254249.mockable.io/getExemptions"
 		handle-as="json"
     on-response="handleExemptionsResponse"
 		method="GET"
-    ></iron-ajax>
+		></iron-ajax>
 
-    <!-- <iron-ajax
-      auto
-      url="http://192.168.138.12:30610/grades"
-      handle-as="json"
-      on-response="handleResponse"
-      id="loaddata">
-    </iron-ajax> -->
+		<!-- <iron-ajax
+		auto
+		url="http://192.168.138.12:30610/grades"
+		handle-as="json"
+		on-response="handleResponse"
+		id="loaddata">
+		</iron-ajax> -->
 
-    <div role="main">
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-      <table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
-        <caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
-        <thead>
-          <tr role="row">
-            <th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
-            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
-            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
-          </tr>
-        </thead>
-        <tbody>
-          <template is="dom-repeat" items="[[userData]]">
-            <tr role="row">
-              <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
-              <th scope="row" role="rowheader">[[item.LastName]], [[item.FirstName]]</th>
-              <template is="dom-if" if="[[item.IsExempt]]">
-                <th scope="row" role="rowheader">Exempt</th>
-              </template>
-              <template is="dom-if" if="[[!item.IsExempt]]">
-                <th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
-              </template>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-    </div>
-  </template>
+	<div role="main">
+		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+		<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+		<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
+			<caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
+			<thead>
+				<tr role="row">
+					<th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
+					<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
+					<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="[[userData]]">
+					<tr role="row">
+						<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
+						<th scope="row" role="rowheader">[[item.LastName]], [[item.FirstName]]</th>
+						<template is="dom-if" if="[[item.IsExempt]]">
+							<th scope="row" role="rowheader">Exempt</th>
+						</template>
+						<template is="dom-if" if="[[!item.IsExempt]]">
+							<th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+						</template>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+		<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+		</div>
+	</template>
 
 	<script>
+		/*eslint-env es6*/
 		Polymer({
 
 			is: 'activity-exemptions',
@@ -102,13 +102,13 @@ Activity exemptions
 				}
 			},
 
-			ready: function(e) {
+			ready: function() {
 				Promise.all([
 					this.$.getClasslist.generateRequest().completes,
 					this.$.getExemptions.generateRequest().completes ])
-						.then( () => {
-							this.mapUserData();
-				});
+					.then( () => {
+						this.mapUserData();
+					});
 			},
 
 			handleClasslistResponse: function(e) {
@@ -119,19 +119,19 @@ Activity exemptions
 				this.set( 'rawExemptions', e.detail.response );
 			},
 
-			mapUserData: function(e) {
+			mapUserData: function() {
 				this.rawClasslist.forEach( (user) =>{
 					const isExempt = this.rawExemptions.some( (exemptions) => {
-						return exemptions["UserId"] == user.Identifier
-					})
+						return exemptions['UserId'] === user.Identifier;
+					});
 					this.push('userData',
 						{
-							"UserId" : user.Identifier,
-							"FirstName" : user.FirstName,
-							"LastName" : user.LastName,
-							"IsExempt" : isExempt
+							'UserId' : user.Identifier,
+							'FirstName' : user.FirstName,
+							'LastName' : user.LastName,
+							'IsExempt' : isExempt
 						}
-					)
+					);
 				});
 			},
 
