@@ -2,10 +2,6 @@ language: node_js
 sudo: true
 node_js: 8
 dist: trusty
-cache:
-  directories:
-  - node_modules
-  - bower_components
 addons:
     firefox: latest
     apt:
@@ -17,14 +13,6 @@ before_install:
     - export PATH=$PWD/node_modules/.bin:$PATH
 install:
     - npm install
-    - npm run update:all
 script:
     - npm run lint
     - xvfb-run wct
-after_success:
-    - test "$TRAVIS_REPO_SLUG" = "Brightspace/activity-exemptions"
-      && test "$TRAVIS_BRANCH" = "master"
-      && test "$TRAVIS_PULL_REQUEST" = "false"
-      && export NODE_ENV=production
-      && npm run build && npm run publish-release
-      && curl -X POST --data-urlencode 'payload={"text":"New activity-exemptions master!\nhttps://s.brightspace.com/apps/activity-exemptions/dev/'"$(git rev-parse HEAD)"'/appconfig.json"}' ${SLACK_WEBHOOK}
