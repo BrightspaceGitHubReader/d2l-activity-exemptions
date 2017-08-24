@@ -117,7 +117,7 @@ Activity exemptions
 			},
 
 			mapUserData: function() {
-				this.rawClasslist.forEach( (user) =>{
+				this.rawClasslist.forEach( (user) => {
 					const isExempt = this.rawExemptions.some( (exemptions) => {
 						return exemptions['UserId'] === user.Identifier;
 					});
