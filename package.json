@@ -1,7 +1,6 @@
 {
-  "appId": "urn:d2l:fra:id:activity-exemptions",
   "name": "activity-exemptions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Activity exemptions",
   "author": "D2L Corporation",
   "license": "UNLICENSED",
@@ -14,68 +13,20 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-runtime": "^6.18.0",
-    "babelify": "^7.3.0",
     "bower": "^1.8.0",
-    "browserify": "^14.4.0",
+    "polymer-cli": "^1.4.1",
+    "web-component-tester": "^6.0.1",
     "eslint": "^4.4.1",
     "eslint-config-brightspace": "^0.3.1",
-    "eslint-plugin-html": "^3.2.0",
-    "frau-appconfig-builder": "^0.1.0",
-    "frau-ci": "^1.33.0",
-    "frau-publisher": "^2.5.3",
-    "ncp": "^2.0.0",
-    "onchange": "^3.2.0",
-    "parallelshell": "^3.0.1",
-    "polymer-cli": "^1.4.1",
-    "rimraf": "^2.5.4",
-    "uglify-js": "^3.0.27",
-    "vulcanize": "^1.14.12",
-    "web-component-tester": "^6.0.1"
+    "eslint-plugin-html": "^3.2.0"
   },
   "scripts": {
-    "prebuild": "rimraf dist && mkdir dist",
-    "build:app": "npm run build:polymer && npm run build:appjs && npm run build:indexfra && npm run build:vulcanize",
-    "build:appconfig": "frau-appconfig-builder",
-    "build:appjs": "browserify -t [ babelify ] app.js | uglifyjs > build/bundled/app.js",
-    "build:indexfra": "ncp index-fra.html build/bundled/index-fra.html",
-    "build:polymer": "polymer build",
-    "build:testdata": "ncp test.json dist/test.json",
-    "build:vulcanize": "vulcanize --inline-css --inline-scripts --strip-comments build/bundled/index-fra.html > dist/bulk-exemptions.html",
-    "build": "npm run build:appconfig && npm run build:testdata && npm run build:app",
-    "resolver": "frau-local-appresolver",
-    "publish-release": "frau-publisher",
     "test": "polymer test",
-    "install": "bower install",
+    "postinstall": "bower install",
     "start": "polymer serve",
     "update:all": "npm update && bower update",
     "lint": "npm run lint:js && npm run lint:wc",
     "lint:wc": "polymer lint",
-    "lint:js": "eslint *.html src/*.html test/**",
-    "watch:js": "onchange \"src\\*.html\" \"*.html\" \"app.js\" -v -- npm run build:app && npm run postbuild -s",
-    "watch": "parallelshell \"npm run resolver\" \"npm run watch:js\""
-  },
-  "config": {
-    "frauAppConfigBuilder": {
-      "appFile": "activity-exemptions.html",
-      "dist": "./dist",
-      "envVar": "TRAVIS",
-      "loader": "iframe",
-      "showLoading": false
-    },
-    "frauLocalAppResolver": {
-      "appClass": "urn:d2l:fra:class:activity-exemptions"
-    },
-    "frauPublisher": {
-      "files": "./dist/**",
-      "moduleType": "app",
-      "targetDirectory": "activity-exemptions",
-      "creds": {
-        "key": "AKIAIQXIHAFT3VGWDMDA",
-        "secretVar": "S3_SECRET"
-      },
-      "devTagVar": "TRAVIS_COMMIT",
-      "versionVar": "TRAVIS_TAG"
-    }
+    "lint:js": "eslint *.html src/*.html test/**"
   }
 }
