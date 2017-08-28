@@ -42,13 +42,12 @@ Activity exemptions
 		method="GET"
 		></iron-ajax>
 
-		<!-- <iron-ajax
-		auto
-		url="http://192.168.138.12:30610/grades"
+		<iron-ajax
+		url="test.json"
 		handle-as="json"
-		on-response="handleResponse"
+		on-response="handleTestDataResponse"
 		id="loaddata">
-		</iron-ajax> -->
+		</iron-ajax>
 
 	<div role="main">
 		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
@@ -99,16 +98,23 @@ Activity exemptions
 				userData: {
 					type: Array,
 					value: []
+				},
+				testData: {
+					type: Boolean
 				}
 			},
 
 			ready: function() {
-				Promise.all([
-					this.$.getClasslist.generateRequest().completes,
-					this.$.getExemptions.generateRequest().completes ])
-					.then( () => {
-						this.mapUserData();
-					});
+				if (this.testData) {
+					this.$.loaddata.generateRequest();
+				} else {
+					Promise.all([
+						this.$.getClasslist.generateRequest().completes,
+						this.$.getExemptions.generateRequest().completes ])
+						.then( () => {
+							this.mapUserData();
+						});
+				}
 			},
 
 			handleClasslistResponse: function(e) {
@@ -117,6 +123,10 @@ Activity exemptions
 
 			handleExemptionsResponse: function(e) {
 				this.set( 'rawExemptions', e.detail.response );
+			},
+
+			handleTestDataResponse: function(e) {
+				this.set('userData', e.detail.response );
 			},
 
 			mapUserData: function() {

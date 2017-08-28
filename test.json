@@ -1,1 +1,101 @@
-{}
+[{
+    "FirstName": "Aiden",
+    "LastName": "James",
+    "IsExempt": false
+}, {
+    "FirstName": "Avery",
+    "LastName": "Mason",
+    "IsExempt": true
+}, {
+    "FirstName": "Ethan",
+    "LastName": "Ethan",
+    "IsExempt": false
+}, {
+    "FirstName": "Aubrey",
+    "LastName": "Isabella",
+    "IsExempt": false
+}, {
+    "FirstName": "Jayden",
+    "LastName": "Chloe",
+    "IsExempt": true
+}, {
+    "FirstName": "Noah",
+    "LastName": "Andrew",
+    "IsExempt": true
+}, {
+    "FirstName": "Sofia",
+    "LastName": "Joseph",
+    "IsExempt": true
+}, {
+    "FirstName": "Emily",
+    "LastName": "Isabella",
+    "IsExempt": false
+}, {
+    "FirstName": "Avery",
+    "LastName": "James",
+    "IsExempt": false
+}, {
+    "FirstName": "Ethan",
+    "LastName": "Emma",
+    "IsExempt": true
+}, {
+    "FirstName": "Aiden",
+    "LastName": "Isabella",
+    "IsExempt": false
+}, {
+    "FirstName": "Anthony",
+    "LastName": "Avery",
+    "IsExempt": true
+}, {
+    "FirstName": "Matthew",
+    "LastName": "James",
+    "IsExempt": false
+}, {
+    "FirstName": "Lily",
+    "LastName": "Aiden",
+    "IsExempt": false
+}, {
+    "FirstName": "Addison",
+    "LastName": "Michael",
+    "IsExempt": false
+}, {
+    "FirstName": "Andrew",
+    "LastName": "Aubrey",
+    "IsExempt": true
+}, {
+    "FirstName": "Abigail",
+    "LastName": "Aiden",
+    "IsExempt": true
+}, {
+    "FirstName": "Benjamin",
+    "LastName": "Chloe",
+    "IsExempt": true
+}, {
+    "FirstName": "Jayden",
+    "LastName": "Sophia",
+    "IsExempt": true
+}, {
+    "FirstName": "Sophia",
+    "LastName": "Charlotte",
+    "IsExempt": true
+}, {
+    "FirstName": "Isabella",
+    "LastName": "Zoey",
+    "IsExempt": false
+}, {
+    "FirstName": "Joshua",
+    "LastName": "Liam",
+    "IsExempt": true
+}, {
+    "FirstName": "Noah",
+    "LastName": "Lily",
+    "IsExempt": false
+}, {
+    "FirstName": "Andrew",
+    "LastName": "Daniel",
+    "IsExempt": false
+}, {
+    "FirstName": "Addison",
+    "LastName": "Mia",
+    "IsExempt": false
+}]
