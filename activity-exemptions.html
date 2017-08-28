@@ -25,7 +25,6 @@ Activity exemptions
 		</style>
 
     <iron-ajax
-      auto
       url="http://192.168.138.12:30610/grades"
       handle-as="json"
       on-response="handleResponse"
@@ -46,7 +45,7 @@ Activity exemptions
         </thead>
         <tbody>
           <template is="dom-repeat" items="[[exemptions]]">
-            <tr role="row">
+            <tr role="row" class="row-user">
               <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.lastname]], [[item.firstname]]"></d2l-checkbox></td>
               <th scope="row" role="rowheader">[[item.lastname]], [[item.firstname]]</th>
               <template is="dom-if" if="[[item.isExempt]]">
@@ -77,6 +76,9 @@ Activity exemptions
 				exemptions: {
 					type: Object,
 					value: []
+				},
+				testData: {
+					type: Boolean
 				}
 			},
 
@@ -94,6 +96,12 @@ Activity exemptions
 					checkboxes.forEach(function(element) {
 						element.checked = false;
 					});
+				}
+			},
+
+			ready: function() {
+				if (this.testData) {
+					this.$.loaddata.generateRequest();
 				}
 			}
 

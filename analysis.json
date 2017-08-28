@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`activity-exemptions`\nActivity exemptions",
+      "summary": "",
+      "path": "activity-exemptions.html",
+      "properties": [
+        {
+          "name": "prop1",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 72,
+              "column": 4
+            },
+            "end": {
+              "line": 75,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"activity-exemptions\""
+        },
+        {
+          "name": "exemptions",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 4
+            },
+            "end": {
+              "line": 79,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "testData",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 82,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "handleResponse",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 85,
+              "column": 3
+            },
+            "end": {
+              "line": 87,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "name": "selectAll",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 89,
+              "column": 3
+            },
+            "end": {
+              "line": 100,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 102,
+              "column": 3
+            },
+            "end": {
+              "line": 106,
+              "column": 4
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 67,
+          "column": 10
+        },
+        "end": {
+          "line": 108,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "prop1",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 72,
+              "column": 4
+            },
+            "end": {
+              "line": 75,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "exemptions",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 4
+            },
+            "end": {
+              "line": 79,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "test-data",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 82,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "activity-exemptions"
+    }
+  ]
+}
