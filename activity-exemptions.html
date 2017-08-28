@@ -42,11 +42,11 @@ Activity exemptions
 		></iron-ajax>
 
 		<iron-ajax
+		id="loaddata"
 		url="test.json"
 		handle-as="json"
 		on-response="handleTestDataResponse"
-		id="loaddata">
-		</iron-ajax>
+		></iron-ajax>
 
 	<div role="main">
 		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
@@ -129,7 +129,7 @@ Activity exemptions
 			},
 
 			mapUserData: function() {
-				this.rawClasslist.forEach( (user) =>{
+				this.rawClasslist.forEach( (user) => {
 					const isExempt = this.rawExemptions.some( (exemptions) => {
 						return exemptions['UserId'] === user.Identifier;
 					});
