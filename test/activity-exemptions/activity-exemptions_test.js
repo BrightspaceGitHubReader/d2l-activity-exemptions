@@ -10,11 +10,11 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should select all checkboxes', function(done) {
-		element.exemptions = [
-			{'firstname':'Benjamin', 'lastname':'Liam', 'isExempt':true},
-			{'firstname':'Isabella', 'lastname':'Madison', 'isExempt':true},
-			{'firstname':'Ethan', 'lastname':'Avery', 'isExempt':false},
-			{'firstname':'David', 'lastname':'Aubrey', 'isExempt':true}
+		element.userData = [
+			{'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 		flush(function() {
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
@@ -35,11 +35,11 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should de-select all checkboxes', function(done) {
-		element.exemptions = [
-			{'firstname':'Benjamin', 'lastname':'Liam', 'isExempt':true},
-			{'firstname':'Isabella', 'lastname':'Madison', 'isExempt':true},
-			{'firstname':'Ethan', 'lastname':'Avery', 'isExempt':false},
-			{'firstname':'David', 'lastname':'Aubrey', 'isExempt':true}
+		element.userData = [
+			{'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 
 		// Manually set all checkboxes to checked

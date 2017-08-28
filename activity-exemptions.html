@@ -62,7 +62,7 @@ Activity exemptions
 			</thead>
 			<tbody>
 				<template is="dom-repeat" items="[[userData]]">
-					<tr role="row">
+					<tr class="row-user" role="row">
 						<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
 						<th scope="row" role="rowheader">[[item.LastName]], [[item.FirstName]]</th>
 						<template is="dom-if" if="[[item.IsExempt]]">
@@ -125,23 +125,18 @@ Activity exemptions
 			},
 
 			handleTestDataResponse: function(e) {
-				this.set('userData', e.detail.response );
+				this.set( 'userData', e.detail.response );
 			},
 
 			mapUserData: function() {
-				this.rawClasslist.forEach( (user) => {
+				const userData = this.rawClasslist.map( (user) => {
 					const isExempt = this.rawExemptions.some( (exemptions) => {
 						return exemptions['UserId'] === user.Identifier;
 					});
-					this.push('userData',
-						{
-							'UserId' : user.Identifier,
-							'FirstName' : user.FirstName,
-							'LastName' : user.LastName,
-							'IsExempt' : isExempt
-						}
-					);
+					user.IsExempt = isExempt;
+					return user;
 				});
+				this.set('userData', userData );
 			},
 
 			selectAll: function(e) {
