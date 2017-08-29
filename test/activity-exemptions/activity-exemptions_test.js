@@ -10,11 +10,11 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should select all checkboxes', function(done) {
-		element.exemptions = [
-			{'firstname':'Benjamin', 'lastname':'Liam', 'isExempt':true},
-			{'firstname':'Isabella', 'lastname':'Madison', 'isExempt':true},
-			{'firstname':'Ethan', 'lastname':'Avery', 'isExempt':false},
-			{'firstname':'David', 'lastname':'Aubrey', 'isExempt':true}
+		element.userData = [
+			{'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 		flush(function() {
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
@@ -35,11 +35,11 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should de-select all checkboxes', function(done) {
-		element.exemptions = [
-			{'firstname':'Benjamin', 'lastname':'Liam', 'isExempt':true},
-			{'firstname':'Isabella', 'lastname':'Madison', 'isExempt':true},
-			{'firstname':'Ethan', 'lastname':'Avery', 'isExempt':false},
-			{'firstname':'David', 'lastname':'Aubrey', 'isExempt':true}
+		element.userData = [
+			{'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 
 		// Manually set all checkboxes to checked
@@ -73,5 +73,31 @@ describe('activity-exemptions', function() {
 			});
 			MockInteractions.tap(checkbox);
 		});
+	});
+
+	it('should map the data from the exemptions and classlist call correctly', function(done) {
+		element.rawClasslist = [
+			{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam'},
+			{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison'},
+			{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery'},
+			{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey'}
+		];
+
+		element.rawExemptions = [
+			{'UserId':1, 'IsExempt':true},
+			{'UserId':2, 'IsExempt':true},
+			{'UserId':4, 'IsExempt':true}
+		];
+
+		element.mapUserData();
+		expect( element.userData ).to.deep.equal(
+			[
+				{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+				{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+				{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+				{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+			]
+		);
+		done();
 	});
 });

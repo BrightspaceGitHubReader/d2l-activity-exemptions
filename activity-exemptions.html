@@ -24,44 +24,61 @@ Activity exemptions
 			}
 		</style>
 
-    <iron-ajax
-      url="http://192.168.138.12:30610/grades"
-      handle-as="json"
-      on-response="handleResponse"
-      id="loaddata">
-    </iron-ajax>
+		<iron-ajax
+		id="classlistRequest"
+		url="https:///d2l/api/le/1.12/123780/classlist/"
+		headers='{ "Authorization": "Bearer "}'
+		handle-as="json"
+		on-response="handleClasslistResponse"
+		method="GET"
+		></iron-ajax>
 
-    <div role="main">
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-      <table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
-        <caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
-        <thead>
-          <tr role="row">
-            <th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
-            <th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
-            <th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
-          </tr>
-        </thead>
-        <tbody>
-          <template is="dom-repeat" items="[[exemptions]]">
-            <tr role="row" class="row-user">
-              <td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.lastname]], [[item.firstname]]"></d2l-checkbox></td>
-              <th scope="row" role="rowheader">[[item.lastname]], [[item.firstname]]</th>
-              <template is="dom-if" if="[[item.isExempt]]">
-                <th scope="row" role="rowheader">Exempt</th>
-              </template>
-              <template is="dom-if" if="[[!item.isExempt]]">
-                <th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
-              </template>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-      <d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-      <d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-    </div>
-  </template>
+		<iron-ajax
+		id="exemptionsRequest"
+		url=""
+		handle-as="json"
+    on-response="handleExemptionsResponse"
+		method="GET"
+		></iron-ajax>
+
+		<iron-ajax
+		id="loaddata"
+		url="test.json"
+		handle-as="json"
+		on-response="handleTestDataResponse"
+		></iron-ajax>
+
+	<div role="main">
+		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+		<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+		<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
+			<caption><d2l-offscreen>Exempt from activity<d2l-offscreen></caption>
+			<thead>
+				<tr role="row">
+					<th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
+					<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
+					<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="[[userData]]">
+					<tr class="row-user" role="row">
+						<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
+						<th scope="row" role="rowheader">[[item.LastName]], [[item.FirstName]]</th>
+						<template is="dom-if" if="[[item.IsExempt]]">
+							<th scope="row" role="rowheader">Exempt</th>
+						</template>
+						<template is="dom-if" if="[[!item.IsExempt]]">
+							<th scope="row" role="rowheader"><d2l-offscreen>Not Exempt</d2l-offscreen></th>
+						</template>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+		<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
+		<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+		</div>
+	</template>
 
 	<script>
 		Polymer({
@@ -69,12 +86,16 @@ Activity exemptions
 			is: 'activity-exemptions',
 
 			properties: {
-				prop1: {
-					type: String,
-					value: 'activity-exemptions',
+				rawClasslist: {
+					type: Array,
+					value: []
 				},
-				exemptions: {
-					type: Object,
+				rawExemptions: {
+					type: Array,
+					value: []
+				},
+				userData: {
+					type: Array,
 					value: []
 				},
 				testData: {
@@ -82,12 +103,44 @@ Activity exemptions
 				}
 			},
 
-			handleResponse: function(e) {
-				this.set( 'exemptions', e.detail.response );
+			ready: function() {
+				if (this.testData) {
+					this.$.loaddata.generateRequest();
+				} else {
+					Promise.all([
+						this.$.classlistRequest.generateRequest().completes,
+						this.$.exemptionsRequest.generateRequest().completes ])
+						.then( () => {
+							this.mapUserData();
+						});
+				}
+			},
+
+			handleClasslistResponse: function(e) {
+				this.set( 'rawClasslist', e.detail.response );
+			},
+
+			handleExemptionsResponse: function(e) {
+				this.set( 'rawExemptions', e.detail.response );
+			},
+
+			handleTestDataResponse: function(e) {
+				this.set( 'userData', e.detail.response );
+			},
+
+			mapUserData: function() {
+				const userData = this.rawClasslist.map( (user) => {
+					const isExempt = this.rawExemptions.some( (exemptions) => {
+						return exemptions['UserId'] === user.Identifier;
+					});
+					user.IsExempt = isExempt;
+					return user;
+				});
+				this.set('userData', userData );
 			},
 
 			selectAll: function(e) {
-				var checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
+				const checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
 				if ( e.target.checked ) {
 					checkboxes.forEach(function(element) {
 						element.checked = true;
@@ -96,12 +149,6 @@ Activity exemptions
 					checkboxes.forEach(function(element) {
 						element.checked = false;
 					});
-				}
-			},
-
-			ready: function() {
-				if (this.testData) {
-					this.$.loaddata.generateRequest();
 				}
 			}
 
