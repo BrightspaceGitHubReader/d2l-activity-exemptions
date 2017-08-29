@@ -25,7 +25,7 @@ Activity exemptions
 		</style>
 
 		<iron-ajax
-		id="getClasslist"
+		id="classlistRequest"
 		url="https:///d2l/api/le/1.12/123780/classlist/"
 		headers='{ "Authorization": "Bearer "}'
 		handle-as="json"
@@ -34,7 +34,7 @@ Activity exemptions
 		></iron-ajax>
 
 		<iron-ajax
-		id="getExemptions"
+		id="exemptionsRequest"
 		url=""
 		handle-as="json"
     on-response="handleExemptionsResponse"
@@ -108,8 +108,8 @@ Activity exemptions
 					this.$.loaddata.generateRequest();
 				} else {
 					Promise.all([
-						this.$.getClasslist.generateRequest().completes,
-						this.$.getExemptions.generateRequest().completes ])
+						this.$.classlistRequest.generateRequest().completes,
+						this.$.exemptionsRequest.generateRequest().completes ])
 						.then( () => {
 							this.mapUserData();
 						});
