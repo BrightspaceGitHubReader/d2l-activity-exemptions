@@ -1,0 +1,35 @@
+<link rel="import" href="../../d2l-offscreen/d2l-offscreen.html">
+<!--
+`activity-exemptions-exemptstatus`
+Activity exemptions
+
+@demo demo/index.html
+-->
+
+<dom-module id='activity-exemptions-exemptstatus'>
+	<template>
+		<style>
+		</style>
+		<template is="dom-if" if="[[data.IsExempt]]">
+			Exempt
+		</template>
+		<template is="dom-if" if="[[!data.IsExempt]]">
+			<d2l-offscreen>Not Exempt</d2l-offscreen>
+		</template>
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'activity-exemptions-exemptstatus',
+
+			properties: {
+				data: {
+					type: Object,
+					value: []
+				}
+			}
+
+		});
+	</script>
+</dom-module>
