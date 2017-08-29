@@ -74,4 +74,30 @@ describe('activity-exemptions', function() {
 			MockInteractions.tap(checkbox);
 		});
 	});
+
+	it('should map the data from the exemptions and classlist call correctly', function(done) {
+		element.rawClasslist = [
+			{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam'},
+			{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison'},
+			{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery'},
+			{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey'}
+		];
+
+		element.rawExemptions = [
+			{'UserId':1, 'IsExempt':true},
+			{'UserId':2, 'IsExempt':true},
+			{'UserId':4, 'IsExempt':true}
+		];
+
+		element.mapUserData();
+		expect( element.userData ).to.deep.equal(
+			[
+				{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+				{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+				{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+				{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+			]
+		);
+		done();
+	});
 });
