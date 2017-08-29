@@ -4,7 +4,6 @@
 <link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
 <link rel="import" href="../d2l-button/d2l-button.html">
 <link rel="import" href="../d2l-offscreen/d2l-offscreen.html">
-<link rel="import" href="../d2l-ajax/d2l-ajax.html">
 <link rel="import" href="../d2l-simple-overlay/d2l-simple-overlay.html">
 <link rel="import" href="src/activity-exemptions-username.html">
 <link rel="import" href="src/activity-exemptions-exemptstatus.html">
@@ -28,29 +27,28 @@ Activity exemptions
 		</style>
 
 		<iron-ajax
-		id="getClasslist"
-    url="https://qa10768188g.bspc.com/d2l/api/le/1.12/123780/classlist/"
-		headers='{ "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZlN2U0YTM4LTg2NzctNGRjZC1hZGQ0LWY2N2YxZDE4NTczZiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6ImI1NDg5N2ExLTc0MjYtNDAwMi1iYzQxLWJlMTJlNWI2NjI3ZCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiI3OTViNDFmOS0xMjI3LTRlMmMtYmE5Ni02NGFmZGM2YzEwODYiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTAzNTI2MTQ2LCJuYmYiOjE1MDM1MjI1NDZ9.PqLBsAE-wTfC_OkEB0pkbhtl0cnOaqjjv620GZXcE-uhrK1G3ICLhzy_24ddg6bI7QLSi08Mb4GfF4hQh4qIB9IPzq7LyRM94nemq9VAM9ZBa-Oa-1wi_5Fgdlpm7NLpzFl-qksJvieL9aoowPWxOWvh1X7GGgILoShddI4KT1gjVFgT6ehhKnAsRDsy3o-9Y7boHNV687vlXzkFLsEDD3OcrUkf97VELxe6DnhtBay_Zea_tKWIAEr-WZUkhlWQig7l9Zr4D4DGuoYC7PZqLbZPpeJZT6R8Gg0B11NBsDfD5rrJmKncL-ejQr8u1cIqTz2kmieAWeBgKGSe28fxJw"}'
-    handle-as="json"
-    on-response="handleClasslistResponse"
+		id="classlistRequest"
+		url="https://qa10768264g.bspc.com/d2l/api/le/1.12/123780/classlist/"
+		headers='{ "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNiNjc4YTJhLWEzNTItNDM4OC1iYTM4LTljNTA0OTdmZDg4YyJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6ImIxYWJlM2NmLWI4MTktNDU0MC1iNWY5LTQzZmQyMTg1YTZhMSIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiIxOTk2M2VmNC1hN2U0LTQ2M2UtYjI4Mi1lODI4OGQyMjIyNWIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTA0MDE5OTA3LCJuYmYiOjE1MDQwMTYzMDd9.LLHvnuX2ChKMGDYw9w5OySm_7ZpUL5c3UvzUhHDAmoZLLwI8AAAbO_VIArHfW7PxMoNTA7eAsxo_BK4n3AQEZXMRASAlwA611BIMjU1b8XbwTF3vga8YsZyKHRGT482iqAaadxwDTHTIYmgndtrgqLw7-dTlUNZt9lZrbOPuwSpqw_wronV8dJ0tK5ZJ075SQjeDs11eefrdXM2nrlG1QN_nbMP-6bLZREP7TVmvT95lCv8Y3B5qKEZtCVhPjhhZlqApE4VVMPdokH_c5JYYSf-Sxl9WQacF9NQ21xHKTlpCX5JMHRddKISbwZINNBz754RQJ2qcY-vMDxGY1ZJPXw"}'
+		handle-as="json"
+		on-response="handleClasslistResponse"
 		method="GET"
 		></iron-ajax>
 
 		<iron-ajax
-		id="getExemptions"
+		id="exemptionsRequest"
 		url="http://demo5254249.mockable.io/getExemptions"
 		handle-as="json"
     on-response="handleExemptionsResponse"
 		method="GET"
 		></iron-ajax>
 
-		<!-- <iron-ajax
-		auto
-		url="http://192.168.138.12:30610/grades"
+		<iron-ajax
+		id="loaddata"
+		url="test.json"
 		handle-as="json"
-		on-response="handleResponse"
-		id="loaddata">
-		</iron-ajax> -->
+		on-response="handleTestDataResponse"
+		></iron-ajax>
 
 		<div role="main">
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
@@ -66,9 +64,9 @@ Activity exemptions
 				</thead>
 				<tbody>
 					<template is="dom-repeat" items="[[userData]]">
-						<tr role="row">
-							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.DisplayName]]"></d2l-checkbox></td>
-							<th scope="row" role="rowheader"><activity-exemptions-username display-name="[[item.DisplayName]]"></activity-exemptions-username></th>
+						<tr class="row-user" role="row">
+							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
+							<th scope="row" role="rowheader"><activity-exemptions-username last-name="[[item.LastName]]" first-name="[[item.FirstName]]"></activity-exemptions-username></th>
 							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
 						</tr>
 					</template>
@@ -96,16 +94,26 @@ Activity exemptions
 				userData: {
 					type: Array,
 					value: []
+				},
+				testData: {
+					type: Boolean
 				}
 			},
 
 			ready: function() {
-				Promise.all([
-					this.$.getClasslist.generateRequest().completes,
-					this.$.getExemptions.generateRequest().completes ])
-					.then( () => {
-						this.mapUserData();
-					});
+				if (this.testData) {
+					this.$.loaddata.generateRequest();
+				} else {
+					Promise.all([
+						this.$.classlistRequest.generateRequest().completes,
+						this.$.exemptionsRequest.generateRequest().completes ])
+						.then( () => {
+							this.mapUserData();
+						})
+						.catch( (e) => {
+							console.log(e);
+						});
+				}
 			},
 
 			handleClasslistResponse: function(e) {
@@ -116,19 +124,19 @@ Activity exemptions
 				this.set( 'rawExemptions', e.detail.response );
 			},
 
+			handleTestDataResponse: function(e) {
+				this.set( 'userData', e.detail.response );
+			},
+
 			mapUserData: function() {
-				this.rawClasslist.forEach( (user) => {
+				const userData = this.rawClasslist.map( (user) => {
 					const isExempt = this.rawExemptions.some( (exemptions) => {
 						return exemptions['UserId'] === user.Identifier;
 					});
-					this.push('userData',
-						{
-							'UserId' : user.Identifier,
-							'DisplayName' : user.FirstName + ', ' + user.LastName,
-							'IsExempt' : isExempt
-						}
-					);
+					user.IsExempt = isExempt;
+					return user;
 				});
+				this.set('userData', userData );
 			},
 
 			selectAll: function(e) {
