@@ -53,6 +53,9 @@ Activity exemptions
 		<div role="main">
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
 			<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<p>
+			Exemptions: [[exemptionCount]]
+			</p>
 			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
 				<caption><d2l-offscreen>Exempt from activity</d2l-offscreen></caption>
 				<thead>
@@ -97,6 +100,10 @@ Activity exemptions
 				},
 				testData: {
 					type: Boolean
+				},
+				exemptionCount: {
+					type: Number,
+					computed: 'getUserExemptionCount(userData.*)'
 				}
 			},
 
@@ -150,8 +157,11 @@ Activity exemptions
 						element.checked = false;
 					});
 				}
-			}
+			},
 
+			getUserExemptionCount: function() {
+				return this.userData.filter( u => u.IsExempt ).length;
+			}
 		});
 	</script>
 </dom-module>
