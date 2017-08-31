@@ -100,4 +100,14 @@ describe('activity-exemptions', function() {
 		);
 		done();
 	});
+
+	it('should handle zero students', function(done) {
+		element.userData = [];
+		flush(function() {
+			expect(element.is).to.equal('activity-exemptions');
+			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+			expect(items.length).to.equal(0);
+			done();
+		});
+	});
 });
