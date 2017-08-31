@@ -51,8 +51,8 @@ Activity exemptions
 		></iron-ajax>
 
 		<div role="main">
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-			<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
+			<d2l-button  role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
 			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
 				<caption><d2l-offscreen>Exempt from activity</d2l-offscreen></caption>
 				<thead>
@@ -64,7 +64,7 @@ Activity exemptions
 				</thead>
 				<tbody>
 					<template is="dom-repeat" items="[[userData]]">
-						<tr class="row-user" role="row">
+						<tr class="row-user" role="row" data="[[item]]">
 							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
 							<th scope="row" role="rowheader"><activity-exemptions-username last-name="[[item.LastName]]" first-name="[[item.FirstName]]"></activity-exemptions-username></th>
 							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
@@ -72,8 +72,8 @@ Activity exemptions
 					</template>
 				</tbody>
 			</table>
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-			<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
+			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
 			</div>
 		</template>
 
@@ -116,6 +116,10 @@ Activity exemptions
 				}
 			},
 
+			exemptSelected: function () {
+				this.toggleExemption(true);
+			},
+
 			handleClasslistResponse: function(e) {
 				this.set( 'rawClasslist', e.detail.response );
 			},
@@ -150,6 +154,28 @@ Activity exemptions
 						element.checked = false;
 					});
 				}
+			},
+
+			toggleExemption: function (isExempt) {
+				Polymer.dom(this.root)
+					.querySelectorAll('.row-user')
+					.filter( (element) => element.querySelector('.checkbox-user[checked]')
+						&& element.data['IsExempt'] !== isExempt
+					)
+					.forEach( (element) => {
+						this.userData.forEach( (user, index) => {
+							if( user.Identifier == element.data.Identifier) {
+								user.IsExempt = isExempt
+								const userIndex = 'userData.' + index;
+								this.set(userIndex, {})
+								this.set(userIndex, user)
+							}
+						});
+					});
+			},
+
+			unexemptSelected: function () {
+				this.toggleExemption(false);
 			}
 
 		});
