@@ -155,14 +155,11 @@ Activity exemptions
 			},
 
 			showToast: function(e) {
-								
 				var numSelected = Polymer.dom(this.root).querySelectorAll('.checkbox-user[checked]').length;
-				
 				if( numSelected > 0 ) {				
-				
 					var actionText = e.target.innerHTML == 'Exempt' ? 'exempted' : 'unexempted';
 					var userText = numSelected > 1 ? 'users' : 'user';
-				
+
 					this.$.toast.hide();
 					this.$.toast.text = `Saved successfully. ${numSelected} ${userText} ${actionText}.`;
 					this.$.toast.show();
