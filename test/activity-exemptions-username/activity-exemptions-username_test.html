@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>activity-exemptions-username test</title>
+
+		<script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../bower_components/web-component-tester/browser.js"></script>
+		<script src="../../bower_components/iron-test-helpers/mock-interactions.js"></script>
+
+		<link rel="import" href="../../src/activity-exemptions-username.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<activity-exemptions-username></activity-exemptions-username>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="with_name">
+			<template>
+				<activity-exemptions-username last-name="Smith" first-name="Jaime"></activity-exemptions-username>
+			</template>
+		</test-fixture>
+
+		<script src="./activity-exemptions-username_test.js"></script>
+	</body>
+</html>

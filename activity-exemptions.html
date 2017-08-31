@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../d2l-table/d2l-table.html">
 <link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
 <link rel="import" href="../d2l-button/d2l-button.html">
@@ -74,6 +75,7 @@ Activity exemptions
 			</table>
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
 			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
+			<paper-toast style='width: 300px; margin-left: calc(50vw - 150px);' id="toast" aria-label="Saved successfully" text="Saved successfully"></paper-toast>
 			</div>
 		</template>
 
@@ -154,6 +156,10 @@ Activity exemptions
 						element.checked = false;
 					});
 				}
+			},
+
+			showToast: function() {
+				this.$.toast.open();
 			},
 
 			toggleExemption: function (isExempt) {
