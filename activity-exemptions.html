@@ -118,7 +118,7 @@ Activity exemptions
 				}
 			},
 
-			exemptSelected: function () {
+			exemptSelected: function() {
 				this.toggleExemption(true);
 			},
 
@@ -162,7 +162,7 @@ Activity exemptions
 				this.$.toast.open();
 			},
 
-			toggleExemption: function (isExempt) {
+			toggleExemption: function(isExempt) {
 				Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
@@ -170,17 +170,17 @@ Activity exemptions
 					)
 					.forEach( (element) => {
 						this.userData.forEach( (user, index) => {
-							if( user.Identifier == element.data.Identifier) {
-								user.IsExempt = isExempt
+							if ( user.Identifier === element.data.Identifier) {
+								user.IsExempt = isExempt;
 								const userIndex = 'userData.' + index;
-								this.set(userIndex, {})
-								this.set(userIndex, user)
+								this.set(userIndex, {});
+								this.set(userIndex, user);
 							}
 						});
 					});
 			},
 
-			unexemptSelected: function () {
+			unexemptSelected: function() {
 				this.toggleExemption(false);
 			}
 
