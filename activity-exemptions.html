@@ -53,7 +53,7 @@ Activity exemptions
 
 		<div role="main">
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-			<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
 			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
 				<caption><d2l-offscreen>Exempt from activity</d2l-offscreen></caption>
 				<thead>
@@ -75,7 +75,7 @@ Activity exemptions
 			</table>
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
 			<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
-			<paper-toast style='width: 300px; margin-left: calc(50vw - 150px);' id="toast" aria-label="Saved successfully" text="Saved successfully"></paper-toast>
+			<paper-toast style='width: 350px; margin-left: calc(50vw - 175px); text-align: center' id="toast" aria-label="Saved successfully" text="Saved successfully"></paper-toast>
 			</div>
 		</template>
 
@@ -154,8 +154,19 @@ Activity exemptions
 				}
 			},
 
-			showToast: function() {
-				this.$.toast.open();
+			showToast: function(e) {
+								
+				var numSelected = Polymer.dom(this.root).querySelectorAll('.checkbox-user[checked]').length;
+				
+				if( numSelected > 0 ) {				
+				
+					var actionText = e.target.innerHTML == 'Exempt' ? 'exempted' : 'unexempted';
+					var userText = numSelected > 1 ? 'users' : 'user';
+				
+					this.$.toast.hide();
+					this.$.toast.text = `Saved successfully. ${numSelected} ${userText} ${actionText}.`;
+					this.$.toast.show();
+				}
 			}
 
 		});
