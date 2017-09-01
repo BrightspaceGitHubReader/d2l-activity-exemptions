@@ -54,9 +54,9 @@ Activity exemptions
 		<div role="main">
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
 			<d2l-button  role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
-			<p>
+			<div id="exemptions-count"><p>
 			Exemptions: [[exemptionCount]]
-			</p>
+			</p></div>
 			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
 				<caption><d2l-offscreen>Exempt from activity</d2l-offscreen></caption>
 				<thead>
