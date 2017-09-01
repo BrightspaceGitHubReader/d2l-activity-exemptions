@@ -125,7 +125,7 @@ describe('activity-exemptions', function() {
 				{'Identifier':3, 'IsExempt':false},
 				{'Identifier':4, 'IsExempt':true}
 			];
-			element.toMap(element.data)
+			element.toMap(element.data);
 		});
 		it('should show how many users are exempted', function(done) {
 			flush(function() {
