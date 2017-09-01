@@ -9,42 +9,50 @@ describe('activity-exemptions', function() {
 		expect(element.is).to.equal('activity-exemptions');
 	});
 
-	describe('activity-exemptions (de)select all checkbox', function() {
-		beforeEach(function() {
-			element.userData = [
-				{'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
-				{'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
-				{'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
-				{'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
-			];
-		});
+	it('should select all checkboxes', function(done) {
+		element.data = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+		];
 
-		it('should select all checkboxes', function(done) {
-			flush(function() {
-				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
-				expect(items.length).to.equal(4);
+		element.toMap(element.data);
 
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox');
-				checkbox = checkbox.$$('input');
-				checkbox.addEventListener('click', function() {
-					flush(function() {
-						items.forEach(function(row) {
-							expect(row.querySelector('d2l-checkbox').checked).to.equal(true);
-						}, this);
-						done();
-					});
+		flush(function() {
+			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+
+			expect(items.length).to.equal(4);
+
+			var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox');
+			checkbox = checkbox.$$('input');
+			checkbox.addEventListener('click', function() {
+				flush(function() {
+					items.forEach(function(row) {
+						expect(row.querySelector('d2l-checkbox').checked).to.equal(true);
+					}, this);
+					done();
 				});
-				MockInteractions.tap(checkbox);
 			});
+			MockInteractions.tap(checkbox);
 		});
+	});
 
-		it('should de-select all checkboxes', function(done) {
-			// Manually set all checkboxes to checked
-			flush(function() {
-				var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-checkbox');
-				checkboxes.forEach(function(element) {
-					element.checked = true;
-				});
+	it('should de-select all checkboxes', function(done) {
+		element.data = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+		];
+
+		element.toMap(element.data);
+
+		// Manually set all checkboxes to checked
+		flush(function() {
+			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-checkbox');
+			checkboxes.forEach(function(element) {
+				element.checked = true;
 			});
 
 			// Verify that all checkboxes are indeed checked

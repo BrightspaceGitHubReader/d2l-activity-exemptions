@@ -52,8 +52,8 @@ Activity exemptions
 		></iron-ajax>
 
 		<div role="main">
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-			<d2l-button  role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
+			<d2l-button  role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
 			<div id="exemptions-count"><p>
 			Exemptions: [[exemptionCount]]
 			</p></div>
@@ -68,7 +68,7 @@ Activity exemptions
 				</thead>
 				<tbody>
 					<template is="dom-repeat" items="[[userData]]">
-						<tr class="row-user" role="row">
+						<tr class="row-user" role="row" data="[[item]]">
 							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
 							<th scope="row" role="rowheader"><activity-exemptions-username last-name="[[item.LastName]]" first-name="[[item.FirstName]]"></activity-exemptions-username></th>
 							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
@@ -76,8 +76,8 @@ Activity exemptions
 					</template>
 				</tbody>
 			</table>
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary>Exempt</d2l-button>
-			<d2l-button role="button" aria-label="Unexempt Selected Users">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
+			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
 			<paper-toast style='width: 300px; margin-left: calc(50vw - 150px);' id="toast" aria-label="Saved successfully" text="Saved successfully"></paper-toast>
 			</div>
 		</template>
@@ -96,9 +96,12 @@ Activity exemptions
 					type: Array,
 					value: []
 				},
+				mappedUserData: {
+					type: Object
+				},
 				userData: {
 					type: Array,
-					value: []
+					computed: 'getMappedUserData(mappedUserData)'
 				},
 				testData: {
 					type: Boolean
@@ -125,6 +128,14 @@ Activity exemptions
 				}
 			},
 
+			exemptSelected: function() {
+				this.toggleExemption(true);
+			},
+
+			getUserExemptionCount: function() {
+				return this.userData.filter( u => u.IsExempt ).length;
+			},
+
 			handleClasslistResponse: function(e) {
 				this.set( 'rawClasslist', e.detail.response );
 			},
@@ -134,7 +145,14 @@ Activity exemptions
 			},
 
 			handleTestDataResponse: function(e) {
-				this.set( 'userData', e.detail.response );
+				this.toMap(e.detail.response);
+			},
+
+			getMappedUserData: function(mappedUserData) {
+				if ( !mappedUserData || !mappedUserData.values ) {
+					return [];
+				}
+				return [...mappedUserData.values()];
 			},
 
 			mapUserData: function() {
@@ -145,7 +163,7 @@ Activity exemptions
 					user.IsExempt = isExempt;
 					return user;
 				});
-				this.set('userData', userData );
+				this.toMap(userData);
 			},
 
 			selectAll: function(e) {
@@ -165,9 +183,33 @@ Activity exemptions
 				this.$.toast.open();
 			},
 
-			getUserExemptionCount: function() {
-				return this.userData.filter( u => u.IsExempt ).length;
+			toggleExemption: function(isExempt) {
+				Polymer.dom(this.root)
+					.querySelectorAll('.row-user')
+					.filter( (element) => element.querySelector('.checkbox-user[checked]')
+						&& element.data['IsExempt'] !== isExempt
+					)
+					.forEach( (element) => {
+						const user = this.mappedUserData.get(element.data.Identifier);
+						user.IsExempt = isExempt;
+					});
+				// Deep copy of the mappedUserData to notify polymer that value has been changed
+				const mapCopy = JSON.stringify([...this.mappedUserData.entries()]);
+				this.mappedUserData = new Map(JSON.parse(mapCopy));
+			},
+
+			toMap: function(rawData) {
+				const map = new Map();
+				rawData.forEach( (userData) => {
+					map.set(userData.Identifier, userData);
+				});
+				this.set('mappedUserData', map);
+			},
+
+			unexemptSelected: function() {
+				this.toggleExemption(false);
 			}
+
 		});
 	</script>
 </dom-module>
