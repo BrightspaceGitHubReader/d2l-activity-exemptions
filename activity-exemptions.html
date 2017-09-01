@@ -194,16 +194,16 @@ Activity exemptions
 						user.IsExempt = isExempt;
 					});
 				// Deep copy of the mappedUserData to notify polymer that value has been changed
-				const mp = JSON.stringify([...this.mappedUserData.entries()]);
-				this.mappedUserData = new Map(JSON.parse(mp));
+				const mapCopy = JSON.stringify([...this.mappedUserData.entries()]);
+				this.mappedUserData = new Map(JSON.parse(mapCopy));
 			},
 
 			toMap: function(rawData) {
-				const myMap = new Map();
+				const map = new Map();
 				rawData.forEach( (userData) => {
-					myMap.set(userData.Identifier, userData);
+					map.set(userData.Identifier, userData);
 				});
-				this.set('mappedUserData', myMap);
+				this.set('mappedUserData', map);
 			},
 
 			unexemptSelected: function() {
