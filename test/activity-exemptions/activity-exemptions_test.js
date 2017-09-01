@@ -108,7 +108,7 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should handle zero students', function(done) {
-		element.userData = [];
+		element.toMap([]);
 		flush(function() {
 			expect(element.is).to.equal('activity-exemptions');
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
@@ -119,12 +119,13 @@ describe('activity-exemptions', function() {
 
 	describe('activity-exemptions exempt count', function() {
 		beforeEach(function() {
-			element.userData = [
+			element.data = [
 				{'Identifier':1, 'IsExempt':true},
 				{'Identifier':2, 'IsExempt':true},
 				{'Identifier':3, 'IsExempt':false},
 				{'Identifier':4, 'IsExempt':true}
 			];
+			element.toMap(element.data)
 		});
 		it('should show how many users are exempted', function(done) {
 			flush(function() {
@@ -149,7 +150,7 @@ describe('activity-exemptions', function() {
 		});
 
 		it('should handle zero students', function(done) {
-			element.userData = [];
+			element.toMap([]);
 			flush(function() {
 				var exemptionsCount = Polymer.dom(element.root).querySelector('#exemptions-count');
 				expect(exemptionsCount.innerText.trim()).to.equal('Exemptions: 0');
