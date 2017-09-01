@@ -10,14 +10,18 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should select all checkboxes', function(done) {
-		element.userData = [
+		element.data = [
 			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
 			{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
 			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
+
+		element.toMap(element.data)
+
 		flush(function() {
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+
 			expect(items.length).to.equal(4);
 
 			var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox');
@@ -35,12 +39,14 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should de-select all checkboxes', function(done) {
-		element.userData = [
+		element.data = [
 			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
 			{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
 			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
+
+		element.toMap(element.data)
 
 		// Manually set all checkboxes to checked
 		flush(function() {
