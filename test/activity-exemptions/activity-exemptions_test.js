@@ -17,7 +17,7 @@ describe('activity-exemptions', function() {
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 
-		element.toMap(element.data)
+		element.toMap(element.data);
 
 		flush(function() {
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
@@ -46,7 +46,7 @@ describe('activity-exemptions', function() {
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
 
-		element.toMap(element.data)
+		element.toMap(element.data);
 
 		// Manually set all checkboxes to checked
 		flush(function() {
