@@ -96,9 +96,12 @@ Activity exemptions
 					type: Array,
 					value: []
 				},
+				mappedUserData: {
+					type: Object
+				},
 				userData: {
 					type: Array,
-					value: []
+					computed: 'getMappedUserData(mappedUserData)'
 				},
 				testData: {
 					type: Boolean
@@ -142,7 +145,14 @@ Activity exemptions
 			},
 
 			handleTestDataResponse: function(e) {
-				this.set( 'userData', e.detail.response );
+				this.toMap(e.detail.response)
+			},
+
+			getMappedUserData: function(mappedUserData) {
+				if ( !mappedUserData || !mappedUserData.values ) {
+					return [];
+				}
+				return [...mappedUserData.values()];
 			},
 
 			mapUserData: function() {
@@ -153,7 +163,7 @@ Activity exemptions
 					user.IsExempt = isExempt;
 					return user;
 				});
-				this.set('userData', userData );
+				this.toMap(userData);
 			},
 
 			selectAll: function(e) {
@@ -180,20 +190,25 @@ Activity exemptions
 						&& element.data['IsExempt'] !== isExempt
 					)
 					.forEach( (element) => {
-						this.userData.forEach( (user, index) => {
-							if ( user.Identifier === element.data.Identifier) {
-								user.IsExempt = isExempt;
-								const userIndex = 'userData.' + index;
-								this.set(userIndex, {});
-								this.set(userIndex, user);
-							}
-						});
+						const user = this.mappedUserData.get(element.data.Identifier)
+						user.IsExempt = isExempt;
 					});
+					// Deep copy of the mappedUserData to notify polymer that value has been changed
+					const mp = JSON.stringify([...this.mappedUserData.entries()]);
+					this.mappedUserData = new Map(JSON.parse(mp));
+			},
+
+			toMap: function(ww) {
+				const myMap = new Map();
+				ww.forEach( (userData) => {
+					myMap.set(userData.Identifier, userData)
+				})
+				this.set('mappedUserData', myMap)
 			},
 
 			unexemptSelected: function() {
 				this.toggleExemption(false);
-			},
+			}
 
 		});
 	</script>
