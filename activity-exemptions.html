@@ -83,7 +83,7 @@ Activity exemptions
 			</table>
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
 			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
-			<paper-toast id="saveToast"></paper-toast>
+			<paper-toast id="toast"></paper-toast>
 			</div>
 		</template>
 
@@ -131,7 +131,8 @@ Activity exemptions
 							this.mapUserData();
 						})
 						.catch( () => {
-							//TODO Error handling with toast
+							this.$.toast.text = 'Could not load activity exemption data.';
+							this.$.toast.show();
 						});
 				}
 			},
@@ -191,9 +192,9 @@ Activity exemptions
 				var actionText = isExempt ? 'exempted' : 'unexempted';
 				var userText = ( numChanged === 1 ) ? 'user' : 'users';
 
-				this.$.saveToast.hide();
-				this.$.saveToast.text = `Saved successfully. ${numChanged} ${userText} ${actionText}.`;
-				this.$.saveToast.show();
+				this.$.toast.hide();
+				this.$.toast.text = `Saved successfully. ${numChanged} ${userText} ${actionText}.`;
+				this.$.toast.show();
 			},
 
 			_toggleExemption: function(isExempt) {
