@@ -25,6 +25,11 @@ Activity exemptions
 			d2l-button {
 				margin: 10px;
 			}
+			paper-toast {
+				width: 350px;
+				margin-left: calc(50vw - 175px);
+				text-align: center;
+			}
 		</style>
 
 		<iron-ajax
@@ -78,7 +83,7 @@ Activity exemptions
 			</table>
 			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
 			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
-			<paper-toast style='width: 300px; margin-left: calc(50vw - 150px);' id="toast" aria-label="Saved successfully" text="Saved successfully"></paper-toast>
+			<paper-toast id="saveToast"></paper-toast>
 			</div>
 		</template>
 
@@ -179,23 +184,29 @@ Activity exemptions
 				}
 			},
 
-			showToast: function() {
-				this.$.toast.open();
+			showSaveToast: function(isExempt, numChanged) {
+				var actionText = isExempt ? 'exempted' : 'unexempted';
+				var userText = ( numChanged === 1 ) ? 'user' : 'users';
+
+				this.$.saveToast.hide();
+				this.$.saveToast.text = `Saved successfully. ${numChanged} ${userText} ${actionText}.`;
+				this.$.saveToast.show();
 			},
 
 			toggleExemption: function(isExempt) {
-				Polymer.dom(this.root)
+				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
-						&& element.data['IsExempt'] !== isExempt
-					)
-					.forEach( (element) => {
-						const user = this.mappedUserData.get(element.data.Identifier);
-						user.IsExempt = isExempt;
-					});
+						&& element.data['IsExempt'] !== isExempt );
+				filteredSelection.forEach( (element) => {
+					const user = this.mappedUserData.get(element.data.Identifier);
+					user.IsExempt = isExempt;
+				});
 				// Deep copy of the mappedUserData to notify polymer that value has been changed
 				const mapCopy = JSON.stringify([...this.mappedUserData.entries()]);
 				this.mappedUserData = new Map(JSON.parse(mapCopy));
+
+				this.showSaveToast(isExempt, filteredSelection.length);
 			},
 
 			toMap: function(rawData) {
