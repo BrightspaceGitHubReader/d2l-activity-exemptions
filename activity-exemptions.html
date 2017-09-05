@@ -43,7 +43,7 @@ Activity exemptions
 
 		<iron-ajax
 		id="exemptionsRequest"
-		url="[[exemptionsRequest]]"
+		url="[[exemptionsUrl]]"
 		headers='{ "Authorization": "Bearer "}'
 		handle-as="json"
 		on-response="handleExemptionsResponse"
@@ -101,7 +101,7 @@ Activity exemptions
 					type: String,
 					computed: '_getClasslistUrl(hostUrl, orgUnitId)'
 				},
-				exemptionsRequest: {
+				exemptionsUrl: {
 					type: String,
 					computed: '_getExemptionsUrl(hostUrl, orgUnitId, activityId)'
 				},
