@@ -1,3 +1,5 @@
+[![Build status][ci-image]][ci-url]
+
 # \<activity-exemptions\>
 
 Activity exemptions
@@ -72,3 +74,7 @@ This will run a web server on port `8080`.
     - Restart IIS (iisreset)
 
 This config file gets overwritten when the LMS gets built.  Beware the full_all...
+
+
+[ci-url]: https://travis-ci.org/Brightspace/d2l-activity-exemptions
+[ci-image]: https://img.shields.io/travis/Brightspace/d2l-activity-exemptions.svg
