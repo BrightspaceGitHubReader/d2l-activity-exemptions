@@ -158,4 +158,60 @@ describe('activity-exemptions', function() {
 			});
 		});
 	});
+
+	describe('activity-exemptions (un)exempt buttons', function() {
+		beforeEach(function() {
+			element.data = [
+				{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+				{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':false},
+				{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+				{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+			];
+			element.toMap(element.data);
+		});
+
+		it('should mark users exempt', function(done) {
+			flush(function() {
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+				var exemptButton = Polymer.dom(element.root).querySelectorAll('d2l-button')[0];
+
+				MockInteractions.tap(checkbox);
+				flush(function() {
+					exemptButton.addEventListener('click', function() {
+						flush(function() {
+							expect(items.length).to.equal(4);
+							items.forEach(function(row) {
+								expect(row.querySelector('activity-exemptions-exemptstatus').data.IsExempt).to.be.true;
+							}, this);
+							done();
+						});
+					});
+					MockInteractions.tap(exemptButton);
+				});
+			});
+		});
+
+		it('should mark users unexempt', function(done) {
+			flush(function() {
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+				var unexemptButton = Polymer.dom(element.root).querySelectorAll('d2l-button')[1];
+
+				MockInteractions.tap(checkbox);
+				flush(function() {
+					unexemptButton.addEventListener('click', function() {
+						flush(function() {
+							expect(items.length).to.equal(4);
+							items.forEach(function(row) {
+								expect(row.querySelector('activity-exemptions-exemptstatus').data.IsExempt).to.be.false;
+							}, this);
+							done();
+						});
+					});
+					MockInteractions.tap(unexemptButton);
+				});
+			});
+		});
+	});
 });
