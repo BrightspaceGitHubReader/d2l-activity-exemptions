@@ -8,6 +8,7 @@
 <link rel="import" href="../d2l-simple-overlay/d2l-simple-overlay.html">
 <link rel="import" href="src/activity-exemptions-username.html">
 <link rel="import" href="src/activity-exemptions-exemptstatus.html">
+<link rel="import" href="src/d2l-localize-behavior.html">
 
 <!--
 `activity-exemptions`
@@ -57,41 +58,42 @@ Activity exemptions
 		></iron-ajax>
 
 		<div role="main">
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
-			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label$="[[localize('ariaExempt')]]" primary on-tap="exemptSelected">[[localize('btnExempt')]]</d2l-button>
+			<d2l-button role="button" aria-label$="[[localize('ariaUnexempt')]]" on-tap="unexemptSelected">[[localize('btnUnexempt')]]</d2l-button>
 			<div id="exemptions-count"><p>
-			Exemptions: [[exemptionCount]]
+			[[exemptionCount]]
 			</p></div>
-			<table is="d2l-table" role="grid" summary="The list of users that can have their exemption status modified.">
-				<caption><d2l-offscreen>Exempt from activity</d2l-offscreen></caption>
+			<table is="d2l-table" role="grid" summary="[[localize('ariaTableSummary')]]">
+				<caption><d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen></caption>
 				<thead>
 					<tr role="row">
-						<th><d2l-checkbox aria-label="Select All Users" on-change="selectAll"></d2l-checkbox></th>
-						<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>Last Name, First Name</button></th>
-						<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>Exempt Status</button></th>
+						<th><d2l-checkbox aria-label$="[[localize('selectUnselectAll')]]" on-change="selectAll"></d2l-checkbox></th>
+						<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>[[localize('lblLastNameFirstName')]]</button></th>
+						<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>[[localize('lblExemptStatus')]]</button></th>
 					</tr>
 				</thead>
 				<tbody>
 					<template is="dom-repeat" items="[[userData]]">
 						<tr class="row-user" role="row" data="[[item]]">
-							<td><d2l-checkbox class="checkbox-user" aria-label="Select [[item.LastName]], [[item.FirstName]]"></d2l-checkbox></td>
+							<td><d2l-checkbox class="checkbox-user" aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"></d2l-checkbox></td>
 							<th scope="row" role="rowheader"><activity-exemptions-username last-name="[[item.LastName]]" first-name="[[item.FirstName]]"></activity-exemptions-username></th>
 							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
 						</tr>
 					</template>
 				</tbody>
 			</table>
-			<d2l-button role="button" aria-label="Exempt Selected Users" primary on-tap="exemptSelected">Exempt</d2l-button>
-			<d2l-button role="button" aria-label="Unexempt Selected Users" on-tap="unexemptSelected">Unexempt</d2l-button>
+			<d2l-button role="button" aria-label$="[[localize('ariaExempt')]]" primary on-tap="exemptSelected">[[localize('btnExempt')]]</d2l-button>
+			<d2l-button role="button" aria-label$="[[localize('ariaUnexempt')]]" on-tap="unexemptSelected">[[localize('btnUnexempt')]]</d2l-button>
 			<paper-toast id="toast"></paper-toast>
-			</div>
 		</template>
 
 	<script>
 		Polymer({
 
 			is: 'activity-exemptions',
-
+			behaviors: [
+				D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior
+			],
 			properties: {
 				activityId: {
 					type: String
@@ -115,7 +117,7 @@ Activity exemptions
 					type: Boolean
 				},
 				exemptionCount: {
-					type: Number,
+					type: String,
 					computed: 'getUserExemptionCount(userData.*)'
 				}
 			},
@@ -131,7 +133,7 @@ Activity exemptions
 							this.mapUserData();
 						})
 						.catch( () => {
-							this.$.toast.text = 'Could not load activity exemption data.';
+							this.$.toast.text = this.localize('lblCouldNotLoad');
 							this.$.toast.show();
 						});
 				}
@@ -142,7 +144,10 @@ Activity exemptions
 			},
 
 			getUserExemptionCount: function() {
-				return this.userData.filter( u => u.IsExempt ).length;
+				const count = this.userData.filter( u => u.IsExempt ).length;
+
+				// count.toString() is required due to localize returning '' when count is 0
+				return this.localize( 'lblExemptionCount', 'exemptionCount', count.toString() );
 			},
 
 			handleClasslistResponse: function(e) {
@@ -189,11 +194,10 @@ Activity exemptions
 			},
 
 			showSaveToast: function(isExempt, numChanged) {
-				var actionText = isExempt ? 'exempted' : 'unexempted';
-				var userText = ( numChanged === 1 ) ? 'user' : 'users';
+				var actionText = isExempt ? 'lblExemptSuccess' : 'lblUnexemptSuccess';
 
 				this.$.toast.hide();
-				this.$.toast.text = `Saved successfully. ${numChanged} ${userText} ${actionText}.`;
+				this.$.toast.text = this.localize(actionText, 'itemCount', numChanged);
 				this.$.toast.show();
 			},
 
