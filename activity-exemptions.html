@@ -35,8 +35,7 @@ Activity exemptions
 
 		<iron-ajax
 		id="classlistRequest"
-		url="https:///d2l/api/le/1.12/123780/classlist/"
-		headers='{ "Authorization": "Bearer "}'
+		url="[[classlistUrl]]"
 		handle-as="json"
 		on-response="handleClasslistResponse"
 		method="GET"
@@ -44,7 +43,7 @@ Activity exemptions
 
 		<iron-ajax
 		id="exemptionsRequest"
-		url=""
+		url="[[exemptionsUrl]]"
 		handle-as="json"
 		on-response="handleExemptionsResponse"
 		method="GET"
@@ -96,6 +95,20 @@ Activity exemptions
 			],
 			properties: {
 				activityId: {
+					type: String
+				},
+				classlistUrl: {
+					type: String,
+					computed: '_getClasslistUrl(hostUrl, orgUnitId)'
+				},
+				exemptionsUrl: {
+					type: String,
+					computed: '_getExemptionsUrl(hostUrl, orgUnitId, activityId)'
+				},
+				hostUrl: {
+					type: String
+				},
+				orgUnitId: {
 					type: String
 				},
 				rawClasslist: {
@@ -162,6 +175,14 @@ Activity exemptions
 				this.toMap(e.detail.response);
 			},
 
+			_getClasslistUrl: function(hostUrl, orgUnitId) {
+				return `https://${hostUrl}/d2l/api/le/1.12/${orgUnitId}/classlist/`;
+			},
+
+			_getExemptionsUrl: function(hostUrl, orgUnitId, activityId) {
+				return `https://${hostUrl}/d2l/api/le/1.26/${orgUnitId}/activities/exemptions/?userId=&activityId=${activityId}`;
+			},
+
 			_getMappedUserData: function(mappedUserData) {
 				if ( !mappedUserData || !mappedUserData.values ) {
 					return [];
@@ -172,7 +193,7 @@ Activity exemptions
 			mapUserData: function() {
 				const userData = this.rawClasslist.map( (user) => {
 					const isExempt = this.rawExemptions.some( (exemptions) => {
-						return exemptions['UserId'] === user.Identifier;
+						return exemptions['UserId'] === Number(user.Identifier);
 					});
 					user.IsExempt = isExempt;
 					return user;
