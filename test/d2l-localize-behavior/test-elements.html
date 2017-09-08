@@ -1,0 +1,14 @@
+<link rel="import" href="../../src/d2l-localize-behavior.html">
+<script>
+	Polymer({
+		is: 'test-localize',
+		behaviors: [ D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior ],
+		ready: function() {
+			Polymer.dom(this.root).appendChild(
+				document.createTextNode(
+					this.localize('ariaSelectUnselectAll')
+				)
+			);
+		}
+	});
+</script>
