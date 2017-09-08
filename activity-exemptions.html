@@ -50,11 +50,9 @@ Activity exemptions
 		></iron-ajax>
 
 		<iron-ajax
-		id="createExemption"
-		url="[[createExemptionUrl]]"
+		id="toggleExemptionRequest"
+		url="[[toggleExemptionUrl]]"
 		handle-as="json"
-		on-response="handleIt"
-		method="POST"
 		></iron-ajax>
 
 		<iron-ajax
@@ -110,10 +108,7 @@ Activity exemptions
 					type: String,
 					computed: '_getClasslistUrl(hostUrl, orgUnitId)'
 				},
-				createExemptionUrl: {
-					type: String
-				},
-				deleteExemptionUrl: {
+				toggleExemptionUrl: {
 					type: String
 				},
 				exemptionsUrl: {
@@ -234,11 +229,13 @@ Activity exemptions
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
 						&& element.data['IsExempt'] !== isExempt );
 
+				this.$.toggleExemptionRequest.method = isExempt ? 'POST' : 'DELETE';
+
 				var allPromises = filteredSelection.map( (element) => {
-					this.createExemptionUrl = `${this.hostUrl}/d2l/api/le/1.26/${this.orgUnitId}/activities/exemptions?userId=${element.data.Identifier}&activityId=${this.activityId}`;
-					return this.$.createExemption.generateRequest().completes.then( ()=> {
+					this.toggleExemptionUrl = `${this.hostUrl}/d2l/api/le/1.26/${this.orgUnitId}/activities/exemptions?userId=${element.data.Identifier}&activityId=${this.activityId}`;
+					return this.$.toggleExemptionRequest.generateRequest().completes.then( ()=> {
 						const rowIndex = element.rowIndex - 1; //offset for header
-						this.set(`userData.${rowIndex}.IsExempt`, true);
+						this.set(`userData.${rowIndex}.IsExempt`, isExempt);
 					});
 				});
 
@@ -247,7 +244,6 @@ Activity exemptions
 						this.showSaveToast(isExempt, allPromises.length);
 					}
 				);
-
 			},
 
 			unexemptSelected: function() {
