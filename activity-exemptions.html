@@ -50,7 +50,7 @@ Activity exemptions
 		></iron-ajax>
 
 		<iron-ajax
-		id="toggleExemption"
+		id="toggleExemptionRequest"
 		url="[[toggleExemptionUrl]]"
 		handle-as="json"
 		></iron-ajax>
@@ -229,11 +229,11 @@ Activity exemptions
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
 						&& element.data['IsExempt'] !== isExempt );
 
-				this.$.toggleExemption.method = isExempt ? 'POST' : 'DELETE';
+				this.$.toggleExemptionRequest.method = isExempt ? 'POST' : 'DELETE';
 
 				var allPromises = filteredSelection.map( (element) => {
 					this.toggleExemptionUrl = `${this.hostUrl}/d2l/api/le/1.26/${this.orgUnitId}/activities/exemptions?userId=${element.data.Identifier}&activityId=${this.activityId}`;
-					return this.$.toggleExemption.generateRequest().completes.then( ()=> {
+					return this.$.toggleExemptionRequest.generateRequest().completes.then( ()=> {
 						const rowIndex = element.rowIndex - 1; //offset for header
 						this.set(`userData.${rowIndex}.IsExempt`, isExempt);
 					});
