@@ -77,20 +77,20 @@ describe('activity-exemptions', function() {
 	});
 
 	it('should map the data from the exemptions and classlist call correctly', function(done) {
-		element.rawClasslist = [
+		element.classlistItems = [
 			{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam'},
 			{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison'},
 			{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery'},
 			{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey'}
 		];
 
-		element.rawExemptions = [
+		element.exemptions = [
 			{'UserId':1, 'IsExempt':true},
 			{'UserId':2, 'IsExempt':true},
 			{'UserId':4, 'IsExempt':true}
 		];
 
-		element._mapUserData();
+		element.__mapUserData();
 		expect( element.userData ).to.deep.equal(
 			[
 				{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
@@ -99,6 +99,7 @@ describe('activity-exemptions', function() {
 				{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 			]
 		);
+
 		done();
 	});
 

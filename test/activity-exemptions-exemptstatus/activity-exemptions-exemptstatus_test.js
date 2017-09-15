@@ -19,7 +19,7 @@ describe('activity-exemptions-exemptstatus', function() {
 	});
 
 	it('should show exempt', function(done) {
-		element.data = {'IsExempt': true};
+		element.isExempt = true;
 
 		flush(function() {
 			// Off screen element should not exist

@@ -6,7 +6,7 @@
 	/**
 	 * Behavior for localization.
 	 *
-	 * @polymerBehavior LocalizeBehavior
+	 * @polymerBehavior
 	 */
 	const LocalizeBehavior = {
 		properties: {
@@ -40,6 +40,7 @@
 						'ariaSelectUnselectAll': 'Select / Unselect All',
 						'lblExemptionCount': 'Exemptions: {exemptionCount}',
 						'lblExempt': 'Exempt',
+						'lblNotExempt': 'Not Exempt',
 						'lblUnexempt': 'Unexempt',
 						'ariaSelectUser': 'Select {lastName}, {firstName}',
 						'lblCouldNotLoad': 'Could not load activity exemption data.',
@@ -79,7 +80,7 @@
 	window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
 	window.D2L.PolymerBehaviors.ActivityExemptions = window.D2L.PolymerBehaviors.ActivityExemptions || {};
 
-	/* @polymerBehavior D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior */
+	/** @polymerBehavior D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior */
 	window.D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior = [
 		Polymer.AppLocalizeBehavior,
 		LocalizeBehavior

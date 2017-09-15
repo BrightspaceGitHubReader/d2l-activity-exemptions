@@ -27,7 +27,7 @@
     "postinstall": "bower install",
     "start": "polymer serve",
     "update:all": "npm update && bower update",
-    "lint": "npm run lint:js && npm run lint:wc",
+    "lint": "npm run lint:js",
     "lint:wc": "polymer lint",
     "lint:js": "eslint *.html src/*.html test/**",
     "clean:all": "rimraf bower_components"

@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../d2l-table/d2l-table.html">
 <link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
@@ -9,7 +8,7 @@
 <link rel="import" href="src/activity-exemptions-username.html">
 <link rel="import" href="src/activity-exemptions-exemptstatus.html">
 <link rel="import" href="src/d2l-localize-behavior.html">
-
+<link rel="import" href="src/d2l-load-more.html">
 <!--
 `activity-exemptions`
 Activity exemptions
@@ -22,73 +21,157 @@ Activity exemptions
 		<style>
 			:host {
 				display: block;
+				padding-bottom: 40px;
 			}
+			
 			d2l-button {
 				margin: 10px;
 			}
+
 			paper-toast {
 				width: 350px;
 				margin-left: calc(50vw - 175px);
 				text-align: center;
 			}
+
+			.load-more {
+				cursor: pointer;
+				text-align: center;
+			}
 		</style>
 
-		<iron-ajax
-		id="classlistRequest"
-		url="[[classlistUrl]]"
-		handle-as="json"
-		on-response="handleClasslistResponse"
-		method="GET"
-		></iron-ajax>
-
-		<iron-ajax
-		id="exemptionsRequest"
-		url="[[exemptionsUrl]]"
-		handle-as="json"
-		on-response="handleExemptionsResponse"
-		method="GET"
-		></iron-ajax>
-
-		<iron-ajax
-		id="toggleExemptionRequest"
-		url="[[toggleExemptionUrl]]"
-		handle-as="json"
-		></iron-ajax>
-
-		<iron-ajax
-		id="loaddata"
-		url="test.json"
-		handle-as="json"
-		on-response="handleTestDataResponse"
-		></iron-ajax>
-
 		<div role="main">
-			<d2l-button role="button" aria-label$="[[localize('ariaExempt')]]" primary on-tap="exemptSelected">[[localize('btnExempt')]]</d2l-button>
-			<d2l-button role="button" aria-label$="[[localize('ariaUnexempt')]]" on-tap="unexemptSelected">[[localize('btnUnexempt')]]</d2l-button>
-			<div id="exemptions-count"><p>
-			[[exemptionCount]]
-			</p></div>
-			<table is="d2l-table" role="grid" summary="[[localize('ariaTableSummary')]]">
-				<caption><d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen></caption>
+
+			<d2l-button
+				role="button"
+				aria-label$="[[localize('ariaExempt')]]"
+				primary on-tap="exemptSelected">
+				[[localize('btnExempt')]]
+			</d2l-button>
+
+			<d2l-button
+				role="button"
+				aria-label$="[[localize('ariaUnexempt')]]"
+				on-tap="unexemptSelected">
+				[[localize('btnUnexempt')]]
+			</d2l-button>
+
+			<div id="exemptions-count">
+				<p>[[exemptionCount]]</p>
+			</div>
+
+			<table
+				is="d2l-table"
+				role="grid"
+				summary="[[localize('ariaTableSummary')]]">
+
+				<caption>
+					<d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
+				</caption>
+				
 				<thead>
 					<tr role="row">
-						<th><d2l-checkbox aria-label$="[[localize('selectUnselectAll')]]" on-change="selectAll"></d2l-checkbox></th>
-						<th scope="col" role="columnheader" aria-sort="none"><button is="d2l-table-col-sort-button" role="button" nosort>[[localize('lblLastNameFirstName')]]</button></th>
-						<th scope="col" role="columnheader"><button is="d2l-table-col-sort-button" role="button" nosort>[[localize('lblExemptStatus')]]</button></th>
+						<th>
+							<d2l-checkbox
+								aria-label$="[[localize('selectUnselectAll')]]"
+								on-change="selectAll">
+							</d2l-checkbox>
+						</th>
+
+						<th
+							scope="col"
+							role="columnheader"
+							aria-sort="none">
+
+							<button
+								is="d2l-table-col-sort-button"
+								role="button"
+								nosort>
+								[[localize('lblLastNameFirstName')]]
+							</button>
+						</th>
+
+						<th
+							scope="col"
+							role="columnheader">
+							<button
+								is="d2l-table-col-sort-button"
+								role="button"
+								nosort>
+								[[localize('lblExemptStatus')]]
+							</button>
+						</th>
 					</tr>
 				</thead>
+
+				<template is="dom-if" if="[[hasMoreItems]]">
+					<tfoot>
+						<tr role="row">
+							<td
+								class="load-more"
+								scope="row"
+								colspan="3"
+								on-tap="loadMore"
+								tabindex="0">
+								Load More...
+							</td>
+						</tr>
+					</tfoot>
+				</template>
+
 				<tbody>
-					<template is="dom-repeat" items="[[userData]]" observe="IsExempt">
-						<tr class="row-user" role="row" data="[[item]]">
-							<td><d2l-checkbox class="checkbox-user" aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"></d2l-checkbox></td>
-							<th scope="row" role="rowheader"><activity-exemptions-username last-name="[[item.LastName]]" first-name="[[item.FirstName]]"></activity-exemptions-username></th>
-							<th scope="row" role="rowheader"><activity-exemptions-exemptstatus data="[[item]]"></activity-exemptions-exemptstatus></th>
+					<template
+						is="dom-repeat"
+						items="[[userData]]"
+						observe="IsExempt">
+
+						<tr
+							class="row-user"
+							role="row"
+							data="[[item]]">
+
+							<td>
+								<d2l-checkbox
+									class="checkbox-user"
+									aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]">
+								</d2l-checkbox>
+							</td>
+
+							<th
+								scope="row"
+								role="rowheader">
+								<activity-exemptions-username
+									first-name="[[item.FirstName]]"
+									last-name="[[item.LastName]]">
+								</activity-exemptions-username>
+							</th>
+
+							<th
+								scope="row"
+								role="rowheader">
+								<activity-exemptions-exemptstatus
+									is-exempt="[[item.IsExempt]]">
+								</activity-exemptions-exemptstatus>
+							</th>
 						</tr>
 					</template>
 				</tbody>
 			</table>
-			<d2l-button role="button" aria-label$="[[localize('ariaExempt')]]" primary on-tap="exemptSelected">[[localize('btnExempt')]]</d2l-button>
-			<d2l-button role="button" aria-label$="[[localize('ariaUnexempt')]]" on-tap="unexemptSelected">[[localize('btnUnexempt')]]</d2l-button>
+
+			<d2l-button
+				role="button"
+				aria-label$="[[localize('ariaExempt')]]"
+				primary on-tap="exemptSelected">
+				[[localize('btnExempt')]]
+			</d2l-button>
+
+			<d2l-button
+				role="button"
+				aria-label$="[[localize('ariaUnexempt')]]"
+				on-tap="unexemptSelected">
+				[[localize('btnUnexempt')]]
+			</d2l-button>
+
 			<paper-toast id="toast"></paper-toast>
 		</div>
 	</template>
@@ -98,124 +181,36 @@ Activity exemptions
 
 			is: 'activity-exemptions',
 			behaviors: [
-				D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior
+				D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior,
+				D2L.PolymerBehaviors.ActivityExemptions.LoadMoreExemptionsBehavior
 			],
+
 			properties: {
-				activityId: {
-					type: String
-				},
-				classlistUrl: {
-					type: String,
-					computed: '_getClasslistUrl(hostUrl, orgUnitId)'
-				},
-				toggleExemptionUrl: {
-					type: String
-				},
-				exemptionsUrl: {
-					type: String,
-					computed: '_getExemptionsUrl(hostUrl, orgUnitId, activityId)'
-				},
-				hostUrl: {
-					type: String
-				},
-				orgUnitId: {
-					type: String
-				},
-				rawClasslist: {
-					type: Array,
-					value: []
-				},
-				rawExemptions: {
-					type: Array,
-					value: []
-				},
-				userData: {
-					type: Array,
-					notify: true,
-					value: []
-				},
-				testData: {
-					type: Boolean
-				},
 				exemptionCount: {
 					type: String,
 					computed: 'getUserExemptionCount(userData.*)'
 				}
 			},
 
-			ready: function() {
-				if (this.testData) {
-					this.$.loaddata.generateRequest();
-				} else {
-					Promise.all([
-						this.$.classlistRequest.generateRequest().completes,
-						this.$.exemptionsRequest.generateRequest().completes ])
-						.then( () => {
-							this._mapUserData();
-						})
-						.catch( () => {
-							this.$.toast.text = this.localize('lblCouldNotLoad');
-							this.$.toast.show();
-						});
-				}
-			},
-
-			exemptSelected: function() {
+			exemptSelected() {
 				this._toggleExemption(true);
 			},
 
-			getUserExemptionCount: function() {
+			getUserExemptionCount() {
 				const count = this.userData.filter( u => u.IsExempt ).length;
 
 				// count.toString() is required due to localize returning '' when count is 0
 				return this.localize( 'lblExemptionCount', 'exemptionCount', count.toString() );
 			},
 
-			handleClasslistResponse: function(e) {
-				this.set( 'rawClasslist', e.detail.response );
-			},
-
-			handleExemptionsResponse: function(e) {
-				this.set( 'rawExemptions', e.detail.response );
-			},
-
-			handleTestDataResponse: function(e) {
-				this.set('userData', e.detail.response);
-			},
-
-			_getClasslistUrl: function(hostUrl, orgUnitId) {
-				return `${hostUrl}/d2l/api/le/1.12/${orgUnitId}/classlist/`;
-			},
-
-			_getExemptionsUrl: function(hostUrl, orgUnitId, activityId) {
-				return `${hostUrl}/d2l/api/le/1.26/${orgUnitId}/activities/exemptions/?activityId=${activityId}`;
-			},
-
-			_mapUserData: function() {
-				this.set('userData', this.rawClasslist.map(
-					(user)=>{
-						const isExempt = this.rawExemptions.some( (exemptions) => {
-							return exemptions['UserId'] === Number(user.Identifier);
-						});
-						user.IsExempt = isExempt;
-						return user;
-					}
-				));
-			},
-			selectAll: function(e) {
-				const checkboxes = Polymer.dom(this.root).querySelectorAll('.checkbox-user');
-				if ( e.target.checked ) {
-					checkboxes.forEach(function(element) {
-						element.checked = true;
+			selectAll(e) {
+				Polymer.dom(this.root).querySelectorAll('.checkbox-user')
+					.forEach( element => {
+						element.checked = e.target.checked;
 					});
-				} else {
-					checkboxes.forEach(function(element) {
-						element.checked = false;
-					});
-				}
 			},
 
-			showSaveToast: function(isExempt, numChanged) {
+			showSaveToast(isExempt, numChanged) {
 				var actionText = isExempt ? 'lblExemptSuccess' : 'lblUnexemptSuccess';
 
 				this.$.toast.hide();
@@ -223,20 +218,28 @@ Activity exemptions
 				this.$.toast.show();
 			},
 
-			_toggleExemption: function(isExempt) {
+			_toggleExemption(isExempt) {
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
 						&& element.data['IsExempt'] !== isExempt );
 
-				this.$.toggleExemptionRequest.method = isExempt ? 'POST' : 'DELETE';
+				const options = {
+					credentials: 'include',
+					headers: new Headers({
+						'Access-Control-Allow-Origin': '*'
+					}),
+					method: isExempt ? 'POST' : 'DELETE',
+					mode: 'cors'
+				};
 
 				var allPromises = filteredSelection.map( (element) => {
-					this.toggleExemptionUrl = `${this.hostUrl}/d2l/api/le/1.26/${this.orgUnitId}/activities/exemptions?userId=${element.data.Identifier}&activityId=${this.activityId}`;
-					return this.$.toggleExemptionRequest.generateRequest().completes.then( ()=> {
-						const rowIndex = element.rowIndex - 1; //offset for header
-						this.set(`userData.${rowIndex}.IsExempt`, isExempt);
-					});
+					return fetch(`${this.exemptionsUrl}&userId=${element.data.Identifier}`, options)
+						.then( r => r.json() )
+						.then( () => {
+							const rowIndex = element.rowIndex - 1; //offset for header
+							this.set(`userData.${rowIndex}.IsExempt`, isExempt);
+						});
 				});
 
 				Promise.all(allPromises).then(
@@ -246,10 +249,9 @@ Activity exemptions
 				);
 			},
 
-			unexemptSelected: function() {
+			unexemptSelected() {
 				this._toggleExemption(false);
 			}
-
 		});
 	</script>
 </dom-module>

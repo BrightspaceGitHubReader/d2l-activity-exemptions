@@ -1,20 +1,17 @@
 <link rel="import" href="../../d2l-offscreen/d2l-offscreen.html">
+<link rel="import" href="./d2l-localize-behavior.html">
 <!--
 `activity-exemptions-exemptstatus`
 Activity exemptions
 
-@demo demo/index.html
+@demo demo/activity-exemptions-exemptstatus.html
 -->
 
 <dom-module id='activity-exemptions-exemptstatus'>
 	<template>
-		<style>
-		</style>
-		<template is="dom-if" if="[[data.IsExempt]]">
-			Exempt
-		</template>
-		<template is="dom-if" if="[[!data.IsExempt]]">
-			<d2l-offscreen>Not Exempt</d2l-offscreen>
+		[[isExemptText]]
+		<template is="dom-if" if="[[!isExempt]]">
+			<d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
 		</template>
   </template>
 
@@ -23,13 +20,26 @@ Activity exemptions
 
 			is: 'activity-exemptions-exemptstatus',
 
-			properties: {
-				data: {
-					type: Object,
-					value: []
-				}
-			}
+			behaviors: [
+				D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior
+			],
 
+			properties: {
+				isExempt: {
+					type: Boolean,
+					value: false
+				},
+				isExemptText: {
+					type: String,
+					computed: '_getExemptStatus(isExempt)'
+				}
+			},
+
+			_getExemptStatus(isExempt) {
+				return isExempt
+					? this.localize('lblExempt')
+					: '';
+			}
 		});
 	</script>
 </dom-module>

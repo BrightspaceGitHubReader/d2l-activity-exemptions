@@ -1,5 +1,5 @@
 {
-  "name": "activity-exemptions",
+  "name": "d2l-activity-exemptions",
   "description": "Activity exemptions",
   "main": "activity-exemptions.html",
   "dependencies": {
@@ -10,8 +10,7 @@
     "d2l-offscreen": "^2.2.5",
     "d2l-simple-overlay": "git://github.com/Brightspace/simple-overlay#^1.1.1",
     "paper-toast": "^2.0.0",
-    "app-localize-behavior": "^2.0.0",
-    "iron-ajax": "^2.0.5"
+    "app-localize-behavior": "^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",

@@ -4,15 +4,15 @@
 `activity-exemptions-username`
 Activity exemptions
 
-@demo demo/index.html
+@demo demo/activity-exemptions-username.html
 -->
 
 <dom-module id='activity-exemptions-username'>
 	<template>
 		<style>
 		</style>
-    [[lastName]], [[firstName]]
-  </template>
+		[[fullName]]
+	</template>
 
 	<script>
 		Polymer({
@@ -21,13 +21,19 @@ Activity exemptions
 
 			properties: {
 				firstName: {
-					type: String,
-					value: ''
+					type: String
 				},
 				lastName: {
+					type: String
+				},
+				fullName: {
 					type: String,
-					value: ''
+					computed: '_fullName(firstName, lastName)'
 				}
+			},
+
+			_fullName(firstName, lastName) {
+				return `${lastName}, ${firstName}`;
 			}
 
 		});
