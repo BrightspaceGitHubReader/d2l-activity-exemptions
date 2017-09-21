@@ -23,8 +23,8 @@ Activity exemptions
 				display: block;
 				padding-bottom: 40px;
 			}
-			
-			d2l-button {
+
+			.toggle-exemption-buttons {
 				margin: 10px;
 			}
 
@@ -42,19 +42,23 @@ Activity exemptions
 
 		<div role="main">
 
-			<d2l-button
+			<button
+				is="d2l-button"
+				class="toggle-exemption-buttons"
 				role="button"
 				aria-label$="[[localize('ariaExempt')]]"
 				primary on-tap="exemptSelected">
 				[[localize('btnExempt')]]
-			</d2l-button>
+			</button>
 
-			<d2l-button
+			<button
+				is="d2l-button"
+				class="toggle-exemption-buttons"
 				role="button"
 				aria-label$="[[localize('ariaUnexempt')]]"
 				on-tap="unexemptSelected">
 				[[localize('btnUnexempt')]]
-			</d2l-button>
+			</button>
 
 			<div id="exemptions-count">
 				<p>[[exemptionCount]]</p>
@@ -68,7 +72,7 @@ Activity exemptions
 				<caption>
 					<d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
 				</caption>
-				
+
 				<thead>
 					<tr role="row">
 						<th>
@@ -158,19 +162,23 @@ Activity exemptions
 				</tbody>
 			</table>
 
-			<d2l-button
+			<button
+				is="d2l-button"
+				class="toggle-exemption-buttons"
 				role="button"
 				aria-label$="[[localize('ariaExempt')]]"
 				primary on-tap="exemptSelected">
 				[[localize('btnExempt')]]
 			</d2l-button>
 
-			<d2l-button
+			<button
+				is="d2l-button"
+				class="toggle-exemption-buttons"
 				role="button"
 				aria-label$="[[localize('ariaUnexempt')]]"
 				on-tap="unexemptSelected">
 				[[localize('btnUnexempt')]]
-			</d2l-button>
+			</button>
 
 			<paper-toast id="toast"></paper-toast>
 		</div>
