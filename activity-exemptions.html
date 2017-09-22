@@ -119,7 +119,7 @@ Activity exemptions
 				aria-label$='[[localize('ariaExempt')]]'
 				primary on-tap='exemptSelected'>
 				[[localize('btnExempt')]]
-			</button>
+			</d2l-button>
 
 			<button
 				is='d2l-button'
@@ -180,8 +180,11 @@ Activity exemptions
 				var self = this;
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
-					.filter( function(element) { return element.querySelector('.checkbox-user[checked]')
-						&& element.data['IsExempt'] !== isExempt });
+					.filter( function(element) {
+						console.log(element.getAttribute("IsExempt"))
+						console.log(element.getAttribute("IsExempt") != isExempt)
+						 return element.querySelector('.checkbox-user[checked]')
+						&& element.getAttribute("IsExempt") != isExempt });
 
 				var options = {
 					credentials: 'include',
@@ -192,8 +195,9 @@ Activity exemptions
 					mode: 'cors'
 				};
 
+				console.log( filteredSelection)
 				var allPromises = filteredSelection.map( (element) => {
-					return fetch(self.exemptionsUrl + '&userId=' + element.data.Identifier, options)
+					return fetch(self.exemptionsUrl + '&userId=' + element.getAttribute("Identifier"), options)
 						// .then( function(r) { return r.json() } )
 						.then( function() {
 							var rowIndex = element.rowIndex - 1; //offset for header

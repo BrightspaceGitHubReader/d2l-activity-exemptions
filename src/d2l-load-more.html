@@ -42,7 +42,6 @@
 			}
 		},
 		ready: function() {
-			console.log("RADY")
 			var self = this;
 			Promise.all([
 				fetch(this.classlistUrl, options)
@@ -53,18 +52,18 @@
 					.then( function(b){ return self.exemptions = b } )
 			])
 				.then( function() {
-					console.log("BF MAP")
-
 					self.__mapUserData();
-					console.log("POSTrt MAP")
 
 					var body = self.$$('.tableBody');
 
 					self.userData.forEach( function (element) {
-						console.log("INSIDDE" + element)
 						var tr = document.createElement('tr');
 						tr.className = 'row-user';
 						tr.setAttribute('role', 'row');
+						tr.setAttribute('Identifier', element.Identifier);
+						tr.setAttribute('IsExempt', element.IsExempt);
+
+
 
 						var tdCheckbox = document.createElement('td');
 						var rowCheckbox = document.createElement('d2l-checkbox');

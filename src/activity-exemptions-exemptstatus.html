@@ -19,8 +19,7 @@
 
 			properties: {
 				isExempt: {
-					type: Boolean,
-					value: false
+					type: String
 				},
 				isExemptText: {
 					type: String,
@@ -29,6 +28,11 @@
 			},
 
 			_getExemptStatus: function(isExempt) {
+				if( isExempt == "true") {
+					isExempt = true;
+				}  else {
+					isExempt = false;
+				}
 				return isExempt
 					? this.localize('lblExempt')
 					: '';
