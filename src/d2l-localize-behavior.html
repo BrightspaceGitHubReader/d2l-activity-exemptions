@@ -8,7 +8,7 @@
 	 *
 	 * @polymerBehavior
 	 */
-	const LocalizeBehavior = {
+	var LocalizeBehavior = {
 		properties: {
 			language: {
 				type: String,
@@ -28,7 +28,7 @@
 			},
 			resources: {
 				value: function() {
-					const enUS = {
+					var enUS = {
 						'btnExempt': 'Exempt',
 						'ariaExempt': 'Exempt Selected Users',
 						'btnUnexempt': 'Unexempt',
@@ -44,16 +44,16 @@
 						'lblUnexempt': 'Unexempt',
 						'ariaSelectUser': 'Select {lastName}, {firstName}',
 						'lblCouldNotLoad': 'Could not load activity exemption data.',
-						'lblExemptSuccess': `Saved successfully. {itemCount, plural,
-							=0 {Nothing saved}
-							one {1 user exempted}
-							other {{itemCount} users exempted}
-						}.`,
-						'lblUnexemptSuccess': `Saved successfully. {itemCount, plural,
-							=0 {Nothing saved}
-							one {1 user unexempted}
-							other {{itemCount} users unexempted}
-						}.`
+						'lblExemptSuccess': 'Saved successfully. {itemCount, plural,'
+							+ '=0 {Nothing saved}'
+							+ 'one {1 user exempted}'
+							+ 'other {{itemCount} users exempted}'
+						+ '}.',
+						'lblUnexemptSuccess': 'Saved successfully. {itemCount, plural,'
+							+ '=0 {Nothing saved}'
+							+ 'one {1 user unexempted}'
+							+ 'other {{itemCount} users unexempted}'
+						+ '}.'
 					};
 
 					return {
@@ -68,7 +68,7 @@
 				return locale;
 			}
 
-			const lang = locale.split('-')[0];
+			var lang = locale.split('-')[0];
 			if (resources[lang]) {
 				return lang;
 			}

@@ -1,16 +1,6 @@
 <link rel="import" href="../../polymer/polymer.html">
-
-<!--
-`activity-exemptions-username`
-Activity exemptions
-
-@demo demo/activity-exemptions-username.html
--->
-
 <dom-module id='activity-exemptions-username'>
 	<template>
-		<style>
-		</style>
 		[[fullName]]
 	</template>
 
@@ -32,8 +22,8 @@ Activity exemptions
 				}
 			},
 
-			_fullName(firstName, lastName) {
-				return `${lastName}, ${firstName}`;
+			_fullName: function(firstName, lastName) {
+				return lastName + ', ' + firstName;
 			}
 
 		});

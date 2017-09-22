@@ -11,7 +11,9 @@
   "engines": {
     "node": "^8.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "whatwg-fetch": "^2.0.3"
+  },
   "devDependencies": {
     "bower": "^1.8.0",
     "eslint": "^4.4.1",

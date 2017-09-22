@@ -1,14 +1,14 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-toast/paper-toast.html">
-<link rel="import" href="../d2l-table/d2l-table.html">
-<link rel="import" href="../d2l-checkbox/d2l-checkbox.html">
-<link rel="import" href="../d2l-button/d2l-button.html">
-<link rel="import" href="../d2l-offscreen/d2l-offscreen.html">
-<link rel="import" href="../d2l-simple-overlay/d2l-simple-overlay.html">
-<link rel="import" href="src/activity-exemptions-username.html">
-<link rel="import" href="src/activity-exemptions-exemptstatus.html">
-<link rel="import" href="src/d2l-localize-behavior.html">
-<link rel="import" href="src/d2l-load-more.html">
+<link rel='import' href='../polymer/polymer.html'>
+<link rel='import' href='../paper-toast/paper-toast.html'>
+<link rel='import' href='../d2l-table/d2l-table.html'>
+<link rel='import' href='../d2l-checkbox/d2l-checkbox.html'>
+<link rel='import' href='../d2l-button/d2l-button.html'>
+<link rel='import' href='../d2l-offscreen/d2l-offscreen.html'>
+<link rel='import' href='../d2l-simple-overlay/d2l-simple-overlay.html'>
+<link rel='import' href='src/activity-exemptions-username.html'>
+<link rel='import' href='src/activity-exemptions-exemptstatus.html'>
+<link rel='import' href='src/d2l-localize-behavior.html'>
+<link rel='import' href='src/d2l-load-more.html'>
 <!--
 `activity-exemptions`
 Activity exemptions
@@ -16,7 +16,7 @@ Activity exemptions
 @demo demo/index.html
 -->
 
-<dom-module id="activity-exemptions">
+<dom-module id='activity-exemptions'>
 	<template>
 		<style>
 			:host {
@@ -40,67 +40,67 @@ Activity exemptions
 			}
 		</style>
 
-		<div role="main">
+		<div role='main'>
 
 			<button
-				is="d2l-button"
-				class="toggle-exemption-buttons"
-				role="button"
-				aria-label$="[[localize('ariaExempt')]]"
-				primary on-tap="exemptSelected">
+				is='d2l-button'
+				class='toggle-exemption-buttons'
+				role='button'
+				aria-label$='[[localize('ariaExempt')]]'
+				primary on-tap='exemptSelected'>
 				[[localize('btnExempt')]]
 			</button>
 
 			<button
-				is="d2l-button"
-				class="toggle-exemption-buttons"
-				role="button"
-				aria-label$="[[localize('ariaUnexempt')]]"
-				on-tap="unexemptSelected">
+				is='d2l-button'
+				class='toggle-exemption-buttons'
+				role='button'
+				aria-label$='[[localize('ariaUnexempt')]]'
+				on-tap='unexemptSelected'>
 				[[localize('btnUnexempt')]]
 			</button>
 
-			<div id="exemptions-count">
+			<div id='exemptions-count'>
 				<p>[[exemptionCount]]</p>
 			</div>
 
 			<table
-				is="d2l-table"
-				role="grid"
-				summary="[[localize('ariaTableSummary')]]">
+				is='d2l-table'
+				role='grid'
+				summary='[[localize('ariaTableSummary')]]'>
 
 				<caption>
 					<d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
 				</caption>
 
 				<thead>
-					<tr role="row">
+					<tr role='row'>
 						<th>
 							<d2l-checkbox
-								aria-label$="[[localize('selectUnselectAll')]]"
-								on-change="selectAll">
+								aria-label$='[[localize('selectUnselectAll')]]'
+								on-change='selectAll'>
 							</d2l-checkbox>
 						</th>
 
 						<th
-							scope="col"
-							role="columnheader"
-							aria-sort="none">
+							scope='col'
+							role='columnheader'
+							aria-sort='none'>
 
 							<button
-								is="d2l-table-col-sort-button"
-								role="button"
+								is='d2l-table-col-sort-button'
+								role='button'
 								nosort>
 								[[localize('lblLastNameFirstName')]]
 							</button>
 						</th>
 
 						<th
-							scope="col"
-							role="columnheader">
+							scope='col'
+							role='columnheader'>
 							<button
-								is="d2l-table-col-sort-button"
-								role="button"
+								is='d2l-table-col-sort-button'
+								role='button'
 								nosort>
 								[[localize('lblExemptStatus')]]
 							</button>
@@ -108,79 +108,29 @@ Activity exemptions
 					</tr>
 				</thead>
 
-				<template is="dom-if" if="[[hasMoreItems]]">
-					<tfoot>
-						<tr role="row">
-							<td
-								class="load-more"
-								scope="row"
-								colspan="3"
-								on-tap="loadMore"
-								tabindex="0">
-								Load More...
-							</td>
-						</tr>
-					</tfoot>
-				</template>
-
-				<tbody>
-					<template
-						is="dom-repeat"
-						items="[[userData]]"
-						observe="IsExempt">
-
-						<tr
-							class="row-user"
-							role="row"
-							data="[[item]]">
-
-							<td>
-								<d2l-checkbox
-									class="checkbox-user"
-									aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]">
-								</d2l-checkbox>
-							</td>
-
-							<th
-								scope="row"
-								role="rowheader">
-								<activity-exemptions-username
-									first-name="[[item.FirstName]]"
-									last-name="[[item.LastName]]">
-								</activity-exemptions-username>
-							</th>
-
-							<th
-								scope="row"
-								role="rowheader">
-								<activity-exemptions-exemptstatus
-									is-exempt="[[item.IsExempt]]">
-								</activity-exemptions-exemptstatus>
-							</th>
-						</tr>
-					</template>
+				<tbody class='tableBody'>
 				</tbody>
 			</table>
 
 			<button
-				is="d2l-button"
-				class="toggle-exemption-buttons"
-				role="button"
-				aria-label$="[[localize('ariaExempt')]]"
-				primary on-tap="exemptSelected">
+				is='d2l-button'
+				class='toggle-exemption-buttons'
+				role='button'
+				aria-label$='[[localize('ariaExempt')]]'
+				primary on-tap='exemptSelected'>
 				[[localize('btnExempt')]]
-			</d2l-button>
+			</button>
 
 			<button
-				is="d2l-button"
-				class="toggle-exemption-buttons"
-				role="button"
-				aria-label$="[[localize('ariaUnexempt')]]"
-				on-tap="unexemptSelected">
+				is='d2l-button'
+				class='toggle-exemption-buttons'
+				role='button'
+				aria-label$='[[localize('ariaUnexempt')]]'
+				on-tap='unexemptSelected'>
 				[[localize('btnUnexempt')]]
 			</button>
 
-			<paper-toast id="toast"></paper-toast>
+			<paper-toast id='toast'></paper-toast>
 		</div>
 	</template>
 
@@ -200,25 +150,25 @@ Activity exemptions
 				}
 			},
 
-			exemptSelected() {
+			exemptSelected: function() {
 				this._toggleExemption(true);
 			},
 
-			getUserExemptionCount() {
-				const count = this.userData.filter( u => u.IsExempt ).length;
+			getUserExemptionCount: function() {
+				var count = this.userData.filter( function(u) { return u.IsExempt } ).length;
 
 				// count.toString() is required due to localize returning '' when count is 0
 				return this.localize( 'lblExemptionCount', 'exemptionCount', count.toString() );
 			},
 
-			selectAll(e) {
+			selectAll: function(e) {
 				Polymer.dom(this.root).querySelectorAll('.checkbox-user')
-					.forEach( element => {
+					.forEach( function(element) {
 						element.checked = e.target.checked;
 					});
 			},
 
-			showSaveToast(isExempt, numChanged) {
+			showSaveToast: function(isExempt, numChanged) {
 				var actionText = isExempt ? 'lblExemptSuccess' : 'lblUnexemptSuccess';
 
 				this.$.toast.hide();
@@ -226,38 +176,39 @@ Activity exemptions
 				this.$.toast.show();
 			},
 
-			_toggleExemption(isExempt) {
+			_toggleExemption: function(isExempt) {
+				var self = this;
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
-					.filter( (element) => element.querySelector('.checkbox-user[checked]')
-						&& element.data['IsExempt'] !== isExempt );
+					.filter( function(element) { return element.querySelector('.checkbox-user[checked]')
+						&& element.data['IsExempt'] !== isExempt });
 
-				const options = {
+				var options = {
 					credentials: 'include',
-					headers: new Headers({
+					headers:{
 						'Access-Control-Allow-Origin': '*'
-					}),
+					},
 					method: isExempt ? 'POST' : 'DELETE',
 					mode: 'cors'
 				};
 
 				var allPromises = filteredSelection.map( (element) => {
-					return fetch(`${this.exemptionsUrl}&userId=${element.data.Identifier}`, options)
-						.then( r => r.json() )
-						.then( () => {
-							const rowIndex = element.rowIndex - 1; //offset for header
-							this.set(`userData.${rowIndex}.IsExempt`, isExempt);
+					return fetch(self.exemptionsUrl + '&userId=' + element.data.Identifier, options)
+						// .then( function(r) { return r.json() } )
+						.then( function() {
+							var rowIndex = element.rowIndex - 1; //offset for header
+							self.set('userData.' + rowIndex + '.IsExempt', isExempt);
 						});
 				});
 
 				Promise.all(allPromises).then(
-					() => {
-						this.showSaveToast(isExempt, allPromises.length);
+					function() {
+						self.showSaveToast(isExempt, allPromises.length);
 					}
 				);
 			},
 
-			unexemptSelected() {
+			unexemptSelected: function() {
 				this._toggleExemption(false);
 			}
 		});

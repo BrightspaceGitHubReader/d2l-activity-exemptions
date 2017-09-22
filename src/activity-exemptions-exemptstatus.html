@@ -1,19 +1,12 @@
 <link rel="import" href="../../d2l-offscreen/d2l-offscreen.html">
 <link rel="import" href="./d2l-localize-behavior.html">
-<!--
-`activity-exemptions-exemptstatus`
-Activity exemptions
-
-@demo demo/activity-exemptions-exemptstatus.html
--->
-
 <dom-module id='activity-exemptions-exemptstatus'>
 	<template>
 		[[isExemptText]]
 		<template is="dom-if" if="[[!isExempt]]">
 			<d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
 		</template>
-  </template>
+	</template>
 
 	<script>
 		Polymer({
@@ -35,7 +28,7 @@ Activity exemptions
 				}
 			},
 
-			_getExemptStatus(isExempt) {
+			_getExemptStatus: function(isExempt) {
 				return isExempt
 					? this.localize('lblExempt')
 					: '';

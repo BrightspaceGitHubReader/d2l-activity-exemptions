@@ -2,16 +2,16 @@
 (function() {
 	'use strict';
 
-	const options = {
+	var options = {
 		credentials: 'include',
-		headers: new Headers({
+		headers: {
 			'Access-Control-Allow-Origin': '*'
-		}),
+		},
 		mode: 'cors'
 	};
 
 	/* @polymerBehavior D2L.PolymerBehaviors.ActivityExemptions.LoadMoreExemptionsBehavior */
-	const LoadMoreExemptionsBehavior = {
+	var LoadMoreExemptionsBehavior = {
 		properties: {
 			bookmark: {
 				type: String
@@ -42,40 +42,83 @@
 			}
 		},
 		ready: function() {
+			console.log("RADY")
+			var self = this;
 			Promise.all([
 				fetch(this.classlistUrl, options)
-					.then( r => r.json() )
-					.then( d => this.__loadPagedData(d) ),
+					.then( function(r){ return r.json() })
+					.then( function(d){ return self.__loadPagedData(d)} ),
 				fetch(this.exemptionsUrl, options)
-					.then( r => r.json() )
-					.then( b => this.exemptions = b )
+					.then( function(r){ return r.json() } )
+					.then( function(b){ return self.exemptions = b } )
 			])
-				.then( () => {
-					this.__mapUserData();
+				.then( function() {
+					console.log("BF MAP")
+
+					self.__mapUserData();
+					console.log("POSTrt MAP")
+
+					var body = self.$$('.tableBody');
+
+					self.userData.forEach( function (element) {
+						console.log("INSIDDE" + element)
+						var tr = document.createElement('tr');
+						tr.className = 'row-user';
+						tr.setAttribute('role', 'row');
+
+						var tdCheckbox = document.createElement('td');
+						var rowCheckbox = document.createElement('d2l-checkbox');
+						rowCheckbox.className = 'checkbox-user';
+						rowCheckbox.setAttribute('aria-label', element.FirstName);
+						tdCheckbox.appendChild(rowCheckbox);
+						tr.appendChild(tdCheckbox);
+
+						var thUserName = document.createElement('th');
+						thUserName.setAttribute('scope', 'row');
+						thUserName.setAttribute('role', 'rowheader');
+						var usernameElem = document.createElement('activity-exemptions-username');
+						usernameElem.setAttribute('first-name', element.FirstName);
+						usernameElem.setAttribute('last-name', element.LastName);
+						thUserName.appendChild(usernameElem);
+						tr.appendChild(thUserName);
+
+						var thExemptStatus = document.createElement('th');
+						thExemptStatus.setAttribute('scope', 'row');
+						thExemptStatus.setAttribute('role', 'rowheader');
+						var exemptStatusElem = document.createElement('activity-exemptions-exemptstatus');
+						exemptStatusElem.setAttribute('is-exempt', element.IsExempt);
+						thExemptStatus.appendChild(exemptStatusElem);
+						tr.appendChild(thExemptStatus);
+						body.appendChild(tr)
+
+					});
 				})
-				.catch( () => {
-					this.$.toast.text = this.localize('lblCouldNotLoad');
-					this.$.toast.show();
+				.catch( function() {
+					self.$.toast.text = self.localize('lblCouldNotLoad');
+					self.$.toast.show();
 				});
 		},
 		loadMore: function() {
-			let url = this.classlistUrl;
+
+			var self = this;
+			var url = this.classlistUrl;
 
 			if ( this.bookmark ) {
-				url += `?bookmark=${this.bookmark}`;
+				url += '?bookmark=' + this.bookmark;
 			}
 
 			fetch(url, options)
-				.then( r => r.json() )
-				.then( d => {
-					this.__loadPagedData(d);
-					this.__mapUserData();
+				.then( function(r){ return r.json() } )
+				.then( function(d){
+					self.__loadPagedData(d);
+					self.__mapUserData();
 				});
 		},
 		__mapUserData: function() {
-			this.set('userData', this.classlistItems.map(
-				(user)=>{
-					user.IsExempt = this.exemptions.some( e => {
+			var self = this;
+			this.set('userData', self.classlistItems.map(
+				function (user){
+					user.IsExempt = self.exemptions.some( function(e) {
 						return e.UserId.toString() === user.Identifier.toString();
 					});
 
@@ -84,10 +127,14 @@
 			));
 		},
 		__loadPagedData: function(pagedData) {
+			var self = this;
 			this.page++;
 			this.bookmark = pagedData.PagingInfo.Bookmark;
 			this.hasMoreItems = pagedData.PagingInfo.HasMoreItems;
-			this.push( 'classlistItems', ...pagedData.Items );
+
+			pagedData.Items.forEach( function(item)  {
+				self.push('classlistItems', item);
+			});
 		}
 	};
 
