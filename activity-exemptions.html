@@ -184,7 +184,7 @@ Activity exemptions
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( function(element) {
-						var isTrueSet = (element.getAttribute("IsExempt") == 'true');
+						var isTrueSet = (element.getAttribute('IsExempt') == 'true');
 						 return element.querySelector('.checkbox-user[checked]')
 						&& isTrueSet !== isExempt });
 
@@ -202,11 +202,13 @@ Activity exemptions
 				};
 
 				var allPromises = filteredSelection.map( (element) => {
-					return fetch(self.exemptionsUrl + '&userId=' + element.getAttribute("Identifier"), options)
-						// .then( function(r) { return r.json() } )
+					return fetch(self.exemptionsUpdateUrl + '&userId=' + element.getAttribute("Identifier"), options)
 						.then( function() {
-							var rowIndex = element.rowIndex - 1; //offset for header
-							self.set('userData.' + rowIndex + '.IsExempt', isExempt);
+							console.log(self);
+							console.log(element);
+							element.setAttribute('isexempt', isExempt);
+							element.cells[2].firstElementChild.setAttribute('is-exempt', isExempt);
+							console.log(element);
 						});
 				});
 
