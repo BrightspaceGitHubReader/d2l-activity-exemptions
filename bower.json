@@ -10,7 +10,7 @@
     "d2l-offscreen": "^2.2.5",
     "d2l-simple-overlay": "git://github.com/Brightspace/simple-overlay#^1.1.1",
     "paper-toast": "^2.0.0",
-    "app-localize-behavior": "^2.0.0"
+    "app-localize-behavior": "^1.0.2"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
