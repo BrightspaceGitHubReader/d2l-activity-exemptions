@@ -185,7 +185,7 @@ describe('activity-exemptions', function() {
 			flush(function() {
 				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
-				var exemptButton = Polymer.dom(element.root).querySelectorAll('d2l-button')[0];
+				var exemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[0];
 				element.exemptionsUrl = '/exemptmythings';
 
 				MockInteractions.tap(checkbox);
@@ -208,7 +208,7 @@ describe('activity-exemptions', function() {
 			flush(function() {
 				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
-				var unexemptButton = Polymer.dom(element.root).querySelectorAll('d2l-button')[1];
+				var unexemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[1];
 				element.exemptionsUrl = '/unexemptmythings';
 
 				MockInteractions.tap(checkbox);
