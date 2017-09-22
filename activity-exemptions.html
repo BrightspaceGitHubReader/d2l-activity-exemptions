@@ -184,10 +184,9 @@ Activity exemptions
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( function(element) {
-						console.log(element.getAttribute("IsExempt"))
-						console.log(element.getAttribute("IsExempt") != isExempt)
+						var isTrueSet = (element.getAttribute("IsExempt") == 'true');
 						 return element.querySelector('.checkbox-user[checked]')
-						&& element.getAttribute("IsExempt") != isExempt });
+						&& isTrueSet !== isExempt });
 
 				var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 
@@ -202,7 +201,6 @@ Activity exemptions
 					mode: 'cors'
 				};
 
-				console.log( filteredSelection)
 				var allPromises = filteredSelection.map( (element) => {
 					return fetch(self.exemptionsUrl + '&userId=' + element.getAttribute("Identifier"), options)
 						// .then( function(r) { return r.json() } )
