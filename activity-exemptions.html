@@ -219,11 +219,8 @@ Activity exemptions
 				var allPromises = filteredSelection.map( function (element) {
 					return fetch(self.exemptionsUpdateUrl + '&userId=' + element.getAttribute("Identifier"), options)
 						.then( function() {
-							console.log(self);
-							console.log(element);
 							element.setAttribute('isexempt', isExempt);
 							element.cells[2].firstElementChild.setAttribute('is-exempt', isExempt);
-							console.log(element);
 						});
 				});
 
