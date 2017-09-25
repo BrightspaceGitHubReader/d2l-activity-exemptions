@@ -28,11 +28,12 @@
 			},
 
 			_getExemptStatus: function(isExempt) {
-				if( isExempt == "true") {
+				if ( isExempt === 'true' ) {
 					isExempt = true;
 				}  else {
 					isExempt = false;
 				}
+
 				return isExempt
 					? this.localize('lblExempt')
 					: '';

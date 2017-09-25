@@ -45,25 +45,23 @@
 			var self = this;
 			Promise.all([
 				fetch(this.classlistUrl, options)
-					.then( function(r){ return r.json() })
-					.then( function(d){ return self.__loadPagedData(d)} ),
+					.then( function(r) { return r.json(); })
+					.then( function(d) { return self.__loadPagedData(d); }),
 				fetch(this.exemptionsUrl, options)
-					.then( function(r){ return r.json() } )
-					.then( function(b){ return self.exemptions = b } )
+					.then( function(r) { return r.json(); })
+					.then( function(b) { return self.exemptions = b; })
 			])
 				.then( function() {
 					self.__mapUserData();
 
 					var body = self.$$('.tableBody');
 
-					self.userData.forEach( function (element) {
+					self.userData.forEach( function(element) {
 						var tr = document.createElement('tr');
 						tr.className = 'row-user';
 						tr.setAttribute('role', 'row');
 						tr.setAttribute('Identifier', element.Identifier);
 						tr.setAttribute('IsExempt', element.IsExempt);
-
-
 
 						var tdCheckbox = document.createElement('td');
 						var rowCheckbox = document.createElement('d2l-checkbox');
@@ -88,7 +86,7 @@
 						exemptStatusElem.setAttribute('is-exempt', element.IsExempt);
 						thExemptStatus.appendChild(exemptStatusElem);
 						tr.appendChild(thExemptStatus);
-						body.appendChild(tr)
+						body.appendChild(tr);
 
 					});
 				})
@@ -107,8 +105,8 @@
 			}
 
 			fetch(url, options)
-				.then( function(r){ return r.json() } )
-				.then( function(d){
+				.then( function(r) { return r.json(); })
+				.then( function(d) {
 					self.__loadPagedData(d);
 					self.__mapUserData();
 				});
@@ -116,7 +114,7 @@
 		__mapUserData: function() {
 			var self = this;
 			this.set('userData', self.classlistItems.map(
-				function (user){
+				function(user) {
 					user.IsExempt = self.exemptions.some( function(e) {
 						return e.UserId.toString() === user.Identifier.toString();
 					});

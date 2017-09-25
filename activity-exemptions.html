@@ -173,7 +173,7 @@ Activity exemptions
 			},
 
 			getUserExemptionCount: function() {
-				var count = this.userData.filter( function(u) { return u.IsExempt } ).length;
+				var count = this.userData.filter( function(u) { return u.IsExempt; } ).length;
 
 				// count.toString() is required due to localize returning '' when count is 0
 				return this.localize( 'lblExemptionCount', 'exemptionCount', count.toString() );
@@ -199,9 +199,10 @@ Activity exemptions
 				var filteredSelection = Polymer.dom(this.root)
 					.querySelectorAll('.row-user')
 					.filter( function(element) {
-						var isTrueSet = (element.getAttribute('IsExempt') == 'true');
-						 return element.querySelector('.checkbox-user[checked]')
-						&& isTrueSet !== isExempt });
+						var isTrueSet = (element.getAttribute('IsExempt') === 'true');
+						return element.querySelector('.checkbox-user[checked]')
+						&& isTrueSet !== isExempt;
+					});
 
 				var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 
@@ -216,8 +217,8 @@ Activity exemptions
 					mode: 'cors'
 				};
 
-				var allPromises = filteredSelection.map( function (element) {
-					return fetch(self.exemptionsUpdateUrl + '&userId=' + element.getAttribute("Identifier"), options)
+				var allPromises = filteredSelection.map( function(element) {
+					return fetch(self.exemptionsUpdateUrl + '&userId=' + element.getAttribute('Identifier'), options)
 						.then( function() {
 							element.setAttribute('isexempt', isExempt);
 							element.cells[2].firstElementChild.setAttribute('is-exempt', isExempt);
