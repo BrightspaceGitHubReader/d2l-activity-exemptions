@@ -204,14 +204,14 @@ Activity exemptions
 						&& isTrueSet !== isExempt;
 					});
 
-				var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
+				// var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 
 				var options = {
 					credentials: 'include',
 					headers:{
 						'Access-Control-Allow-Origin': '*',
 						'Content-Type': 'application/json',
-						'X-Csrf-Token': token
+						'X-Csrf-Token': 'wdw'
 					},
 					method: isExempt ? 'POST' : 'DELETE',
 					mode: 'cors'
@@ -222,9 +222,18 @@ Activity exemptions
 						.then( function() {
 							element.setAttribute('isexempt', isExempt);
 							element.cells[2].firstElementChild.setAttribute('is-exempt', isExempt);
+
+							self.userData.forEach( function(user) {
+								if ( user.Identifier === element.getAttribute('Identifier') ) {
+									user.IsExempt = isExempt;
+								}
+							});
+
+							var tempUserData = self.userData;
+							self.userData = [];
+							self.set('userData', tempUserData);
 						});
 				});
-
 				Promise.all(allPromises).then(
 					function() {
 						self.showSaveToast(isExempt, allPromises.length);
