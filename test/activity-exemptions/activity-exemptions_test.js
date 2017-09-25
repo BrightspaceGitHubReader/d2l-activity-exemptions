@@ -1,5 +1,4 @@
 /*global beforeEach afterEach describe it flush expect fixture element MockInteractions sinon*/
-
 describe('activity-exemptions', function() {
 	beforeEach(function() {
 		element = fixture('basic'); //eslint-disable-line no-global-assign
@@ -186,7 +185,7 @@ describe('activity-exemptions', function() {
 				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var exemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[0];
-				element.exemptionsUrl = '/exemptmythings';
+				element.exemptionsUpdateUrl = '/exemptmythings';
 
 				MockInteractions.tap(checkbox);
 				flush(function() {
@@ -209,7 +208,7 @@ describe('activity-exemptions', function() {
 				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var unexemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[1];
-				element.exemptionsUrl = '/unexemptmythings';
+				element.exemptionsUpdateUrl = '/unexemptmythings';
 
 				MockInteractions.tap(checkbox);
 				flush(function() {

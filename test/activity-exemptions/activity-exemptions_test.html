@@ -10,7 +10,16 @@
 		<script src="../../bower_components/web-component-tester/browser.js"></script>
 		<script src="../../bower_components/iron-test-helpers/mock-interactions.js"></script>
 		<script src="../../bower_components/sinonjs/sinon.js"></script>
-
+		<script type="text/javascript">
+			window.D2L = {};
+			window.D2L.LP = {};
+			window.D2L.LP.Web = {};
+			window.D2L.LP.Web.Authentication = {};
+			window.D2L.LP.Web.Authentication.Xsrf = {};
+			window.D2L.LP.Web.Authentication.Xsrf.GetXsrfToken = function() {
+				return 'token';
+			};
+		</script>
 		<link rel="import" href="../../activity-exemptions.html">
 	</head>
 	<body>
@@ -21,5 +30,6 @@
 		</test-fixture>
 
 		<script src="./activity-exemptions_test.js"></script>
+
 	</body>
 </html>

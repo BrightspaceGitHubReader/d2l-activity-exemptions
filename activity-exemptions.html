@@ -197,6 +197,9 @@ Activity exemptions
 				exemptionCount: {
 					type: String,
 					computed: 'getUserExemptionCount(userData.*)'
+				},
+				exemptionsUpdateUrl:{
+					type: String
 				}
 			},
 
@@ -231,19 +234,20 @@ Activity exemptions
 					.querySelectorAll('.row-user')
 					.filter( (element) => element.querySelector('.checkbox-user[checked]')
 						&& element.data['IsExempt'] !== isExempt );
-
+				var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 				const options = {
 					credentials: 'include',
 					headers: new Headers({
-						'Access-Control-Allow-Origin': '*'
+						'Access-Control-Allow-Origin': '*',
+						'Content-Type': 'application/json',
+						'X-Csrf-Token': token
 					}),
 					method: isExempt ? 'POST' : 'DELETE',
 					mode: 'cors'
 				};
 
 				var allPromises = filteredSelection.map( (element) => {
-					return fetch(`${this.exemptionsUrl}&userId=${element.data.Identifier}`, options)
-						.then( r => r.json() )
+					return fetch(`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`, options)
 						.then( () => {
 							const rowIndex = element.rowIndex - 1; //offset for header
 							this.set(`userData.${rowIndex}.IsExempt`, isExempt);
