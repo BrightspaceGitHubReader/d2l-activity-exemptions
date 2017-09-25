@@ -53,42 +53,9 @@
 			])
 				.then( function() {
 					self.__mapUserData();
+					self.__createUserRows();
 
-					var body = self.$$('.tableBody');
 
-					self.userData.forEach( function(element) {
-						var tr = document.createElement('tr');
-						tr.className = 'row-user';
-						tr.setAttribute('role', 'row');
-						tr.setAttribute('Identifier', element.Identifier);
-						tr.setAttribute('IsExempt', element.IsExempt);
-
-						var tdCheckbox = document.createElement('td');
-						var rowCheckbox = document.createElement('d2l-checkbox');
-						rowCheckbox.className = 'checkbox-user';
-						rowCheckbox.setAttribute('aria-label', element.FirstName);
-						tdCheckbox.appendChild(rowCheckbox);
-						tr.appendChild(tdCheckbox);
-
-						var thUserName = document.createElement('th');
-						thUserName.setAttribute('scope', 'row');
-						thUserName.setAttribute('role', 'rowheader');
-						var usernameElem = document.createElement('activity-exemptions-username');
-						usernameElem.setAttribute('first-name', element.FirstName);
-						usernameElem.setAttribute('last-name', element.LastName);
-						thUserName.appendChild(usernameElem);
-						tr.appendChild(thUserName);
-
-						var thExemptStatus = document.createElement('th');
-						thExemptStatus.setAttribute('scope', 'row');
-						thExemptStatus.setAttribute('role', 'rowheader');
-						var exemptStatusElem = document.createElement('activity-exemptions-exemptstatus');
-						exemptStatusElem.setAttribute('is-exempt', element.IsExempt);
-						thExemptStatus.appendChild(exemptStatusElem);
-						tr.appendChild(thExemptStatus);
-						body.appendChild(tr);
-
-					});
 				})
 				.catch( function() {
 					self.$.toast.text = self.localize('lblCouldNotLoad');
@@ -110,6 +77,42 @@
 					self.__loadPagedData(d);
 					self.__mapUserData();
 				});
+		},
+		__createUserRows: function() {
+			var body = this.$$('.tableBody');
+
+			this.userData.forEach( function(element) {
+				var tr = document.createElement('tr');
+				tr.className = 'row-user';
+				tr.setAttribute('role', 'row');
+				tr.setAttribute('Identifier', element.Identifier);
+				tr.setAttribute('IsExempt', element.IsExempt);
+
+				var tdCheckbox = document.createElement('td');
+				var rowCheckbox = document.createElement('d2l-checkbox');
+				rowCheckbox.className = 'checkbox-user';
+				rowCheckbox.setAttribute('aria-label', element.FirstName);
+				tdCheckbox.appendChild(rowCheckbox);
+				tr.appendChild(tdCheckbox);
+
+				var thUserName = document.createElement('th');
+				thUserName.setAttribute('scope', 'row');
+				thUserName.setAttribute('role', 'rowheader');
+				var usernameElem = document.createElement('activity-exemptions-username');
+				usernameElem.setAttribute('first-name', element.FirstName);
+				usernameElem.setAttribute('last-name', element.LastName);
+				thUserName.appendChild(usernameElem);
+				tr.appendChild(thUserName);
+
+				var thExemptStatus = document.createElement('th');
+				thExemptStatus.setAttribute('scope', 'row');
+				thExemptStatus.setAttribute('role', 'rowheader');
+				var exemptStatusElem = document.createElement('activity-exemptions-exemptstatus');
+				exemptStatusElem.setAttribute('is-exempt', element.IsExempt);
+				thExemptStatus.appendChild(exemptStatusElem);
+				tr.appendChild(thExemptStatus);
+				body.appendChild(tr);
+			});
 		},
 		__mapUserData: function() {
 			var self = this;
