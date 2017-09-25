@@ -16,6 +16,8 @@ describe('activity-exemptions', function() {
 			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
+		element.__mapUserData();
+		element.__createUserRows();
 
 		flush(function() {
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
@@ -43,7 +45,8 @@ describe('activity-exemptions', function() {
 			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 		];
-
+		element.__mapUserData();
+		element.__createUserRows();
 		// Manually set all checkboxes to checked
 		flush(function() {
 			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-checkbox');
@@ -92,6 +95,7 @@ describe('activity-exemptions', function() {
 		];
 
 		element.__mapUserData();
+		element.__createUserRows();
 		expect( element.userData ).to.deep.equal(
 			[
 				{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
@@ -122,7 +126,8 @@ describe('activity-exemptions', function() {
 				{'Identifier':3, 'IsExempt':false},
 				{'Identifier':4, 'IsExempt':true}
 			];
-
+			element.__mapUserData();
+			element.__createUserRows();
 		});
 		it('should show how many users are exempted', function(done) {
 			flush(function() {
@@ -175,6 +180,8 @@ describe('activity-exemptions', function() {
 				{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 				{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
 			];
+			element.__mapUserData();
+			element.__createUserRows();
 		});
 		afterEach(function() {
 			fetchStub.restore();
