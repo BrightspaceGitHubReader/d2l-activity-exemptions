@@ -108,6 +108,21 @@ Activity exemptions
 					</tr>
 				</thead>
 
+				<template is="dom-if" if="[[hasMoreItems]]">
+					<tfoot>
+						<tr role="row">
+							<td
+								class="load-more"
+								scope="row"
+								colspan="3"
+								on-tap="loadMore"
+								tabindex="0">
+								Load More...
+							</td>
+						</tr>
+					</tfoot>
+				</template>
+
 				<tbody class='tableBody'>
 				</tbody>
 			</table>
@@ -201,7 +216,7 @@ Activity exemptions
 					mode: 'cors'
 				};
 
-				var allPromises = filteredSelection.map( (element) => {
+				var allPromises = filteredSelection.map( function (element) {
 					return fetch(self.exemptionsUpdateUrl + '&userId=' + element.getAttribute("Identifier"), options)
 						.then( function() {
 							console.log(self);
