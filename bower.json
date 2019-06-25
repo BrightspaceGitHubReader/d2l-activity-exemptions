@@ -5,7 +5,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "d2l-table": "git://github.com/BrightspaceUI/table#hybrid",
-    "d2l-button": "git://github.com/BrightspaceUI/button#hybrid",
+    "d2l-button": "^4.7.5",
     "d2l-inputs": "git://github.com/BrightspaceUI/inputs#hybrid",
     "d2l-offscreen": "git://github.com/BrightspaceUI/offscreen#hybrid",
     "d2l-simple-overlay": "git://github.com/Brightspace/simple-overlay#hybrid",
