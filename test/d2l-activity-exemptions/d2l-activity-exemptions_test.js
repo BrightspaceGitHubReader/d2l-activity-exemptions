@@ -4,10 +4,6 @@ describe('d2l-activity-exemptions', function() {
 		element = fixture('basic'); //eslint-disable-line no-global-assign
 	});
 
-	afterEach(function() {
-		element = undefined;
-	});
-
 	it('should instantiate the element', function() {
 		expect(element).to.exist;
 	});
@@ -20,7 +16,7 @@ describe('d2l-activity-exemptions', function() {
 			var username = Polymer.dom(element.root).querySelectorAll('.userfullname')[0].innerText;
 			expect(username).to.equal('Benjamin Liam');
 			done();
-		})
+		});
 	});
 
 	it('exempt status should be Not Exempt for non exempted users', function(done) {
@@ -31,7 +27,7 @@ describe('d2l-activity-exemptions', function() {
 			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
 			expect(exemptStatus).to.equal('Not Exempt');
 			done();
-		})
+		});
 	});
 
 	it('exempt status should be Exempt for exempted users', function(done) {
@@ -42,7 +38,7 @@ describe('d2l-activity-exemptions', function() {
 			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
 			expect(exemptStatus).to.equal('Exempt');
 			done();
-		})
+		});
 	});
 
 	it('should select all checkboxes', function(done) {

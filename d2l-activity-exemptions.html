@@ -181,11 +181,11 @@ Activity exemptions
 		class D2LActivityExemptions extends Polymer.mixinBehaviors([
 			D2L.PolymerBehaviors.ActivityExemptions.LocalizeBehavior,
 			D2L.PolymerBehaviors.ActivityExemptions.LoadMoreExemptionsBehavior
-		], Polymer.Element){
-			static get is(){
+		], Polymer.Element) {
+			static get is() {
 				return 'd2l-activity-exemptions';
 			}
-			static get properties(){
+			static get properties() {
 				return {
 					exemptionCount: {
 						type: String,
@@ -194,7 +194,7 @@ Activity exemptions
 					exemptionsUpdateUrl:{
 						type: String
 					}
-				}
+				};
 			}
 
 			exemptSelected() {
@@ -260,7 +260,7 @@ Activity exemptions
 				this._toggleExemption(false);
 			}
 
-			_getFullName(firstName, lastName){
+			_getFullName(firstName, lastName) {
 				return `${firstName} ${lastName}`;
 			}
 
