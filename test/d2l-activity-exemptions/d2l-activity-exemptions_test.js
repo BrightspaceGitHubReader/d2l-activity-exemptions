@@ -1,11 +1,44 @@
 /*global beforeEach afterEach describe it flush expect fixture element MockInteractions sinon*/
-describe('activity-exemptions', function() {
+describe('d2l-activity-exemptions', function() {
 	beforeEach(function() {
 		element = fixture('basic'); //eslint-disable-line no-global-assign
 	});
 
 	it('should instantiate the element', function() {
-		expect(element.is).to.equal('activity-exemptions');
+		expect(element).to.exist;
+	});
+
+	it('should format the name correctly', function(done) {
+		element.userData = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true}
+		];
+		flush(function() {
+			var username = Polymer.dom(element.root).querySelectorAll('.userfullname')[0].innerText;
+			expect(username).to.equal('Benjamin Liam');
+			done();
+		});
+	});
+
+	it('exempt status should be Not Exempt for non exempted users', function(done) {
+		element.userData = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':false}
+		];
+		flush(function() {
+			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
+			expect(exemptStatus).to.equal('Not Exempt');
+			done();
+		});
+	});
+
+	it('exempt status should be Exempt for exempted users', function(done) {
+		element.userData = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true}
+		];
+		flush(function() {
+			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
+			expect(exemptStatus).to.equal('Exempt');
+			done();
+		});
 	});
 
 	it('should select all checkboxes', function(done) {
@@ -21,12 +54,12 @@ describe('activity-exemptions', function() {
 
 			expect(items.length).to.equal(4);
 
-			var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox');
+			var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox');
 			checkbox = checkbox.$$('input');
 			checkbox.addEventListener('click', function() {
 				flush(function() {
 					items.forEach(function(row) {
-						expect(row.querySelector('d2l-checkbox').checked).to.equal(true);
+						expect(row.querySelector('d2l-input-checkbox').checked).to.equal(true);
 					}, this);
 					done();
 				});
@@ -45,7 +78,7 @@ describe('activity-exemptions', function() {
 
 		// Manually set all checkboxes to checked
 		flush(function() {
-			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-checkbox');
+			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-input-checkbox');
 			checkboxes.forEach(function(element) {
 				element.checked = true;
 			});
@@ -54,7 +87,7 @@ describe('activity-exemptions', function() {
 			flush(function() {
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				items.forEach(function(element) {
-					expect(element.querySelector('d2l-checkbox').checked).to.equal(true);
+					expect(element.querySelector('d2l-input-checkbox').checked).to.equal(true);
 				}, this);
 			});
 
@@ -62,11 +95,11 @@ describe('activity-exemptions', function() {
 			flush(function() {
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				expect(items.length).to.equal(4);
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				checkbox.addEventListener('click', function() {
 					flush(function() {
 						items.forEach(function(element) {
-							expect(element.querySelector('d2l-checkbox').checked).to.equal(false);
+							expect(element.querySelector('d2l-input-checkbox').checked).to.equal(false);
 						}, this);
 						done();
 					});
@@ -106,14 +139,14 @@ describe('activity-exemptions', function() {
 	it('should handle zero students', function(done) {
 		element.userData = [];
 		flush(function() {
-			expect(element.is).to.equal('activity-exemptions');
+			expect(element).to.exist;
 			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 			expect(items.length).to.equal(0);
 			done();
 		});
 	});
 
-	describe('activity-exemptions exempt count', function() {
+	describe('d2l-activity-exemptions exempt count', function() {
 		beforeEach(function() {
 			element.userData = [
 				{'Identifier':1, 'IsExempt':true},
@@ -155,7 +188,7 @@ describe('activity-exemptions', function() {
 		});
 	});
 
-	describe('activity-exemptions (un)exempt buttons', function() {
+	describe('d2l-activity-exemptions (un)exempt buttons', function() {
 		var fetchStub;
 		beforeEach(function() {
 			fetchStub = sinon.stub( window, 'fetch' );
@@ -182,7 +215,7 @@ describe('activity-exemptions', function() {
 		it('should mark users exempt if they are not already exempted', function(done) {
 
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var exemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[0];
 				element.exemptionsUpdateUrl = '/exemptmythings';
@@ -205,7 +238,7 @@ describe('activity-exemptions', function() {
 
 		it('should mark exempted users unexempt', function(done) {
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var unexemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[1];
 				element.exemptionsUpdateUrl = '/unexemptmythings';

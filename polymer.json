@@ -1,8 +1,8 @@
 {
     "entrypoint": "index.html",
-    "shell": "activity-exemptions.html",
+    "shell": "d2l-activity-exemptions.html",
     "fragments": [
-      "activity-exemptions.html"
+      "d2l-activity-exemptions.html"
     ],
     "sources": [
       "src/**/*",
@@ -18,4 +18,3 @@
         "rules": ["polymer-2"]
     }
   }
-  

@@ -76,9 +76,8 @@
 			this.set('userData', this.classlistItems.map(
 				(user)=>{
 					user.IsExempt = this.exemptions.some( e => {
-						return e.UserId.toString() === user.Identifier.toString();
+						return e.UserId === user.Identifier;
 					});
-
 					return user;
 				}
 			));
