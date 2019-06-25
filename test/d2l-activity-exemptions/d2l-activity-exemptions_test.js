@@ -58,12 +58,12 @@ describe('d2l-activity-exemptions', function() {
 
 			expect(items.length).to.equal(4);
 
-			var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox');
+			var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox');
 			checkbox = checkbox.$$('input');
 			checkbox.addEventListener('click', function() {
 				flush(function() {
 					items.forEach(function(row) {
-						expect(row.querySelector('d2l-checkbox').checked).to.equal(true);
+						expect(row.querySelector('d2l-input-checkbox').checked).to.equal(true);
 					}, this);
 					done();
 				});
@@ -82,7 +82,7 @@ describe('d2l-activity-exemptions', function() {
 
 		// Manually set all checkboxes to checked
 		flush(function() {
-			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-checkbox');
+			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-input-checkbox');
 			checkboxes.forEach(function(element) {
 				element.checked = true;
 			});
@@ -91,7 +91,7 @@ describe('d2l-activity-exemptions', function() {
 			flush(function() {
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				items.forEach(function(element) {
-					expect(element.querySelector('d2l-checkbox').checked).to.equal(true);
+					expect(element.querySelector('d2l-input-checkbox').checked).to.equal(true);
 				}, this);
 			});
 
@@ -99,11 +99,11 @@ describe('d2l-activity-exemptions', function() {
 			flush(function() {
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				expect(items.length).to.equal(4);
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				checkbox.addEventListener('click', function() {
 					flush(function() {
 						items.forEach(function(element) {
-							expect(element.querySelector('d2l-checkbox').checked).to.equal(false);
+							expect(element.querySelector('d2l-input-checkbox').checked).to.equal(false);
 						}, this);
 						done();
 					});
@@ -219,7 +219,7 @@ describe('d2l-activity-exemptions', function() {
 		it('should mark users exempt if they are not already exempted', function(done) {
 
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var exemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[0];
 				element.exemptionsUpdateUrl = '/exemptmythings';
@@ -242,7 +242,7 @@ describe('d2l-activity-exemptions', function() {
 
 		it('should mark exempted users unexempt', function(done) {
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-checkbox').$$('input');
+				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
 				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
 				var unexemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[1];
 				element.exemptionsUpdateUrl = '/unexemptmythings';
