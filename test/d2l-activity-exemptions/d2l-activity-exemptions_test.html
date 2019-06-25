@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-activity-exemptions test</title>
+
+		<script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../bower_components/web-component-tester/browser.js"></script>
+		<script src="../../bower_components/iron-test-helpers/mock-interactions.js"></script>
+		<script src="../../bower_components/sinonjs/sinon.js"></script>
+		<script type="text/javascript">
+			window.D2L = {};
+			window.D2L.LP = {};
+			window.D2L.LP.Web = {};
+			window.D2L.LP.Web.Authentication = {};
+			window.D2L.LP.Web.Authentication.Xsrf = {};
+			window.D2L.LP.Web.Authentication.Xsrf.GetXsrfToken = function() {
+				return 'token';
+			};
+		</script>
+		<link rel="import" href="../../d2l-activity-exemptions.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<d2l-activity-exemptions></d2l-activity-exemptions>
+			</template>
+		</test-fixture>
+
+		<script src="./d2l-activity-exemptions_test.js"></script>
+
+	</body>
+</html>
