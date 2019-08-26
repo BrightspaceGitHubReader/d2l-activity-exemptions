@@ -6,21 +6,22 @@
 
 		<title>d2l-activity-exemptions test</title>
 
-		<script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-		<script src="../../bower_components/web-component-tester/browser.js"></script>
-		<script src="../../bower_components/iron-test-helpers/mock-interactions.js"></script>
-		<script src="../../bower_components/sinonjs/sinon.js"></script>
-		<script type="text/javascript">
-			window.D2L = {};
-			window.D2L.LP = {};
-			window.D2L.LP.Web = {};
-			window.D2L.LP.Web.Authentication = {};
-			window.D2L.LP.Web.Authentication.Xsrf = {};
-			window.D2L.LP.Web.Authentication.Xsrf.GetXsrfToken = function() {
-				return 'token';
-			};
-		</script>
-		<link rel="import" href="../../d2l-activity-exemptions.html">
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
+		<script src="../../../sinonjs/sinon.js"></script>
+		<script type="module">
+import '../../d2l-activity-exemptions.js';
+window.D2L = {};
+window.D2L.LP = {};
+window.D2L.LP.Web = {};
+window.D2L.LP.Web.Authentication = {};
+window.D2L.LP.Web.Authentication.Xsrf = {};
+window.D2L.LP.Web.Authentication.Xsrf.GetXsrfToken = function() {
+	return 'token';
+};
+</script>
+		<script type="module" src="../../d2l-activity-exemptions.js"></script>
 	</head>
 	<body>
 		<test-fixture id="basic">

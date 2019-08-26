@@ -1,8 +1,9 @@
 {
+  "npm": true,
     "entrypoint": "index.html",
-    "shell": "d2l-activity-exemptions.html",
+    "shell": "d2l-activity-exemptions.js",
     "fragments": [
-      "d2l-activity-exemptions.html"
+      "d2l-activity-exemptions.js"
     ],
     "sources": [
       "src/**/*",
@@ -10,11 +11,7 @@
       "bower.json",
       "test.json"
     ],
-    "extraDependencies": [
-      "bower_components/polymer/**/*",
-      "bower_components/webcomponentsjs/webcomponents-lite.js"
-    ],
     "lint": {
-        "rules": ["polymer-2"]
+        "rules": ["polymer-3"]
     }
   }

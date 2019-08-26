@@ -8,23 +8,12 @@ describe('d2l-activity-exemptions', function() {
 		expect(element).to.exist;
 	});
 
-	it('should format the name correctly', function(done) {
-		element.userData = [
-			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true}
-		];
-		flush(function() {
-			var username = Polymer.dom(element.root).querySelectorAll('.userfullname')[0].innerText;
-			expect(username).to.equal('Benjamin Liam');
-			done();
-		});
-	});
-
 	it('exempt status should be Not Exempt for non exempted users', function(done) {
 		element.userData = [
 			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':false}
 		];
 		flush(function() {
-			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
+			var exemptStatus = element.root.querySelectorAll('.exemptStatus')[0].innerText;
 			expect(exemptStatus).to.equal('Not Exempt');
 			done();
 		});
@@ -35,7 +24,7 @@ describe('d2l-activity-exemptions', function() {
 			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true}
 		];
 		flush(function() {
-			var exemptStatus = Polymer.dom(element.root).querySelectorAll('.exemptStatus')[0].innerText;
+			var exemptStatus = element.root.querySelectorAll('.exemptStatus')[0].innerText;
 			expect(exemptStatus).to.equal('Exempt');
 			done();
 		});
@@ -50,17 +39,17 @@ describe('d2l-activity-exemptions', function() {
 		];
 
 		flush(function() {
-			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+			var items = element.root.querySelectorAll('.row-user');
 
 			expect(items.length).to.equal(4);
 
-			var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox');
+			var checkbox = element.root.querySelector('d2l-input-checkbox');
 			checkbox = checkbox.$$('input');
 			checkbox.addEventListener('click', function() {
 				flush(function() {
 					items.forEach(function(row) {
 						expect(row.querySelector('d2l-input-checkbox').checked).to.equal(true);
-					}, this);
+					});
 					done();
 				});
 			});
@@ -78,29 +67,29 @@ describe('d2l-activity-exemptions', function() {
 
 		// Manually set all checkboxes to checked
 		flush(function() {
-			var checkboxes = Polymer.dom(element.root).querySelectorAll('d2l-input-checkbox');
+			var checkboxes = element.root.querySelectorAll('d2l-input-checkbox');
 			checkboxes.forEach(function(element) {
 				element.checked = true;
 			});
 
 			// Verify that all checkboxes are indeed checked
 			flush(function() {
-				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+				var items = element.root.querySelectorAll('.row-user');
 				items.forEach(function(element) {
 					expect(element.querySelector('d2l-input-checkbox').checked).to.equal(true);
-				}, this);
+				});
 			});
 
 			// Click the '(de)select all' checkbox, and verify that all rows are unselected
 			flush(function() {
-				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+				var items = element.root.querySelectorAll('.row-user');
 				expect(items.length).to.equal(4);
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
+				var checkbox = element.root.querySelector('d2l-input-checkbox').$$('input');
 				checkbox.addEventListener('click', function() {
 					flush(function() {
 						items.forEach(function(element) {
 							expect(element.querySelector('d2l-input-checkbox').checked).to.equal(false);
-						}, this);
+						});
 						done();
 					});
 				});
@@ -140,7 +129,7 @@ describe('d2l-activity-exemptions', function() {
 		element.userData = [];
 		flush(function() {
 			expect(element).to.exist;
-			var items = Polymer.dom(element.root).querySelectorAll('.row-user');
+			var items = element.root.querySelectorAll('.row-user');
 			expect(items.length).to.equal(0);
 			done();
 		});
@@ -158,7 +147,7 @@ describe('d2l-activity-exemptions', function() {
 		});
 		it('should show how many users are exempted', function(done) {
 			flush(function() {
-				var exemptionsCount = Polymer.dom(element.root).querySelector('#exemptions-count');
+				var exemptionsCount = element.root.querySelector('#exemptions-count');
 				expect(exemptionsCount.innerText.trim()).to.equal('Exemptions: 3');
 				done();
 			});
@@ -171,7 +160,7 @@ describe('d2l-activity-exemptions', function() {
 				element.set('userData.0', {});
 				element.set('userData.0', user);
 				flush(function() {
-					var exemptionsCount = Polymer.dom(element.root).querySelector('#exemptions-count');
+					var exemptionsCount = element.root.querySelector('#exemptions-count');
 					expect(exemptionsCount.innerText.trim()).to.equal('Exemptions: 2');
 					done();
 				});
@@ -181,7 +170,7 @@ describe('d2l-activity-exemptions', function() {
 		it('should handle zero students', function(done) {
 			element.userData = [];
 			flush(function() {
-				var exemptionsCount = Polymer.dom(element.root).querySelector('#exemptions-count');
+				var exemptionsCount = element.root.querySelector('#exemptions-count');
 				expect(exemptionsCount.innerText.trim()).to.equal('Exemptions: 0');
 				done();
 			});
@@ -215,9 +204,9 @@ describe('d2l-activity-exemptions', function() {
 		it('should mark users exempt if they are not already exempted', function(done) {
 
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
-				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
-				var exemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[0];
+				var checkbox = element.root.querySelector('d2l-input-checkbox').$$('input');
+				var items = element.root.querySelectorAll('.row-user');
+				var exemptButton = element.root.querySelectorAll('.toggle-exemption-buttons')[0];
 				element.exemptionsUpdateUrl = '/exemptmythings';
 
 				MockInteractions.tap(checkbox);
@@ -227,7 +216,7 @@ describe('d2l-activity-exemptions', function() {
 							expect(items.length).to.equal(4);
 							items.forEach(function() {
 								expect(fetchStub.callCount).to.be.equal(2);
-							}, this);
+							});
 							done();
 						});
 					});
@@ -238,9 +227,9 @@ describe('d2l-activity-exemptions', function() {
 
 		it('should mark exempted users unexempt', function(done) {
 			flush(function() {
-				var checkbox = Polymer.dom(element.root).querySelector('d2l-input-checkbox').$$('input');
-				var items = Polymer.dom(element.root).querySelectorAll('.row-user');
-				var unexemptButton = Polymer.dom(element.root).querySelectorAll('.toggle-exemption-buttons')[1];
+				var checkbox = element.root.querySelector('d2l-input-checkbox').$$('input');
+				var items = element.root.querySelectorAll('.row-user');
+				var unexemptButton = element.root.querySelectorAll('.toggle-exemption-buttons')[1];
 				element.exemptionsUpdateUrl = '/unexemptmythings';
 
 				MockInteractions.tap(checkbox);
@@ -250,7 +239,7 @@ describe('d2l-activity-exemptions', function() {
 							expect(items.length).to.equal(4);
 							items.forEach(function() {
 								expect(fetchStub.callCount).to.be.equal(2);
-							}, this);
+							});
 							done();
 						});
 					});
@@ -260,3 +249,4 @@ describe('d2l-activity-exemptions', function() {
 		});
 	});
 });
+

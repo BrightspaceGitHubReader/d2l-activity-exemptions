@@ -1,0 +1,30 @@
+import '@polymer/polymer/polymer-legacy.js';
+import 'd2l-localize-behavior/d2l-localize-behavior.js';
+
+/* eslint-disable */
+window.D2L = window.D2L || {};
+window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
+window.D2L.PolymerBehaviors.D2LActivityExemptions = window.D2L.PolymerBehaviors.D2LActivityExemptions || {};
+/**
+ * THIS FILE IS GENERATED. RUN `npm run build:lang` TO REGENERATE.
+ * Localizes the D2LActivityExemptions component.
+ * @polymerBehavior D2L.PolymerBehaviors.D2LActivityExemptions.LocalizeBehavior
+ */
+D2L.PolymerBehaviors.D2LActivityExemptions.LocalizeBehaviorImpl = {
+	properties: {
+		/**
+		 * Localization resources.
+		 */
+		resources: {
+			value: function() {
+				return {{> locales }};
+			}
+		}
+	}
+};
+
+/** @polymerBehavior D2L.PolymerBehaviors.D2LActivityExemptions.LocalizeBehavior */
+D2L.PolymerBehaviors.D2LActivityExemptions.LocalizeBehavior = [
+	D2L.PolymerBehaviors.LocalizeBehavior,
+	D2L.PolymerBehaviors.D2LActivityExemptions.LocalizeBehaviorImpl
+];

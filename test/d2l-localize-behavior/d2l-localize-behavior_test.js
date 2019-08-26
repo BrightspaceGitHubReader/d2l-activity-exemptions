@@ -12,7 +12,7 @@ describe('d2l-localize-behavior', function() {
 		{
 			label: 'English',
 			code: 'en',
-			expected: 'Select / Unselect All'
+			expected: 'Select / Unselect all'
 		}
 	].forEach(function(val) {
 		it('should render in ' + val.label, function() {
@@ -29,13 +29,13 @@ describe('d2l-localize-behavior', function() {
 	].forEach( lang => {
 		it(`should fall back to base language when lang is: '${lang}'`, function() {
 			document.documentElement.lang = 'EN';
-			expect(elem.innerText).to.eql('Select / Unselect All');
+			expect(elem.innerText).to.eql('Select / Unselect all');
 		});
 	});
 
 	it('should fall back to org default language', function() {
 		document.documentElement.lang = '';
 		document.documentElement.setAttribute('data-lang-default', 'en');
-		expect(elem.innerText).to.eql('Select / Unselect All');
+		expect(elem.innerText).to.eql('Select / Unselect all');
 	});
 });
