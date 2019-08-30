@@ -1,0 +1,5 @@
+{
+	"name": "Activity Exemptions",
+	"source_dir": "lang",
+	"output_file_path": "lang/%CULTURE%.json"
+}

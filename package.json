@@ -32,6 +32,7 @@
     "eslint-config-brightspace": "^0.3.1",
     "eslint-plugin-html": "^3.2.0",
     "eslint-plugin-sinon": "^0.2.0",
+    "frau-publisher": "^2.7.10",
     "gulp": "^4.0.2",
     "gulp-merge-json": "^1.3.1",
     "plop": "^2.4.0",
@@ -49,6 +50,19 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "clean:all": "rimraf && rimraf node_modules"
+  },
+  "config": {
+    "frauPublisher": {
+      "files": "./dist/**",
+      "moduleType": "app",
+      "targetDirectory": "d2l-activity-exemptions",
+      "creds": {
+        "key": "AKIAJEH2VIEQUZY7KW4Q",
+        "secretVar": "S3_SECRET"
+      },
+      "devTagVar": "TRAVIS_COMMIT",
+      "versionVar": "TRAVIS_TAG"
+    }
   },
   "main": "d2l-activity-exemptions.js"
 }
