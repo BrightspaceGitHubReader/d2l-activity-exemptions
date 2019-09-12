@@ -1,17 +1,30 @@
 {
   "npm": true,
-    "entrypoint": "index.html",
-    "shell": "d2l-activity-exemptions.js",
-    "fragments": [
-      "d2l-activity-exemptions.js"
-    ],
-    "sources": [
-      "src/**/*",
-      "images/**/*",
-      "bower.json",
-      "test.json"
-    ],
-    "lint": {
-        "rules": ["polymer-3"]
+  "entrypoint": "d2l-activity-exemptions.js",
+  "shell": "d2l-activity-exemptions.js",
+  "fragments": [
+    "mixins/d2l-load-more.js",
+    "localize-behavior.js"
+  ],
+  "sources": [
+    "locales.json"
+  ],
+  "builds": [{
+    "bundle": {
+      "inlineCss": true,
+      "inlineScripts": true,
+      "stripComments": true
     }
+  }],
+  "lint": {
+      "rules": ["polymer-3"],
+      "ignoreWarnings": [
+        "non-literal-import", 
+        "not-loadable", 
+        "set-unknown-attribute", 
+        "databind-with-unknown-property",
+        "databinding-calls-must-be-functions", 
+        "could-not-resolve-reference"
+      ]
   }
+}

@@ -4,8 +4,9 @@
     "type": "git",
     "url": "git+https://github.com/Brightspace/activity-exemptions.git"
   },
+  "appId": "urn:d2l:fra:class:activity-exemptions",
   "name": "activity-exemptions",
-  "version": "0.0.4",
+  "version": "2.0.4",
   "author": "D2L Corporation",
   "license": "UNLICENSED",
   "engines": {
@@ -43,25 +44,31 @@
   },
   "scripts": {
     "build:lang": "gulp && npm run gen:localize",
+    "build:polymer": "polymer build",
+    "clean:all": "rimraf && rimraf node_modules",
     "gen:localize": "plop localize",
-    "test": "polymer test",
-    "start": "polymer serve",
-    "update:all": "npm update",
     "lint": "npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
-    "clean:all": "rimraf && rimraf node_modules"
+    "publish:cdn": "frau-publisher",
+    "serve": "polymer analyze > analysis.json && polymer serve",
+    "start": "npm run serve",
+    "test": "polymer test",
+    "update:all": "npm update"
   },
   "config": {
     "frauPublisher": {
-      "files": "./dist/**",
+      "files": "./build/default/**",
       "moduleType": "app",
-      "targetDirectory": "d2l-activity-exemptions",
+      "targetDirectory": "activity-exemptions",
       "creds": {
-        "key": "AKIAJEH2VIEQUZY7KW4Q",
-        "secretVar": "S3_SECRET"
+        "key": "AKIA3HLX2CRXYZQKAYU2",
+        "secretVar": "CDN_SECRET"
       },
       "devTagVar": "TRAVIS_COMMIT",
-      "versionVar": "TRAVIS_TAG"
+      "versionVar": "TRAVIS_TAG",
+      "frauLocalAppResolver": {
+        "appClass": "urn:d2l:fra:class:activity-exemptions"
+      }
     }
   },
   "main": "d2l-activity-exemptions.js"

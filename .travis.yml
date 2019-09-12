@@ -1,17 +1,22 @@
 language: node_js
 sudo: true
-node_js: 8
-dist: trusty
+node_js: 10
 addons:
-    apt:
-        sources:
-            - google-chrome
-        packages:
-            - google-chrome-stable
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
 before_install:
-    - export PATH=$PWD/node_modules/.bin:$PATH
+- export PATH=$PWD/node_modules/.bin:$PATH
 install:
-    - npm install
+- npm install
+after_success:
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] || [ "x$TRAVIS_TAG"
+  != "x" ] && export NODE_ENV=production && npm run publish:dev:cdn'
 script:
-    - npm run lint
-    - npm run test
+- npm run lint
+- npm run test
+env:
+  global:
+    secure: 1xzYNFmZBNz15DvJG+pvvJFLwNieSM83rIRSvAZgPcGDrZUVogUKEMrEwH+Iho0k6DbrSMNqT9lBl6q9Fwp7dvBKosB9UPu+/swt5vrdqTc+qdEFqCaMZ5Xzh72PnTobcQ3cgomId5vNTLOxRhJO1lHQeB2wB7VuUr+ZViDf8PJ9EpGyLULAJhG8/aFbS0S3QZ2w33BPfUT27YBhygDJWmEclU/6BjChMeiCxcsysl6JaSFNBAe/VMnL4DOZhJHQpo4nD81k4rZEpL9YeHJIbA3KC8q/+YUvYHJIeUNqjAzFarhxNF11LrFK42VEio1sWSJrAeGWmrjYmIH5wMk+9ja+fgVkm0BarhVkfIPuyPmdpt93by/shQakxtIi0IUVQGot59HQNFBgd7XRVf7+aVes3rwGMizcNh4M5y7aHye4xgAzZWU3K1dZbkMbdnU7O4xEvDxNZ1hXtxGI7uwGp6aE9dyk7b26PnMyxkcD7oSiECgFcBmJjZJQP/X0VUzrgB3vFa7nygi6s9SgYD//8O66JuuJBt4zUWNbVYBL5qUHtIOTnC87TCTeZFvZkHdTRmVfKSDpN0cnt4kawyezgv/HlQmYMkycN++OyP3rPzK55ZgVfe12BuF8lzFOA0sCfqkdvy+xyyk9D2tOEu0CN0/leqg5N720XiLsrAknZOM=
