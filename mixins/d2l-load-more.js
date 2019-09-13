@@ -1,8 +1,11 @@
 const options = {
-	credentials: 'include',
+//	credentials: 'include',
 	headers: new Headers({
-		'Access-Control-Allow-Origin': '*'
+		'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjRiMzgyZGRjLTI5OTktNGNhMi1iNGQ0LWQzNjU4Y2ZlMGM0ZSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiIzODY5ZGIzZC00MjE4LTQ4MjgtYjc0MS0yNjFiOTVhMjcwYmQiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4MzIzODQzLCJuYmYiOjE1NjgzMjAyNDN9.I7S1CORsCxzZk28LMY4CzMbjqawmmDymGZ-cyVx5AbMX-KW96PAxKFVOga3_G5d34qlbLKKuR8QpNNZ7W1xb53D90pVcB3cWaQfNSchCLqjSX3Ai21k81EWB7E0ykyRhsXVVKEIf2WQsz-qTHnocjC8wtj1IgRYjG9Dmsdo_uOKI8ooJiTKkNDKPcr-9eaw0Lrks6K9DUrQkaOt5GF3dsksphkFvf0JlrhlpwGaZInIKU89CnLzO8ewMZ1RAX7dU0jCzGmUq7ca3Fpl5fsXVnhOws40np_Mkryrx5SDtRb5drxdCuOoCJ4eRZDUXm4oEG76MFnwPhN_rfnwi16pqVA',
+//		'Access-Control-Allow-Origin': 'KLX0-BKAINS.desire2learn.d2l',
+//		'X-Csrf-Token': "4gxBmXgBcsZHaosAV9LsvLiZhj1UGj4m" 
 	}),
+	method: 'GET',
 	mode: 'cors'
 };
 
@@ -70,6 +73,7 @@ const LoadMoreExemptionsBehaviorImpl = {
 	},
 
 	__mapUserData() {
+		console.log("map user data called");
 		this.set('userData', this.classlistItems.map(
 			(user)=>{
 				user.IsExempt = this.exemptions.some( e => {

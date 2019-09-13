@@ -1,6 +1,6 @@
 {
   "npm": true,
-  "entrypoint": "d2l-activity-exemptions.js",
+  "entrypoint": "index.html",
   "shell": "d2l-activity-exemptions.js",
   "fragments": [
     "mixins/d2l-load-more.js",

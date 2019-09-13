@@ -41,21 +41,8 @@ class D2LActivityExemptions extends mixinBehaviors(
         }
 
 		d2l-input-search {
-			width: 250px;
-			display: inline;
-			float: right;
-		}
-
-		div[role=main] {
-			width: 100%;
-		}
-
-		.toggle-exemption-buttons {
-			padding-right: 25px;
-		}
-
-		.bottom-buttons {
-			padding-top: 10px;
+			width: 200px;
+			display: block;
 		}
       </style>
       <style include="d2l-table-style"></style>
@@ -80,7 +67,7 @@ class D2LActivityExemptions extends mixinBehaviors(
           [[localize('btnUnexempt')]]
         </d2l-button>
 
-		<d2l-input-search id="search" placeholder="Search For...">
+		<d2l-input-search label="Search" placeholder="Search For...">
 		</d2l-input-search>
 
         <div id="exemptions-count">
@@ -105,7 +92,10 @@ class D2LActivityExemptions extends mixinBehaviors(
               </d2l-th>
 
               <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblFirstName')]] [[localize('lblLastName')]]
+                [[localize('lblFirstName')]]
+              </d2l-th>
+              <d2l-th scope="col" role="columnheader" aria-sort="none">
+                [[localize('lblLastName')]]
               </d2l-th>
 
               <d2l-th scope="col" role="columnheader" aria-sort="none">
@@ -130,7 +120,10 @@ class D2LActivityExemptions extends mixinBehaviors(
                 </d2l-td>
 
                 <d2l-th scope="row" role="rowheader" class="userfullname">
-                  [[item.FirstName]] [[item.LastName]]
+                  [[item.FirstName]]
+                </d2l-th>
+                <d2l-th scope="row" role="rowheader" class="userfullname">
+                  [[item.LastName]]
                 </d2l-th>
 
                 <d2l-th scope="row" role="rowheader">
@@ -152,7 +145,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 
         <template is="dom-if" if="[[hasMoreItems]]">
           <d2l-button
-            class="toggle-exemption-buttons bottom-buttons"
+            class="toggle-exemption-buttons"
             role="button"
             aria-label$="[[localize('ariabtnLoadMore')]]"
             on-click="loadMore"
@@ -162,7 +155,7 @@ class D2LActivityExemptions extends mixinBehaviors(
         </template>
 
         <d2l-button
-          class="toggle-exemption-buttons bottom-buttons"
+          class="toggle-exemption-buttons"
           role="button"
           aria-label$="[[localize('ariaExempt')]]"
           primary=""
@@ -172,7 +165,7 @@ class D2LActivityExemptions extends mixinBehaviors(
         </d2l-button>
 
         <d2l-button
-          class="toggle-exemption-buttons bottom-buttons"
+          class="toggle-exemption-buttons"
           role="button"
           aria-label$="[[localize('ariaUnexempt')]]"
           on-click="unexemptSelected"
@@ -196,24 +189,8 @@ class D2LActivityExemptions extends mixinBehaviors(
 			},
 			exemptionsUpdateUrl: {
 				type: String
-			},
-			searchValue: {
-				type: String,
-				value: '',
-				notify: true,
-				reflectToAttribute: true
 			}
 		};
-	}
-
-	doSearch(e) {
-		this.searchValue = e.detail.value;
-		console.log(this.searchValue);
-	}
-
-	ready() {
-		super.ready();
-		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
 	}
 
 	exemptSelected() {
