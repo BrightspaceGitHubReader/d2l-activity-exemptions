@@ -26,7 +26,7 @@ describe('d2l-localize-behavior', function() {
 		'EN-XX',
 		'',
 		'XX'
-	].forEach( lang => {
+	].forEach(lang => {
 		it(`should fall back to base language when lang is: '${lang}'`, function() {
 			document.documentElement.lang = 'EN';
 			expect(elem.innerText).to.eql('Select / Unselect all');

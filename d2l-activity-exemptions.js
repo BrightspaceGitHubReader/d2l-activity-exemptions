@@ -26,6 +26,26 @@ class D2LActivityExemptions extends mixinBehaviors(
 	],
 	PolymerElement
 ) {
+	static get is() {
+		return 'd2l-activity-exemptions';
+	}
+	static get properties() {
+		return {
+			exemptionCount: {
+				type: String,
+				computed: 'getUserExemptionCount(userData.*)'
+			},
+			exemptionsUpdateUrl: {
+				type: String
+			},
+			searchValue: {
+				type: String,
+				value: '',
+				notify: true,
+				reflectToAttribute: true
+			}
+		};
+	}
 	static get template() {
 		return html`
 	  <style>
@@ -185,41 +205,20 @@ class D2LActivityExemptions extends mixinBehaviors(
 	`;
 	}
 
-	static get is() {
-		return 'd2l-activity-exemptions';
-	}
-	static get properties() {
-		return {
-			exemptionCount: {
-				type: String,
-				computed: 'getUserExemptionCount(userData.*)'
-			},
-			exemptionsUpdateUrl: {
-				type: String
-			},
-			searchValue: {
-				type: String,
-				value: '',
-				notify: true,
-				reflectToAttribute: true
-			}
-		};
-	}
-
 	ready() {
 		super.ready();
 		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
 	}
 
 	doSearch(e) {
-		this.set(`searchTerm`, e.detail.value);
+		this.set('searchTerm', e.detail.value);
 		const options = {
 			headers: new Headers({
 				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJkNDRlMTExMy03MjFjLTQ0ZDAtOTdhMS00NDAyMDE0MzU0NTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjM5NTMyLCJuYmYiOjE1Njg2MzU5MzJ9.aaJIkAIfCL4ycC_wEreVgRsputQ09zAVQMD2iBYaQm9VcnLAmTsZaQiqMGI2fzXYsXbuQPvLoDodEBECtxMDxsZxvGt4Nfjvz3xmgd6sb5Nx7KYsRItjmMjAgQC2BWiShBAh_kvaBBAd14mmaxUmzie24t3zCPik0qMb87qU8D28DLXntnlnrMfXoMcEgFJCUIFcrkakonLfDrQU8zHjDShNHDPvu7ges2xAIY68-iWHtIah0mC8QWSe6XZgPdCDpHIpKK2XRM4spFMAsiaXesZp-BAyjjR7gep1DhlEjo9-kvQl_ke-bquAkljaxfPcuRVUVOdvvfr7vRoF5dKpNA',
 			}),
 			method: 'GET',
 			mode: 'cors'
-		}
+		};
 		let url = this.classlistUrl;
 		url += `&searchTerm=${this.searchTerm}`;
 		console.log(url);
@@ -227,8 +226,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		fetch(url, options)
 			.then(r => r.json())
 			.then(d => {
-				console.log(d.Items);
-				this.set(`classlistItems`, []);
+				this.set('classlistItems', []);
 				this.__loadPagedData(d);
 				this.__mapUserData();
 			});
@@ -269,7 +267,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var userList = Array.from(this.$.classlist.querySelectorAll('.row-user'));
 		var filteredSelection = userList.filter(
 			element =>
-			element.querySelector('.checkbox-user[checked]') &&
+				element.querySelector('.checkbox-user[checked]') &&
 			element.data['IsExempt'] !== isExempt
 		);
 		var token = "UXXOlaOs97ldsbFMcpO1glAv4S95MMuV"; //D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
@@ -286,9 +284,9 @@ class D2LActivityExemptions extends mixinBehaviors(
 			return fetch(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
-			).then(res => res.json())
-				.then((res) => {
-					console.log(element);
+			)
+				.then(res => res.json())
+				.then(() => {
 					const row = this.userData.findIndex(function(el) {
 						if (el.Identifier === element.data.Identifier) return el;
 					});
