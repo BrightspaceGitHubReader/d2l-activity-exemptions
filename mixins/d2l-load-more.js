@@ -60,20 +60,6 @@ const LoadMoreExemptionsBehaviorImpl = {
 			});
 	},
 
-	search() {
-		let url = this.classlistUrl;
-		console.log(this.searchTerm);
-		url += `&searchTerm=${this.searchTerm}`;
-		console.log(url);
-
-		fetch(url, options)
-			.then(r => r.json())
-			.then(d => {
-				this.__loadPagedData(d);
-				this.__mapUserData();
-			});
-	},
-
 	loadMore() {
 		let url = this.classlistUrl;
 
