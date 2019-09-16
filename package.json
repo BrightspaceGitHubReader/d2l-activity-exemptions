@@ -50,7 +50,7 @@
     "gen:localize": "plop localize",
     "lint": "npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
-	"lint:fix": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html --fix",
+    "lint:fix": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html --fix",
     "publish:cdn": "frau-publisher",
     "serve": "polymer analyze > analysis.json && polymer serve",
     "start": "npm run serve",

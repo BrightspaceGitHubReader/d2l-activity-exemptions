@@ -254,15 +254,5 @@ describe('d2l-activity-exemptions', function() {
 			var search = element.root.querySelector('d2l-input-search');		
 			expect(element).not.to.equal(NaN);
 		});
-
-		it('should fire search events') function() {
-			var search = element.root.querySelector('d2l-input-search');
-			var fired = false;
-			search.addEventListener('d2l-input-search-searched', function() {
-				fired = true;	
-			});
-			MockInteractions.pressEnter(search);
-			expect(fired).to.equal(true);
-		});
 	});
 });
