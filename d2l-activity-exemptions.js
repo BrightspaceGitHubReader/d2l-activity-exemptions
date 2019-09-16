@@ -26,6 +26,26 @@ class D2LActivityExemptions extends mixinBehaviors(
 	],
 	PolymerElement
 ) {
+	static get is() {
+		return 'd2l-activity-exemptions';
+	}
+	static get properties() {
+		return {
+			exemptionCount: {
+				type: String,
+				computed: 'getUserExemptionCount(userData.*)'
+			},
+			exemptionsUpdateUrl: {
+				type: String
+			},
+			searchValue: {
+				type: String,
+				value: '',
+				notify: true,
+				reflectToAttribute: true
+			}
+		};
+	}
 	static get template() {
 		return html`
 	  <style>
@@ -185,48 +205,27 @@ class D2LActivityExemptions extends mixinBehaviors(
 	`;
 	}
 
-	static get is() {
-		return 'd2l-activity-exemptions';
-	}
-	static get properties() {
-		return {
-			exemptionCount: {
-				type: String,
-				computed: 'getUserExemptionCount(userData.*)'
-			},
-			exemptionsUpdateUrl: {
-				type: String
-			},
-			searchValue: {
-				type: String,
-				value: '',
-				notify: true,
-				reflectToAttribute: true
-			}
-		};
-	}
-
 	ready() {
 		super.ready();
 		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
 	}
 
 	doSearch(e) {
-		this.set(`searchTerm`, e.detail.value);
+		this.set('searchTerm', e.detail.value);
 		const options = {
 			headers: new Headers({
 				'Access-Control-Allow-Origin': '*'
 			}),
 			method: 'GET',
 			mode: 'cors'
-		}
+		};
 		let url = this.classlistUrl;
 		url += `&searchTerm=${this.searchTerm}`;
 
 		fetch(url, options)
 			.then(r => r.json())
 			.then(d => {
-				this.set(`classlistItems`, []);
+				this.set('classlistItems', []);
 				this.__loadPagedData(d);
 				this.__mapUserData();
 			});
@@ -267,7 +266,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var userList = Array.from(this.$.classlist.querySelectorAll('.row-user'));
 		var filteredSelection = userList.filter(
 			element =>
-			element.querySelector('.checkbox-user[checked]') &&
+				element.querySelector('.checkbox-user[checked]') &&
 			element.data['IsExempt'] !== isExempt
 		);
 		var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
@@ -284,8 +283,8 @@ class D2LActivityExemptions extends mixinBehaviors(
 			return fetch(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
-			).then(res => res.json())
-				.then((res) => {
+			)
+				.then(() => {
 					const row = this.userData.findIndex(function(el) {
 						if (el.Identifier === element.data.Identifier) return el;
 					});
