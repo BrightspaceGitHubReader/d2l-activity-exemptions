@@ -28,17 +28,17 @@ class D2LActivityExemptions extends mixinBehaviors(
 ) {
 	static get template() {
 		return html`
-      <style>
-        :host {
-          display: block;
-          padding-bottom: 40px;
-        }
+	  <style>
+		:host {
+		  display: block;
+		  padding-bottom: 40px;
+		}
 
-        paper-toast {
-          width: 350px;
-          margin-left: calc(50vw - 175px);
-          text-align: center;
-        }
+		paper-toast {
+		  width: 350px;
+		  margin-left: calc(50vw - 175px);
+		  text-align: center;
+		}
 
 		d2l-input-search {
 			width: 250px;
@@ -57,132 +57,132 @@ class D2LActivityExemptions extends mixinBehaviors(
 		.bottom-buttons {
 			padding-top: 10px;
 		}
-      </style>
-      <style include="d2l-table-style"></style>
+	  </style>
+	  <style include="d2l-table-style"></style>
 
-      <div role="main">
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaExempt')]]"
-          primary=""
-          on-click="exemptSelected"
-        >
-          [[localize('btnExempt')]]
-        </d2l-button>
+	  <div role="main">
+		<d2l-button
+		  class="toggle-exemption-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaExempt')]]"
+		  primary=""
+		  on-click="exemptSelected"
+		>
+		  [[localize('btnExempt')]]
+		</d2l-button>
 
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaUnexempt')]]"
-          on-click="unexemptSelected"
-        >
-          [[localize('btnUnexempt')]]
-        </d2l-button>
+		<d2l-button
+		  class="toggle-exemption-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaUnexempt')]]"
+		  on-click="unexemptSelected"
+		>
+		  [[localize('btnUnexempt')]]
+		</d2l-button>
 
 		<d2l-input-search id="search" placeholder="Search For...">
 		</d2l-input-search>
 
-        <div id="exemptions-count">
-          <p>[[exemptionCount]]</p>
-        </div>
+		<div id="exemptions-count">
+		  <p>[[exemptionCount]]</p>
+		</div>
 
-        <d2l-table
-          id="classlist"
-          role="grid"
-          summary="[[localize('ariaTableSummary')]]"
-          sticky-headers=""
-        >
-          <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
-          <d2l-thead>
-            <d2l-tr role="row">
-              <d2l-th>
-                <d2l-input-checkbox
-                  aria-label$="[[localize('selectUnselectAll')]]"
-                  on-change="selectAll"
-                >
-                </d2l-input-checkbox>
-              </d2l-th>
+		<d2l-table
+		  id="classlist"
+		  role="grid"
+		  summary="[[localize('ariaTableSummary')]]"
+		  sticky-headers=""
+		>
+		  <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
+		  <d2l-thead>
+			<d2l-tr role="row">
+			  <d2l-th>
+				<d2l-input-checkbox
+				  aria-label$="[[localize('selectUnselectAll')]]"
+				  on-change="selectAll"
+				>
+				</d2l-input-checkbox>
+			  </d2l-th>
 
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblFirstName')]] [[localize('lblLastName')]]
-              </d2l-th>
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblFirstName')]] [[localize('lblLastName')]]
+			  </d2l-th>
 
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblOrgDefinedId')]]
-              </d2l-th>
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblOrgDefinedId')]]
+			  </d2l-th>
 
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblExemptStatus')]]
-              </d2l-th>
-            </d2l-tr>
-          </d2l-thead>
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblExemptStatus')]]
+			  </d2l-th>
+			</d2l-tr>
+		  </d2l-thead>
 
-          <d2l-tbody>
-            <template is="dom-repeat" items="[[userData]]" observe="IsExempt">
-              <d2l-tr class="row-user" role="row" data="[[item]]">
-                <d2l-td>
-                  <d2l-input-checkbox
-                    class="checkbox-user"
-                    aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"
-                  >
-                  </d2l-input-checkbox>
-                </d2l-td>
+		  <d2l-tbody>
+			<template id="userListRows" is="dom-repeat" items="[[userData]]" observe="IsExempt">
+			  <d2l-tr class="row-user" role="row" data="[[item]]">
+				<d2l-td>
+				  <d2l-input-checkbox
+					class="checkbox-user"
+					aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"
+				  >
+				  </d2l-input-checkbox>
+				</d2l-td>
 
-                <d2l-th scope="row" role="rowheader" class="userfullname">
-                  [[item.FirstName]] [[item.LastName]]
-                </d2l-th>
+				<d2l-th scope="row" role="rowheader" class="userfullname">
+				  [[item.FirstName]] [[item.LastName]]
+				</d2l-th>
 
-                <d2l-th scope="row" role="rowheader">
-                  [[item.OrgDefinedId]]
-                </d2l-th>
+				<d2l-th scope="row" role="rowheader">
+				  [[item.OrgDefinedId]]
+				</d2l-th>
 
-                <d2l-th scope="row" role="rowheader" class="exemptStatus">
-                  <template is="dom-if" if="[[item.IsExempt]]">
-                    [[localize('lblExempt')]]
-                  </template>
-                  <template is="dom-if" if="[[!item.IsExempt]]">
-                    <d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
-                  </template>
-                </d2l-th>
-              </d2l-tr>
-            </template>
-          </d2l-tbody>
-        </d2l-table>
+				<d2l-th scope="row" role="rowheader" class="exemptStatus">
+				  <template is="dom-if" if="[[item.IsExempt]]">
+					[[localize('lblExempt')]]
+				  </template>
+				  <template is="dom-if" if="[[!item.IsExempt]]">
+					<d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
+				  </template>
+				</d2l-th>
+			  </d2l-tr>
+			</template>
+		  </d2l-tbody>
+		</d2l-table>
 
-        <template is="dom-if" if="[[hasMoreItems]]">
-          <d2l-button
-            class="toggle-exemption-buttons bottom-buttons"
-            role="button"
-            aria-label$="[[localize('ariabtnLoadMore')]]"
-            on-click="loadMore"
-          >
-            [[localize('btnLoadMore')]]
-          </d2l-button>
-        </template>
+		<template is="dom-if" if="[[hasMoreItems]]">
+		  <d2l-button
+			class="toggle-exemption-buttons bottom-buttons"
+			role="button"
+			aria-label$="[[localize('ariabtnLoadMore')]]"
+			on-click="loadMore"
+		  >
+			[[localize('btnLoadMore')]]
+		  </d2l-button>
+		</template>
 
-        <d2l-button
-          class="toggle-exemption-buttons bottom-buttons"
-          role="button"
-          aria-label$="[[localize('ariaExempt')]]"
-          primary=""
-          on-click="exemptSelected"
-        >
-          [[localize('btnExempt')]]
-        </d2l-button>
+		<d2l-button
+		  class="toggle-exemption-buttons bottom-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaExempt')]]"
+		  primary=""
+		  on-click="exemptSelected"
+		>
+		  [[localize('btnExempt')]]
+		</d2l-button>
 
-        <d2l-button
-          class="toggle-exemption-buttons bottom-buttons"
-          role="button"
-          aria-label$="[[localize('ariaUnexempt')]]"
-          on-click="unexemptSelected"
-        >
-          [[localize('btnUnexempt')]]
-        </d2l-button>
+		<d2l-button
+		  class="toggle-exemption-buttons bottom-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaUnexempt')]]"
+		  on-click="unexemptSelected"
+		>
+		  [[localize('btnUnexempt')]]
+		</d2l-button>
 
-        <paper-toast id="toast"></paper-toast>
-      </div>
-    `;
+		<paper-toast id="toast"></paper-toast>
+	  </div>
+	`;
 	}
 
 	static get is() {
@@ -206,14 +206,32 @@ class D2LActivityExemptions extends mixinBehaviors(
 		};
 	}
 
-	doSearch(e) {
-		this.searchValue = e.detail.value;
-		console.log(this.searchValue);
-	}
-
 	ready() {
 		super.ready();
 		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
+	}
+
+	doSearch(e) {
+		this.set(`searchTerm`, e.detail.value);
+		const options = {
+			headers: new Headers({
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJkNDRlMTExMy03MjFjLTQ0ZDAtOTdhMS00NDAyMDE0MzU0NTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjM5NTMyLCJuYmYiOjE1Njg2MzU5MzJ9.aaJIkAIfCL4ycC_wEreVgRsputQ09zAVQMD2iBYaQm9VcnLAmTsZaQiqMGI2fzXYsXbuQPvLoDodEBECtxMDxsZxvGt4Nfjvz3xmgd6sb5Nx7KYsRItjmMjAgQC2BWiShBAh_kvaBBAd14mmaxUmzie24t3zCPik0qMb87qU8D28DLXntnlnrMfXoMcEgFJCUIFcrkakonLfDrQU8zHjDShNHDPvu7ges2xAIY68-iWHtIah0mC8QWSe6XZgPdCDpHIpKK2XRM4spFMAsiaXesZp-BAyjjR7gep1DhlEjo9-kvQl_ke-bquAkljaxfPcuRVUVOdvvfr7vRoF5dKpNA',
+			}),
+			method: 'GET',
+			mode: 'cors'
+		}
+		let url = this.classlistUrl;
+		url += `&searchTerm=${this.searchTerm}`;
+		console.log(url);
+
+		fetch(url, options)
+			.then(r => r.json())
+			.then(d => {
+				console.log(d.Items);
+				this.set(`classlistItems`, []);
+				this.__loadPagedData(d);
+				this.__mapUserData();
+			});
 	}
 
 	exemptSelected() {
@@ -251,16 +269,14 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var userList = Array.from(this.$.classlist.querySelectorAll('.row-user'));
 		var filteredSelection = userList.filter(
 			element =>
-				element.querySelector('.checkbox-user[checked]') &&
-				element.data['IsExempt'] !== isExempt
+			element.querySelector('.checkbox-user[checked]') &&
+			element.data['IsExempt'] !== isExempt
 		);
-		var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
+		var token = "UXXOlaOs97ldsbFMcpO1glAv4S95MMuV"; //D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 		const options = {
-			credentials: 'include',
 			headers: new Headers({
-				'Access-Control-Allow-Origin': '*',
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJkNDRlMTExMy03MjFjLTQ0ZDAtOTdhMS00NDAyMDE0MzU0NTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjM5NTMyLCJuYmYiOjE1Njg2MzU5MzJ9.aaJIkAIfCL4ycC_wEreVgRsputQ09zAVQMD2iBYaQm9VcnLAmTsZaQiqMGI2fzXYsXbuQPvLoDodEBECtxMDxsZxvGt4Nfjvz3xmgd6sb5Nx7KYsRItjmMjAgQC2BWiShBAh_kvaBBAd14mmaxUmzie24t3zCPik0qMb87qU8D28DLXntnlnrMfXoMcEgFJCUIFcrkakonLfDrQU8zHjDShNHDPvu7ges2xAIY68-iWHtIah0mC8QWSe6XZgPdCDpHIpKK2XRM4spFMAsiaXesZp-BAyjjR7gep1DhlEjo9-kvQl_ke-bquAkljaxfPcuRVUVOdvvfr7vRoF5dKpNA',
 				'Content-Type': 'application/json',
-				'X-Csrf-Token': token
 			}),
 			method: isExempt ? 'POST' : 'DELETE',
 			mode: 'cors'
@@ -270,14 +286,19 @@ class D2LActivityExemptions extends mixinBehaviors(
 			return fetch(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
-			).then(() => {
-				const rowIndex = element.rowIndex - 1; //offset for header
-				this.set(`userData.${rowIndex}.IsExempt`, isExempt);
-			});
+			).then(res => res.json())
+				.then((res) => {
+					console.log(element);
+					const row = this.userData.findIndex(function(el) {
+						if (el.Identifier === element.data.Identifier) return el;
+					});
+					this.set(`userData.${row}.IsExempt`, isExempt);
+				});
 		});
 
 		Promise.all(allPromises).then(() => {
 			this.showSaveToast(isExempt, allPromises.length);
+			this.$.userListRows.render();
 		});
 	}
 

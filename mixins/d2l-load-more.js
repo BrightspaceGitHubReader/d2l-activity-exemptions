@@ -1,7 +1,7 @@
 const options = {
 //	credentials: 'include',
 	headers: new Headers({
-		'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjA0ZTVkODM2LWIxOTgtNDQ4NS1hYTI5LTRlN2U0YTQxMjk3YiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiIyZGI0ZTE3YS0wODgzLTQ3ZjMtYTQyZC00ZjdlMzhkNGU5N2MiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4Mzg4MTAyLCJuYmYiOjE1NjgzODQ1MDJ9.EdzbPDDqvyUS2oj-KZeluQHCGWn9Pa0EfDJ9evcieEKcCw2HITKZjn7lFiPgZrj2dD08uHWDq3LgGjkz2Bfvx8Pb8RR_ktygbzHuXJDcnkF9aBA0J42DJrAT1yY8YekLuHuHF-nrgu77Pwox4DK7Y0B7-bTQ0G9CJBBK6Dl6x691HjhJQXxllr0aLRzWgr2zzB6e_OsBFUA3haw9YeJZehEHGzZWruoQpg6hixYcFA9DdnopVXdqwNmOSjqadWksGoCrt1ZOaksehFJIux8dIsY3KA5c41hwvgcwpFDV8IURIMy0pLkODk0GyxvCVDuzsxzGCgu45Ymxu_ylivhLDw',
+		'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJkNDRlMTExMy03MjFjLTQ0ZDAtOTdhMS00NDAyMDE0MzU0NTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjM5NTMyLCJuYmYiOjE1Njg2MzU5MzJ9.aaJIkAIfCL4ycC_wEreVgRsputQ09zAVQMD2iBYaQm9VcnLAmTsZaQiqMGI2fzXYsXbuQPvLoDodEBECtxMDxsZxvGt4Nfjvz3xmgd6sb5Nx7KYsRItjmMjAgQC2BWiShBAh_kvaBBAd14mmaxUmzie24t3zCPik0qMb87qU8D28DLXntnlnrMfXoMcEgFJCUIFcrkakonLfDrQU8zHjDShNHDPvu7ges2xAIY68-iWHtIah0mC8QWSe6XZgPdCDpHIpKK2XRM4spFMAsiaXesZp-BAyjjR7gep1DhlEjo9-kvQl_ke-bquAkljaxfPcuRVUVOdvvfr7vRoF5dKpNA',
 //		'Access-Control-Allow-Origin': 'KLX0-BKAINS.desire2learn.d2l',
 //		'X-Csrf-Token': "4gxBmXgBcsZHaosAV9LsvLiZhj1UGj4m" 
 	}),
@@ -32,11 +32,16 @@ const LoadMoreExemptionsBehaviorImpl = {
 		},
 		userData: {
 			type: Array,
-			value: []
+			value: [],
+			notify: true,
+			reflectToAttribute: true
 		},
 		page: {
 			type: Number,
 			value: 0
+		},
+		searchTerm: {
+			type: String
 		}
 	},
 	ready() {
@@ -57,11 +62,28 @@ const LoadMoreExemptionsBehaviorImpl = {
 			});
 	},
 
+	search() {
+		let url = this.classlistUrl;
+		console.log(this.searchTerm);
+		url += `&searchTerm=${this.searchTerm}`;
+		console.log(url);
+
+		fetch(url, options)
+			.then(r => r.json())
+			.then(d => {
+				this.__loadPagedData(d);
+				this.__mapUserData();
+			});
+	},
+
 	loadMore() {
 		let url = this.classlistUrl;
 
+		if ( this.searchTerm ) {
+			url += `&searchTerm=${this.searchTerm}`;
+		}
 		if ( this.bookmark ) {
-			url += `?bookmark=${this.bookmark}`;
+			url += `&bookmark=${this.bookmark}`;
 		}
 
 		fetch(url, options)
@@ -73,7 +95,6 @@ const LoadMoreExemptionsBehaviorImpl = {
 	},
 
 	__mapUserData() {
-		console.log("map user data called");
 		this.set('userData', this.classlistItems.map(
 			(user)=>{
 				user.IsExempt = this.exemptions.some( e => {
