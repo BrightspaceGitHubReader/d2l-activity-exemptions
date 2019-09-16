@@ -215,7 +215,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		this.set(`searchTerm`, e.detail.value);
 		const options = {
 			headers: new Headers({
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJkNDRlMTExMy03MjFjLTQ0ZDAtOTdhMS00NDAyMDE0MzU0NTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjM5NTMyLCJuYmYiOjE1Njg2MzU5MzJ9.aaJIkAIfCL4ycC_wEreVgRsputQ09zAVQMD2iBYaQm9VcnLAmTsZaQiqMGI2fzXYsXbuQPvLoDodEBECtxMDxsZxvGt4Nfjvz3xmgd6sb5Nx7KYsRItjmMjAgQC2BWiShBAh_kvaBBAd14mmaxUmzie24t3zCPik0qMb87qU8D28DLXntnlnrMfXoMcEgFJCUIFcrkakonLfDrQU8zHjDShNHDPvu7ges2xAIY68-iWHtIah0mC8QWSe6XZgPdCDpHIpKK2XRM4spFMAsiaXesZp-BAyjjR7gep1DhlEjo9-kvQl_ke-bquAkljaxfPcuRVUVOdvvfr7vRoF5dKpNA',
+				'Access-Control-Allow-Origin': '*'
 			}),
 			method: 'GET',
 			mode: 'cors'
