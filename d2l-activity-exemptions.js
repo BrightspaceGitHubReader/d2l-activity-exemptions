@@ -7,6 +7,7 @@ import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
+import 'd2l-inputs/d2l-input-search.js';
 import './localize-behavior.js';
 import './mixins/d2l-load-more.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -25,150 +26,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 	],
 	PolymerElement
 ) {
-	static get template() {
-		return html`
-      <style>
-        :host {
-          display: block;
-          padding-bottom: 40px;
-        }
-
-        paper-toast {
-          width: 350px;
-          margin-left: calc(50vw - 175px);
-          text-align: center;
-        }
-      </style>
-      <style include="d2l-table-style"></style>
-
-      <div role="main">
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaExempt')]]"
-          primary=""
-          on-click="exemptSelected"
-        >
-          [[localize('btnExempt')]]
-        </d2l-button>
-
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaUnexempt')]]"
-          on-click="unexemptSelected"
-        >
-          [[localize('btnUnexempt')]]
-        </d2l-button>
-
-        <div id="exemptions-count">
-          <p>[[exemptionCount]]</p>
-        </div>
-
-        <d2l-table
-          id="classlist"
-          role="grid"
-          summary="[[localize('ariaTableSummary')]]"
-          sticky-headers=""
-        >
-          <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
-          <d2l-thead>
-            <d2l-tr role="row">
-              <d2l-th>
-                <d2l-input-checkbox
-                  aria-label$="[[localize('selectUnselectAll')]]"
-                  on-change="selectAll"
-                >
-                </d2l-input-checkbox>
-              </d2l-th>
-
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblFirstName')]]
-              </d2l-th>
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblLastName')]]
-              </d2l-th>
-
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblOrgDefinedId')]]
-              </d2l-th>
-
-              <d2l-th scope="col" role="columnheader" aria-sort="none">
-                [[localize('lblExemptStatus')]]
-              </d2l-th>
-            </d2l-tr>
-          </d2l-thead>
-
-          <d2l-tbody>
-            <template is="dom-repeat" items="[[userData]]" observe="IsExempt">
-              <d2l-tr class="row-user" role="row" data="[[item]]">
-                <d2l-td>
-                  <d2l-input-checkbox
-                    class="checkbox-user"
-                    aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"
-                  >
-                  </d2l-input-checkbox>
-                </d2l-td>
-
-                <d2l-th scope="row" role="rowheader" class="userfullname">
-                  [[item.FirstName]]
-                </d2l-th>
-                <d2l-th scope="row" role="rowheader" class="userfullname">
-                  [[item.LastName]]
-                </d2l-th>
-
-                <d2l-th scope="row" role="rowheader">
-                  [[item.OrgDefinedId]]
-                </d2l-th>
-
-                <d2l-th scope="row" role="rowheader" class="exemptStatus">
-                  <template is="dom-if" if="[[item.IsExempt]]">
-                    [[localize('lblExempt')]]
-                  </template>
-                  <template is="dom-if" if="[[!item.IsExempt]]">
-                    <d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
-                  </template>
-                </d2l-th>
-              </d2l-tr>
-            </template>
-          </d2l-tbody>
-        </d2l-table>
-
-        <template is="dom-if" if="[[hasMoreItems]]">
-          <d2l-button
-            class="toggle-exemption-buttons"
-            role="button"
-            aria-label$="[[localize('ariabtnLoadMore')]]"
-            on-click="loadMore"
-          >
-            [[localize('btnLoadMore')]]
-          </d2l-button>
-        </template>
-
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaExempt')]]"
-          primary=""
-          on-click="exemptSelected"
-        >
-          [[localize('btnExempt')]]
-        </d2l-button>
-
-        <d2l-button
-          class="toggle-exemption-buttons"
-          role="button"
-          aria-label$="[[localize('ariaUnexempt')]]"
-          on-click="unexemptSelected"
-        >
-          [[localize('btnUnexempt')]]
-        </d2l-button>
-
-        <paper-toast id="toast"></paper-toast>
-      </div>
-    `;
-	}
-
 	static get is() {
 		return 'd2l-activity-exemptions';
 	}
@@ -180,8 +37,198 @@ class D2LActivityExemptions extends mixinBehaviors(
 			},
 			exemptionsUpdateUrl: {
 				type: String
+			},
+			searchValue: {
+				type: String,
+				value: '',
+				notify: true,
+				reflectToAttribute: true
 			}
 		};
+	}
+	static get template() {
+		return html`
+	  <style>
+		:host {
+		  display: block;
+		  padding-bottom: 40px;
+		}
+
+		paper-toast {
+		  width: 350px;
+		  margin-left: calc(50vw - 175px);
+		  text-align: center;
+		}
+
+		d2l-input-search {
+		  width: 250px;
+		  display: inline;
+		  float: right;
+		}
+
+		div[role=main] {
+		  width: 100%;
+		}
+
+		.toggle-exemption-buttons {
+		  padding-right: 25px;
+		}
+
+		.bottom-buttons {
+		  padding-top: 10px;
+		}
+	  </style>
+	  <style include="d2l-table-style"></style>
+
+	  <div role="main">
+		<d2l-button
+		  class="toggle-exemption-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaExempt')]]"
+		  primary=""
+		  on-click="exemptSelected"
+		>
+		  [[localize('btnExempt')]]
+		</d2l-button>
+
+		<d2l-button
+		  class="toggle-exemption-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaUnexempt')]]"
+		  on-click="unexemptSelected"
+		>
+		  [[localize('btnUnexempt')]]
+		</d2l-button>
+
+		<d2l-input-search id="search" placeholder="Search For...">
+		</d2l-input-search>
+
+		<div id="exemptions-count">
+		  <p>[[exemptionCount]]</p>
+		</div>
+
+		<d2l-table
+		  id="classlist"
+		  role="grid"
+		  summary="[[localize('ariaTableSummary')]]"
+		  sticky-headers=""
+		>
+		  <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
+		  <d2l-thead>
+			<d2l-tr role="row">
+			  <d2l-th>
+				<d2l-input-checkbox
+				  aria-label$="[[localize('selectUnselectAll')]]"
+				  on-change="selectAll"
+				>
+				</d2l-input-checkbox>
+			  </d2l-th>
+
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblFirstName')]] [[localize('lblLastName')]]
+			  </d2l-th>
+
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblOrgDefinedId')]]
+			  </d2l-th>
+
+			  <d2l-th scope="col" role="columnheader" aria-sort="none">
+				[[localize('lblExemptStatus')]]
+			  </d2l-th>
+			</d2l-tr>
+		  </d2l-thead>
+
+		  <d2l-tbody>
+			<template id="userListRows" is="dom-repeat" items="[[userData]]" observe="IsExempt">
+			  <d2l-tr class="row-user" role="row" data="[[item]]">
+				<d2l-td>
+				  <d2l-input-checkbox
+					class="checkbox-user"
+					aria-label$="[[localize('ariaSelectUser', 'lastName', item.LastName, 'firstName', item.FirstName)]]"
+				  >
+				  </d2l-input-checkbox>
+				</d2l-td>
+
+				<d2l-th scope="row" role="rowheader" class="userfullname">
+				  [[item.FirstName]] [[item.LastName]]
+				</d2l-th>
+
+				<d2l-th scope="row" role="rowheader">
+				  [[item.OrgDefinedId]]
+				</d2l-th>
+
+				<d2l-th scope="row" role="rowheader" class="exemptStatus">
+				  <template is="dom-if" if="[[item.IsExempt]]">
+					[[localize('lblExempt')]]
+				  </template>
+				  <template is="dom-if" if="[[!item.IsExempt]]">
+					<d2l-offscreen>[[localize('lblNotExempt')]]</d2l-offscreen>
+				  </template>
+				</d2l-th>
+			  </d2l-tr>
+			</template>
+		  </d2l-tbody>
+		</d2l-table>
+
+		<template is="dom-if" if="[[hasMoreItems]]">
+		  <d2l-button
+			class="toggle-exemption-buttons bottom-buttons"
+			role="button"
+			aria-label$="[[localize('ariabtnLoadMore')]]"
+			on-click="loadMore"
+		  >
+			[[localize('btnLoadMore')]]
+		  </d2l-button>
+		</template>
+
+		<d2l-button
+		  class="toggle-exemption-buttons bottom-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaExempt')]]"
+		  primary=""
+		  on-click="exemptSelected"
+		>
+		  [[localize('btnExempt')]]
+		</d2l-button>
+
+		<d2l-button
+		  class="toggle-exemption-buttons bottom-buttons"
+		  role="button"
+		  aria-label$="[[localize('ariaUnexempt')]]"
+		  on-click="unexemptSelected"
+		>
+		  [[localize('btnUnexempt')]]
+		</d2l-button>
+
+		<paper-toast id="toast"></paper-toast>
+	  </div>
+	`;
+	}
+
+	ready() {
+		super.ready();
+		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
+	}
+
+	doSearch(e) {
+		this.set('searchTerm', e.detail.value);
+		const options = {
+			headers: new Headers({
+				'Access-Control-Allow-Origin': '*'
+			}),
+			method: 'GET',
+			mode: 'cors'
+		};
+		let url = this.classlistUrl;
+		url += `&searchTerm=${this.searchTerm}`;
+
+		fetch(url, options)
+			.then(r => r.json())
+			.then(d => {
+				this.set('classlistItems', []);
+				this.__loadPagedData(d);
+				this.__mapUserData();
+			});
 	}
 
 	exemptSelected() {
@@ -220,13 +267,11 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var filteredSelection = userList.filter(
 			element =>
 				element.querySelector('.checkbox-user[checked]') &&
-				element.data['IsExempt'] !== isExempt
+			element.data['IsExempt'] !== isExempt
 		);
 		var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 		const options = {
-			credentials: 'include',
 			headers: new Headers({
-				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'application/json',
 				'X-Csrf-Token': token
 			}),
@@ -238,14 +283,18 @@ class D2LActivityExemptions extends mixinBehaviors(
 			return fetch(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
-			).then(() => {
-				const rowIndex = element.rowIndex - 1; //offset for header
-				this.set(`userData.${rowIndex}.IsExempt`, isExempt);
-			});
+			)
+				.then(() => {
+					const row = this.userData.findIndex(function(el) {
+						if (el.Identifier === element.data.Identifier) return el;
+					});
+					this.set(`userData.${row}.IsExempt`, isExempt);
+				});
 		});
 
 		Promise.all(allPromises).then(() => {
 			this.showSaveToast(isExempt, allPromises.length);
+			this.$.userListRows.render();
 		});
 	}
 

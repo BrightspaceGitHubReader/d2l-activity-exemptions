@@ -1,8 +1,9 @@
 const options = {
 	credentials: 'include',
 	headers: new Headers({
-		'Access-Control-Allow-Origin': '*'
+		'Access-Control-Allow-Origin': '*',
 	}),
+	method: 'GET',
 	mode: 'cors'
 };
 
@@ -29,26 +30,30 @@ const LoadMoreExemptionsBehaviorImpl = {
 		},
 		userData: {
 			type: Array,
-			value: []
+			value: [],
+			notify: true
 		},
 		page: {
 			type: Number,
 			value: 0
+		},
+		searchTerm: {
+			type: String
 		}
 	},
 	ready() {
 		Promise.all([
 			fetch(this.classlistUrl, options)
-				.then( r => r.json() )
-				.then( d => this.__loadPagedData(d) ),
+				.then(r => r.json())
+				.then(d => this.__loadPagedData(d)),
 			fetch(this.exemptionsUrl, options)
-				.then( r => r.json() )
-				.then( b => this.exemptions = b )
+				.then(r => r.json())
+				.then(b => this.exemptions = b)
 		])
-			.then( () => {
+			.then(() => {
 				this.__mapUserData();
 			})
-			.catch( () => {
+			.catch(() => {
 				this.$.toast.text = this.localize('lblCouldNotLoad');
 				this.$.toast.show();
 			});
@@ -57,13 +62,16 @@ const LoadMoreExemptionsBehaviorImpl = {
 	loadMore() {
 		let url = this.classlistUrl;
 
-		if ( this.bookmark ) {
-			url += `?bookmark=${this.bookmark}`;
+		if (this.searchTerm) {
+			url += `&searchTerm=${this.searchTerm}`;
+		}
+		if (this.bookmark) {
+			url += `&bookmark=${this.bookmark}`;
 		}
 
 		fetch(url, options)
-			.then( r => r.json() )
-			.then( d => {
+			.then(r => r.json())
+			.then(d => {
 				this.__loadPagedData(d);
 				this.__mapUserData();
 			});
@@ -72,7 +80,7 @@ const LoadMoreExemptionsBehaviorImpl = {
 	__mapUserData() {
 		this.set('userData', this.classlistItems.map(
 			(user)=>{
-				user.IsExempt = this.exemptions.some( e => {
+				user.IsExempt = this.exemptions.some(e => {
 					return e.UserId === user.Identifier;
 				});
 				return user;
@@ -84,7 +92,7 @@ const LoadMoreExemptionsBehaviorImpl = {
 		this.page++;
 		this.bookmark = pagedData.PagingInfo.Bookmark;
 		this.hasMoreItems = pagedData.PagingInfo.HasMoreItems;
-		this.push( 'classlistItems', ...pagedData.Items );
+		this.push('classlistItems', ...pagedData.Items);
 	}
 };
 

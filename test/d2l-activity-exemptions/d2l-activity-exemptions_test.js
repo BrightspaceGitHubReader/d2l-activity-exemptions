@@ -113,7 +113,7 @@ describe('d2l-activity-exemptions', function() {
 		];
 
 		element.__mapUserData();
-		expect( element.userData ).to.deep.equal(
+		expect(element.userData).to.deep.equal(
 			[
 				{'Identifier':1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
 				{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
@@ -180,7 +180,7 @@ describe('d2l-activity-exemptions', function() {
 	describe('d2l-activity-exemptions (un)exempt buttons', function() {
 		var fetchStub;
 		beforeEach(function() {
-			fetchStub = sinon.stub( window, 'fetch' );
+			fetchStub = sinon.stub(window, 'fetch');
 			const mockResponse = new window.Response(
 				'{"success":true}', {
 					status: 200,
