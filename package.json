@@ -24,8 +24,8 @@
     "d2l-table": "BrightspaceUI/table#semver:^2"
   },
   "devDependencies": {
-    "@polymer/iron-component-page": "^4.0.0",
-    "@polymer/iron-demo-helpers": "^3.0.0",
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/iron-test-helpers": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-eslint": "^10.0.2",
@@ -40,8 +40,7 @@
     "plop": "^2.4.0",
     "polymer-cli": "^1.9.10",
     "rimraf": "^2.6.1",
-    "wct-browser-legacy": "^1.0.1",
-    "web-component-tester": "^6.0.1"
+    "wct-browser-legacy": "^1.0.2"
   },
   "scripts": {
     "build:lang": "gulp && npm run gen:localize",
