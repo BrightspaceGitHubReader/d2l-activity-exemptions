@@ -31,8 +31,7 @@ const LoadMoreExemptionsBehaviorImpl = {
 		userData: {
 			type: Array,
 			value: [],
-			notify: true,
-			reflectToAttribute: true
+			notify: true
 		},
 		page: {
 			type: Number,
