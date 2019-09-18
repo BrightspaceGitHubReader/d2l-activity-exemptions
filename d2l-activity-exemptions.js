@@ -61,21 +61,21 @@ class D2LActivityExemptions extends mixinBehaviors(
 		}
 
 		d2l-input-search {
-			width: 250px;
-			display: inline;
-			float: right;
+		  width: 250px;
+		  display: inline;
+		  float: right;
 		}
 
 		div[role=main] {
-			width: 100%;
+		  width: 100%;
 		}
 
 		.toggle-exemption-buttons {
-			padding-right: 25px;
+		  padding-right: 25px;
 		}
 
 		.bottom-buttons {
-			padding-top: 10px;
+		  padding-top: 10px;
 		}
 	  </style>
 	  <style include="d2l-table-style"></style>
@@ -214,14 +214,13 @@ class D2LActivityExemptions extends mixinBehaviors(
 		this.set('searchTerm', e.detail.value);
 		const options = {
 			headers: new Headers({
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJjYTZjMzNjNi03YWZmLTRiZmItOGI4MS03MzBjMDQzMzI5MTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjY2OTczLCJuYmYiOjE1Njg2NjMzNzN9.rIdn1jFpi-TScFc4F0Fn2moQ_gCqsGua5DHz8Fp_5FG7xu5J1H5oNrWe4HshKYc62rrQri73Dtr4UhnUYOs70JEFXO8kTvZmA9_9FbRWlfZK3TjZb66VHX8zM63bP6UTnC4PCrCKgcmnf9kLaYrOSCtN-P6LDxYii720Dam5p1ta1VdpvBaZiZHBKmCONWZXhWMkB0dvzoWh29WYoTIqWTBai3SHirMvrKhCnlrIWvCJHuipHuSKUEej0LXyyKAWNHAN5jhkA3C3FK3g1yjELW2s3Mu06Tk--Qfph9W_JN7t95Hc60-2bUjgq86VZUloMIbMo2xHrX0XPTuKQjZ2fA',
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjFmZDkzNTNhLTNiNTItNDIxNS1hMzE0LTY4ODU1OTA3ZTZmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJmNTE3YjA3ZC1jMjQxLTQ2NzUtOTc0NC1iNTcxZWY3N2Y2MDQiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4ODEyNzc4LCJuYmYiOjE1Njg4MDkxNzh9.LPDw5Ptu3pRmOkeYDF_Mi3PbrAUO4yIZupF9I_iDmk1buCVZqC8CtZH6kAvF4qgv8SM8GM297YMqeuz_C5PLxJKhi1E5G6KNZBDmmfEJk4zeVLqDfCMEff1A7jZOYOBz2ZAy7zmU4wHs6F40UfwVMB398rJmBJvFl_wXFsXc8MHQX9-fqbVgtCVgKtMarhabaPXWC5wgB83TCKmsw6ZoCOFNzpolOQrEU3PmT51KntVmH1oQnWnqULaqZ_epkyM2M93n9EfKvoubZZIt_OxnMio1UIAAjtb28ERdrLL_v1ncGTZMbF23ousKufb8EDplLZrx7SvXeQyJMvtpWdOelw',
 			}),
 			method: 'GET',
 			mode: 'cors'
 		};
 		let url = this.classlistUrl;
 		url += `&searchTerm=${this.searchTerm}`;
-		console.log(url);
 
 		fetch(url, options)
 			.then(r => r.json())
@@ -256,10 +255,11 @@ class D2LActivityExemptions extends mixinBehaviors(
 	}
 
 	showSaveToast(isExempt, numChanged) {
-		var actionText = isExempt ? 'lblExemptSuccess' : 'lblUnexemptSuccess';
-
+		var actionText = isExempt ? 'toastExempt' : 'toastUnexempt';
+		console.log(actionText);
+		console.log(this.localize(actionText, 'count', numChanged));
 		this.$.toast.hide();
-		this.$.toast.text = this.localize(actionText, 'itemCount', numChanged);
+		this.$.toast.text = this.localize(actionText, 'count', numChanged);
 		this.$.toast.show();
 	}
 
@@ -270,11 +270,10 @@ class D2LActivityExemptions extends mixinBehaviors(
 				element.querySelector('.checkbox-user[checked]') &&
 			element.data['IsExempt'] !== isExempt
 		);
-		var token = "UXXOlaOs97ldsbFMcpO1glAv4S95MMuV"; //D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
+		var token ='';// D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 		const options = {
 			headers: new Headers({
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ijk0ODYzZmVkLTE3YWUtNGEyOS05NzY3LWVkYjIyMTJjNzAzNSJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJjYTZjMzNjNi03YWZmLTRiZmItOGI4MS03MzBjMDQzMzI5MTIiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4NjY2OTczLCJuYmYiOjE1Njg2NjMzNzN9.rIdn1jFpi-TScFc4F0Fn2moQ_gCqsGua5DHz8Fp_5FG7xu5J1H5oNrWe4HshKYc62rrQri73Dtr4UhnUYOs70JEFXO8kTvZmA9_9FbRWlfZK3TjZb66VHX8zM63bP6UTnC4PCrCKgcmnf9kLaYrOSCtN-P6LDxYii720Dam5p1ta1VdpvBaZiZHBKmCONWZXhWMkB0dvzoWh29WYoTIqWTBai3SHirMvrKhCnlrIWvCJHuipHuSKUEej0LXyyKAWNHAN5jhkA3C3FK3g1yjELW2s3Mu06Tk--Qfph9W_JN7t95Hc60-2bUjgq86VZUloMIbMo2xHrX0XPTuKQjZ2fA',
-				'Content-Type': 'application/json',
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjFmZDkzNTNhLTNiNTItNDIxNS1hMzE0LTY4ODU1OTA3ZTZmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJmNTE3YjA3ZC1jMjQxLTQ2NzUtOTc0NC1iNTcxZWY3N2Y2MDQiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4ODEyNzc4LCJuYmYiOjE1Njg4MDkxNzh9.LPDw5Ptu3pRmOkeYDF_Mi3PbrAUO4yIZupF9I_iDmk1buCVZqC8CtZH6kAvF4qgv8SM8GM297YMqeuz_C5PLxJKhi1E5G6KNZBDmmfEJk4zeVLqDfCMEff1A7jZOYOBz2ZAy7zmU4wHs6F40UfwVMB398rJmBJvFl_wXFsXc8MHQX9-fqbVgtCVgKtMarhabaPXWC5wgB83TCKmsw6ZoCOFNzpolOQrEU3PmT51KntVmH1oQnWnqULaqZ_epkyM2M93n9EfKvoubZZIt_OxnMio1UIAAjtb28ERdrLL_v1ncGTZMbF23ousKufb8EDplLZrx7SvXeQyJMvtpWdOelw'
 			}),
 			method: isExempt ? 'POST' : 'DELETE',
 			mode: 'cors'
@@ -285,7 +284,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
 			)
-				.then(res => res.json())
 				.then(() => {
 					const row = this.userData.findIndex(function(el) {
 						if (el.Identifier === element.data.Identifier) return el;
