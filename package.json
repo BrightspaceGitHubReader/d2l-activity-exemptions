@@ -21,7 +21,8 @@
     "d2l-localize-behavior": "github:BrightspaceUI/d2l-localize-behavior",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-simple-overlay": "Brightspace/simple-overlay.git#semver:^3",
-    "d2l-table": "BrightspaceUI/table#semver:^2"
+    "d2l-table": "BrightspaceUI/table#semver:^2",
+    "d2l-alert": "BrightspaceUI/alert#semver:^4"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.1",

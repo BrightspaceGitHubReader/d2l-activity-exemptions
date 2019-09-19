@@ -8,6 +8,7 @@ import 'd2l-offscreen/d2l-offscreen.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import 'd2l-inputs/d2l-input-search.js';
+import 'd2l-alert/d2l-alert-toast.js';
 import './localize-behavior.js';
 import './mixins/d2l-load-more.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -54,7 +55,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  padding-bottom: 40px;
 		}
 
-		paper-toast {
+		d2l-alert-toast {
 		  width: 350px;
 		  margin-left: calc(50vw - 175px);
 		  text-align: center;
@@ -200,7 +201,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  [[localize('btnUnexempt')]]
 		</d2l-button>
 
-		<paper-toast id="toast"></paper-toast>
+		<d2l-alert-toast id="toast" type="default" open></d2l-alert-toast>
 	  </div>
 	`;
 	}
@@ -214,7 +215,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		this.set('searchTerm', e.detail.value);
 		const options = {
 			headers: new Headers({
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjFmZDkzNTNhLTNiNTItNDIxNS1hMzE0LTY4ODU1OTA3ZTZmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJmNTE3YjA3ZC1jMjQxLTQ2NzUtOTc0NC1iNTcxZWY3N2Y2MDQiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4ODEyNzc4LCJuYmYiOjE1Njg4MDkxNzh9.LPDw5Ptu3pRmOkeYDF_Mi3PbrAUO4yIZupF9I_iDmk1buCVZqC8CtZH6kAvF4qgv8SM8GM297YMqeuz_C5PLxJKhi1E5G6KNZBDmmfEJk4zeVLqDfCMEff1A7jZOYOBz2ZAy7zmU4wHs6F40UfwVMB398rJmBJvFl_wXFsXc8MHQX9-fqbVgtCVgKtMarhabaPXWC5wgB83TCKmsw6ZoCOFNzpolOQrEU3PmT51KntVmH1oQnWnqULaqZ_epkyM2M93n9EfKvoubZZIt_OxnMio1UIAAjtb28ERdrLL_v1ncGTZMbF23ousKufb8EDplLZrx7SvXeQyJMvtpWdOelw',
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI4NzM1N2ZhLWE1NjUtNDEzNi05ZTZhLWMyOWNhOWMzZDkxNyJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiIxODliYzc1Ny0xMzdhLTRjOGUtYTZlNi1mYWE1YTVkNWRlOTMiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4OTA4OTQ1LCJuYmYiOjE1Njg5MDUzNDV9.dmmaDEF1Ems41QljKfobCIkCekcammU1FozkVN2sRxQ77niLL-LpNwlowkcMTXQ446tSTvSGhdQ9L0gIjYP2Vp3LzOJTwBjeafGNF-_hBSiCVP_k7xIFbjhAxPttNCSh25UmE-t3VTDN3nNgZSOy1D1Js8nrujd66n1BhIVR7akH0MQUgX1rebfqPm4bvYdiA9II7PT3s7B8GQb6AKnOdyvKptOreyxg7dl4OnlQozxQnb2bTBMsNl-UJyMKf9W8O20p6iyZZiG-bACrVbqEc5O7MY4PdPGK-BpcOljd5ucXLD4MrmHCoWNrwWOuxh4FZiAljAtXNxnpXfyfy2-rhw',
 			}),
 			method: 'GET',
 			mode: 'cors'
@@ -258,9 +259,9 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var actionText = isExempt ? 'toastExempt' : 'toastUnexempt';
 		console.log(actionText);
 		console.log(this.localize(actionText, 'count', numChanged));
-		this.$.toast.hide();
-		this.$.toast.text = this.localize(actionText, 'count', numChanged);
-		this.$.toast.show();
+		this.$.toast.open = false;
+		this.$.toast.subtext = this.localize(actionText, 'count', numChanged);
+		this.$.toast.open = true;
 	}
 
 	_toggleExemption(isExempt) {
@@ -273,7 +274,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var token ='';// D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
 		const options = {
 			headers: new Headers({
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjFmZDkzNTNhLTNiNTItNDIxNS1hMzE0LTY4ODU1OTA3ZTZmYiJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJmNTE3YjA3ZC1jMjQxLTQ2NzUtOTc0NC1iNTcxZWY3N2Y2MDQiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4ODEyNzc4LCJuYmYiOjE1Njg4MDkxNzh9.LPDw5Ptu3pRmOkeYDF_Mi3PbrAUO4yIZupF9I_iDmk1buCVZqC8CtZH6kAvF4qgv8SM8GM297YMqeuz_C5PLxJKhi1E5G6KNZBDmmfEJk4zeVLqDfCMEff1A7jZOYOBz2ZAy7zmU4wHs6F40UfwVMB398rJmBJvFl_wXFsXc8MHQX9-fqbVgtCVgKtMarhabaPXWC5wgB83TCKmsw6ZoCOFNzpolOQrEU3PmT51KntVmH1oQnWnqULaqZ_epkyM2M93n9EfKvoubZZIt_OxnMio1UIAAjtb28ERdrLL_v1ncGTZMbF23ousKufb8EDplLZrx7SvXeQyJMvtpWdOelw'
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI4NzM1N2ZhLWE1NjUtNDEzNi05ZTZhLWMyOWNhOWMzZDkxNyJ9.eyJzdWIiOiIxNjkiLCJ0ZW5hbnRpZCI6IjBjZGY0NDQ4LTczZmItNGIxMy1hNWI0LTE4Nzc2OTFmOWI2NiIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiIxODliYzc1Ny0xMzdhLTRjOGUtYTZlNi1mYWE1YTVkNWRlOTMiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY4OTA4OTQ1LCJuYmYiOjE1Njg5MDUzNDV9.dmmaDEF1Ems41QljKfobCIkCekcammU1FozkVN2sRxQ77niLL-LpNwlowkcMTXQ446tSTvSGhdQ9L0gIjYP2Vp3LzOJTwBjeafGNF-_hBSiCVP_k7xIFbjhAxPttNCSh25UmE-t3VTDN3nNgZSOy1D1Js8nrujd66n1BhIVR7akH0MQUgX1rebfqPm4bvYdiA9II7PT3s7B8GQb6AKnOdyvKptOreyxg7dl4OnlQozxQnb2bTBMsNl-UJyMKf9W8O20p6iyZZiG-bACrVbqEc5O7MY4PdPGK-BpcOljd5ucXLD4MrmHCoWNrwWOuxh4FZiAljAtXNxnpXfyfy2-rhw'
 			}),
 			method: isExempt ? 'POST' : 'DELETE',
 			mode: 'cors'
