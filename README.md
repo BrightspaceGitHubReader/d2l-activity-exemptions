@@ -39,5 +39,11 @@ $ polymer test
 
 Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
 
+## Versioning & Releasing
+
+All version changes should obey [semantic versioning](https://semver.org/) rules.
+
+Include either `[increment major]`, `[increment minor]` or `[increment patch]` in your merge commit message to automatically increment the `package.json` version and create a tag during the next build.
+
 [ci-url]: https://travis-ci.org/Brightspace/d2l-activity-exemptions	
 [ci-image]: https://img.shields.io/travis/Brightspace/d2l-activity-exemptions/master.svg
