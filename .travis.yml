@@ -16,7 +16,7 @@ script:
 - npm run lint
 - npm run test
 after_success:
-- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master"] && npm run publish:cdn'
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && npm run publish:cdn'
 - 'frauci-update-version -d=skip && export TRAVIS_TAG=$(frauci-get-version)'
 deploy:
   provider: releases
