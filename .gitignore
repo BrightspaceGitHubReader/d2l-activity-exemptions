@@ -4,3 +4,4 @@ dist/
 *.log
 analysis.json
 node_modules
+.swp

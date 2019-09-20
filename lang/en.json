@@ -26,7 +26,7 @@
 	"btnExempt": "Exempt",
 	"btnUnexempt": "Unexempt",
 	"btnLoadMore": "Load More...",
-	"toastExempt": "Saved successfully. Nothing saved | Saved successfully. 1 user exempted. | Saved successfully. {count} users exempted.",
-	"toastUnexempt": "Saved successfully. Nothing saved | Saved successfully. 1 user unexempted. | Saved successfully. {count} users unexempted.",
+	"toastExempt": "Saved successfully. {count, plural, =0 {Nothing saved. } one {1 user exempted.} other { {count} users exempted.}}",
+	"toastUnexempt": "Saved successfully. {count, plural, =0 {Nothing saved. } one {1 user unexempt.} other { {count} users unexempted.}}",
 	"toastCouldNotLoad": "Could not load activity exemption data"
 }

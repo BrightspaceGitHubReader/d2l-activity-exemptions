@@ -54,8 +54,8 @@ const LoadMoreExemptionsBehaviorImpl = {
 				this.__mapUserData();
 			})
 			.catch(() => {
-				this.$.toast.text = this.localize('lblCouldNotLoad');
-				this.$.toast.show();
+				this.$.toast.subtext = this.localize('toastCouldNotLoad');
+				this.$.toast.open = true;
 			});
 	},
 

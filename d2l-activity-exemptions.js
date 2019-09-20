@@ -1,5 +1,4 @@
 import '@polymer/polymer/polymer-legacy.js';
-import '@polymer/paper-toast/paper-toast.js';
 import 'd2l-table/d2l-table.js';
 import 'd2l-button/d2l-button.js';
 import 'd2l-offscreen/d2l-offscreen.js';
@@ -8,6 +7,7 @@ import 'd2l-offscreen/d2l-offscreen.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import 'd2l-inputs/d2l-input-search.js';
+import 'd2l-alert/d2l-alert-toast.js';
 import './localize-behavior.js';
 import './mixins/d2l-load-more.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -54,7 +54,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  padding-bottom: 40px;
 		}
 
-		paper-toast {
+		d2l-alert-toast {
 		  width: 350px;
 		  margin-left: calc(50vw - 175px);
 		  text-align: center;
@@ -200,7 +200,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  [[localize('btnUnexempt')]]
 		</d2l-button>
 
-		<paper-toast id="toast"></paper-toast>
+		<d2l-alert-toast id="toast" ></d2l-alert-toast>
 	  </div>
 	`;
 	}
@@ -255,11 +255,11 @@ class D2LActivityExemptions extends mixinBehaviors(
 	}
 
 	showSaveToast(isExempt, numChanged) {
-		var actionText = isExempt ? 'lblExemptSuccess' : 'lblUnexemptSuccess';
+		var actionText = isExempt ? 'toastExempt' : 'toastUnexempt';
 
-		this.$.toast.hide();
-		this.$.toast.text = this.localize(actionText, 'itemCount', numChanged);
-		this.$.toast.show();
+		this.$.toast.open = false;
+		this.$.toast.subtext = this.localize(actionText, 'count', numChanged);
+		this.$.toast.open = true;
 	}
 
 	_toggleExemption(isExempt) {
@@ -294,8 +294,15 @@ class D2LActivityExemptions extends mixinBehaviors(
 
 		Promise.all(allPromises).then(() => {
 			this.showSaveToast(isExempt, allPromises.length);
-			this.$.userListRows.render();
-		});
+		})
+			.catch(() => {
+				this.$.toast.open = false;
+				this.$.toast.subtext = this.localize('toastCouldNotLoad');
+				this.$.toast.open = true;
+			})
+			.finally(() => {
+				this.$.userListRows.render();
+			});
 	}
 
 	unexemptSelected() {
