@@ -16,8 +16,9 @@ script:
 - npm run lint
 - npm run test
 after_success:
-- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && npm run publish:cdn'
-- 'frauci-update-version -d=skip && export TRAVIS_TAG=$(frauci-get-version)'
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && npm
+  run publish:cdn'
+- frauci-update-version -d=skip && export TRAVIS_TAG=$(frauci-get-version)
 deploy:
   provider: releases
   api_key: "$GITHUB_RELEASE_TOKEN"
@@ -28,5 +29,4 @@ env:
   - REPO_NAME=d2l-activity-exemptions
   - OWNER_NAME=Brightspace
   - secure: ZZ4ZmlKGeDbDW6TWbNK6rCQzBGM6RvrnlVdCnf+qisYksU4wFvybJ8CDg8jakrK6HE3o+1aw8N3pzlImThQjcQsoiXCrTjLbzBxKvdOr2vZF8R3Z0Tw2Ckq2SxkyzwyZVJWZwbAOCIedi6kz3cEWK7RSc1vJPAaKiULI8lnb8WENU/AztTKjqHdRUGrJQUBYvIsHjXzJs/vb8x6V61K2nSVUyttV6ID3RtTqvNZsUgaAG4UZNucNgN5kL2/nlcXYN8WfWIsVX7FunSCaiRm4JQy4q5g1uQ/SK4qm1QJt+DQ/l0xiibJhthWFIDsMjS7922ELNbXXEQp+9r0p0squSNTX804qqkaDkkkJ+oLA7MjSTHakfOP66x3zTGpgAmDDDW4k6odxWZ6nOBLTS9BUcYLloll+CZnLS0fRNEOmS8c0JTV6rUtVu0z0kgEJ2ZhJkOBa7fQ0j4Vjk9luk2VCZNMuCYgufSziyruOWJpaJNPOJby8n+5koGqA1bxcv7tP13OYaB7sfEWBbps67fsjfwp1bAWA5GFkjkT7Oe603sxGGb5aDXNthFdphswGoKSCJ4m9+Uf00PrKywXpw2k264PRYAwa5E0zgs2kDADRDqzkSuXOhxfKiZKzdKKks87hgG5b1i0AdnBL3U6FqGgTrf8vOTpb4l8K5lgFI/6wHog=
-# GITHUB_RELEASE_TOKEN (73eb. . . .fdda)
-  - secure: CmFLpruMMC1X8ZVzH6al/wxNi36LmeYsud57Waj8NFjxhMVjhXx6iwZu9gw4xAufv3GU2EIgJ9J2+tiaNRaLuZKvT5zCk4NlfyCqcr+wOnQDlDIrpUSnzZmFl/2FfHQhqDiTkvGweomf70+A0dXATVN2EPTRDvfm9k+VE7ksqKbAGuQVGEx0WxBLmI0EtAh7ntQvpWk1EeatCFBRAWrod0uWXOJfEgiJzx4v0Ti9DlOzE1CdnRYh3/d90P0xH7EOwcD0PMt5ULsJmd/rDiiG2PuzOll+SKYzES9hKnRnx0KocrSepL38HiHEYKhw0E+DVSMnC/M5U6QsW0deiN6vP5FsR+DeE3TbBMf1lS5g0gPWA66OCxsRgIypmugCvuuPUDNhF6qVbEfX8M5pMLLyQDfazPIVYi+IGTkDUWIyE3d50IZNQB5QU5W9iLm9ZbSYwJs+ipqIx1cb7yX+OFSj4PkM+sXx4wIpte/IQ7h6Q2mkbUIZE5qAIEbPoFqMWi2PbkmNxJC9Lwr3AnGL+KuEkjR/AmIo0FHZKl1TOZ1mFfUghlo5mM4LZWzBpZJrTCLWcd4bB26dGXv2jqikMSfsRMXjTW7avHWqwIn25f7WEj94PgCPVJRGD++q6zAJ9wqU7BoZPtnEnBXZCj2orRPQS9T8w2+PmRjL6Hho9ePu8qE=
+  - secure: a/0miyOEGYnBXulXnJm3pROSAG86Rhal5aSEm4ch/aRwIryZ9ZZ8dI0S8uBJCEtNhHyClL0BDsuhht7+6uIGp+W3kXD9rv6002K83almwFW3QAvTp0QLONejsKeXPcfH29YqMd+WPO8c14D0IAbOPf9qcC1V4tSsbY2ihfZojyDqLRvwP1JDNQGlLsTcVa90ileEw9G7vS54NJ6rqOe5ZqBxR1KG7uk6IMzIsm8idt1Hp2+ovQvUz+QAtJKeVnRCgOHqQ07j7zl3yqukNIg/a5hBHAknOYt1VbpHBtdoTrUruP39ZtzW+w7TQVom5gq5FFfs6rG6MxCoeGTLzIXiXcgHRMLPw026Yj/ddgAO878hkvdBbfGSAwXBmoPveGc5dOKKHxvmGzP/pJSLT6ig2Z25W5M2qMRJOvghmllHim9R1AnBrV0M3h18AzK/Xf8hDhvh2/abBm+G9Z9bIL3CxDKrVI+Tum7CdYD3rfnXU1XWdlSnfcoztNQKzOxsAw0au1SSKohIyRBloAghus/a1l9MRwN9U7ooTV23VIx6KGOFxPnudU0fBRgoUeuukB44db7j5NKkHwZpWpgi2CwXgvn+jUZxf6Iq3CAy/TTJPeK6M378OaO9csKu6RrSpZBlFGUx+CqffG9Qr0oFNRypwku1WSR90IgTyvhvzSpn2zM=
