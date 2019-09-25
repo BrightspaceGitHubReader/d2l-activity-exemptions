@@ -1,7 +1,7 @@
 {
    "ariaExempt" : "إعفاء المستخدمين المحددين",
    "ariaLoadMore" : "تحميل مستخدمين إضافيين",
-   "ariaSearchButton" : "البحث عن مستخدمين",
+   "ariaSearchButton" : "بحث عن مستخدمين",
    "ariaSelectExemptUser" : "{fullName} المحدد/المحددة معفى/معفية",
    "ariaSelectNotExemptUser" : "{fullName} المحدد/المحددة غير معفى/غير معفية",
    "ariaSelectUnselectAll" : "تحديد / إلغاء تحديد الكل",
@@ -23,9 +23,9 @@
    "lblNoResultsFound" : "لم يتم العثور على نتائج لـ <strong>{queryTerm}</strong>.",
    "lblNoUsers" : "لم يتم العثور على مستخدمين.",
    "lblNotExempt" : "غير معفى",
-   "lblOrgDefinedId" : "معرِّف المؤسسة المحدد",
+   "lblOrgDefinedId" : "معرِّف المؤسسة المحدد",
    "lblSearchPlaceholder" : "البحث عن...",
-   "lblUser" : "مستخدم",
+   "lblUser" : "المستخدم",
    "toastCouldNotLoad" : "يتعذّر تحميل بيانات إعفاء النشاط",
    "toastExempt" : "تم الحفظ بنجاح. لم يتم حفظ أي شيء | تم الحفظ بنجاح. تم إعفاء مستخدم واحد. | تم الحفظ بنجاح. تم إعفاء {count} من المستخدمين.",
    "toastUnexempt" : "تم الحفظ بنجاح. لم يتم حفظ أي شيء | تم الحفظ بنجاح. تم إلغاء إعفاء مستخدم واحد. | تم الحفظ بنجاح. تم إلغاء إعفاء {count} من المستخدمين."
