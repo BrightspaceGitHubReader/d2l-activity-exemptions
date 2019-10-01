@@ -6,7 +6,7 @@
   },
   "appId": "urn:d2l:fra:class:activity-exemptions",
   "name": "activity-exemptions",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "author": "D2L Corporation",
   "license": "UNLICENSED",
   "engines": {
