@@ -1,6 +1,6 @@
 [![Build status][ci-image]][ci-url]
 
-# \<activity-exemptions\>
+# \<d2l-activity-exemptions\>
 
 Activity exemptions
 

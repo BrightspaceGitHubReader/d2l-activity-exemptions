@@ -5,7 +5,7 @@
     "url": "git+https://github.com/Brightspace/activity-exemptions.git"
   },
   "appId": "urn:d2l:fra:class:activity-exemptions",
-  "name": "activity-exemptions",
+  "name": "d2l-activity-exemptions",
   "version": "2.0.6",
   "author": "D2L Corporation",
   "license": "UNLICENSED",
@@ -13,7 +13,6 @@
     "node": "^10.0.0"
   },
   "dependencies": {
-    "@polymer/app-localize-behavior": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
     "d2l-alert": "BrightspaceUI/alert#semver:^4",
     "d2l-button": "BrightspaceUI/button#semver:^5",
@@ -21,8 +20,7 @@
     "d2l-localize-behavior": "BrightspaceUI/d2l-localize-behavior#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-simple-overlay": "Brightspace/simple-overlay.git#semver:^3",
-    "d2l-table": "BrightspaceUI/table#semver:^2",
-    "polymer-cli": "^1.9.11"
+    "d2l-table": "BrightspaceUI/table#semver:^2"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.1",
