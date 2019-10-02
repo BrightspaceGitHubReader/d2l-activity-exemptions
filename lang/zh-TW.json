@@ -24,7 +24,7 @@
    "lblNoUsers" : "找不到使用者。",
    "lblNotExempt" : "未免除",
    "lblOrgDefinedId" : "組織定義 ID",
-   "lblSearchPlaceholder" : "搜尋...",
+   "lblSearchPlaceholder" : "搜尋…",
    "lblUser" : "使用者",
    "toastCouldNotLoad" : "無法載入活動免除學分資料",
    "toastExempt" : "已成功儲存。沒有儲存任何項目 | 已成功儲存。1 位使用者已免除。| 已成功儲存。{count} 位使用者已免除。",

@@ -22,7 +22,7 @@
    "lblNoPermission" : "Sie haben möglicherweise keine Berechtigung, auf die Teilnehmerliste zuzugreifen, oder keine Benutzer verfügen über die Rolleneigenschaft „Kann mit Noten benotet werden“.",
    "lblNoResultsFound" : "Keine Ergebnisse für <strong>{queryTerm}</strong>.",
    "lblNoUsers" : "Keine Benutzer gefunden.",
-   "lblNotExempt" : "Nicht ausgenommen",
+   "lblNotExempt" : "Niicht ausgenommen",
    "lblOrgDefinedId" : "Organisationsspezifische ID",
    "lblSearchPlaceholder" : "Suchen nach …",
    "lblUser" : "Benutzer",

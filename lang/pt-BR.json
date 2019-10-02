@@ -23,7 +23,7 @@
    "lblNoResultsFound" : "Nenhum resultado encontrado para <strong>{queryTerm}</strong>.",
    "lblNoUsers" : "Nenhum usuário encontrado.",
    "lblNotExempt" : "Não Isento",
-   "lblOrgDefinedId" : "ID Definido da Organização",
+   "lblOrgDefinedId" : "ID definido pela organização",
    "lblSearchPlaceholder" : "Pesquisar…",
    "lblUser" : "Usuário",
    "toastCouldNotLoad" : "Não foi possível carregar dados de isenção da atividade",
