@@ -18,7 +18,7 @@
     "d2l-alert": "BrightspaceUI/alert#semver:^4",
     "d2l-button": "BrightspaceUI/button#semver:^5",
     "d2l-inputs": "BrightspaceUI/inputs#semver:^2",
-    "d2l-localize-behavior": "BrightspaceUI/d2l-localize-behavior#semver:^2",
+    "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-simple-overlay": "Brightspace/simple-overlay.git#semver:^3",
     "d2l-table": "BrightspaceUI/table#semver:^2",
