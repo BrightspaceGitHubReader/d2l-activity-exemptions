@@ -292,12 +292,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 			return fetch(
 				`${this.exemptionsUpdateUrl}&userId=${element.data.Identifier}`,
 				options
-			)
-				.then(() => {
-					const row = this.userData.findIndex(function(el) {
-						if (el.Identifier === element.data.Identifier) return el;
-					});
-				});
+			);
 		});
 
 		Promise.all(allPromises).then(() => {
