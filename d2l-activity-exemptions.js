@@ -297,7 +297,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 					const row = this.userData.findIndex(function(el) {
 						if (el.Identifier === element.data.Identifier) return el;
 					});
-					this.set(`userData.${row}.IsExempt`, isExempt);
 				});
 		});
 
@@ -310,6 +309,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 				this.$.toast.open = true;
 			})
 			.finally(() => {
+				this.refreshExemptions();
 				this.$.userListRows.render();
 			});
 	}
