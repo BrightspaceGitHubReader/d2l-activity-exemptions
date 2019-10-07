@@ -37,12 +37,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 			},
 			exemptionsUpdateUrl: {
 				type: String
-			},
-			searchValue: {
-				type: String,
-				value: '',
-				notify: true,
-				reflectToAttribute: true
 			}
 		};
 	}
@@ -100,7 +94,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  [[localize('btnUnexempt')]]
 		</d2l-button>
 
-		<d2l-input-search id="search" placeholder="Search For...">
+		<d2l-input-search id="search" placeholder="[[localize('lblSearchPlaceholder')]]">
 		</d2l-input-search>
 
 		<div id="exemptions-count">
