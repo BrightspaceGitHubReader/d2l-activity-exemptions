@@ -304,6 +304,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 				this.$.toast.open = true;
 			})
 			.finally(() => {
+				this.refreshExemptions();
 				this.$.userListRows.render();
 			});
 	}

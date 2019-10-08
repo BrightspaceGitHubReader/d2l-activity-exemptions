@@ -215,7 +215,7 @@ describe('d2l-activity-exemptions', function() {
 						flush(function() {
 							expect(items.length).to.equal(4);
 							items.forEach(function() {
-								expect(fetchStub.callCount).to.be.equal(2);
+								expect(fetchStub.callCount).to.be.equal(3);
 							});
 							done();
 						});
@@ -238,7 +238,7 @@ describe('d2l-activity-exemptions', function() {
 						flush(function() {
 							expect(items.length).to.equal(4);
 							items.forEach(function() {
-								expect(fetchStub.callCount).to.be.equal(2);
+								expect(fetchStub.callCount).to.be.equal(3);
 							});
 							done();
 						});

@@ -77,6 +77,15 @@ const LoadMoreExemptionsBehaviorImpl = {
 			});
 	},
 
+	refreshExemptions() {
+		fetch(this.exemptionsUrl, options)
+			.then(r => r.json())
+			.then(b => {
+				this.exemptions = b;
+				this.__mapUserData();
+			});
+	},
+
 	__mapUserData() {
 		this.set('userData', this.classlistItems.map(
 			(user)=>{
