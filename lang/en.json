@@ -15,6 +15,7 @@
 	"lblExemptions": "Exemptions",
 	"lblLastName": "Last Name",
 	"lblFirstName": "First Name",
+	"lblDisplayName": "Display Name",
 	"lblExemptStatus": "Exempt Status",
 	"lblOrgDefinedId": "Org Defined Id",
 	"lblSearchPlaceholder": "Search For…",
