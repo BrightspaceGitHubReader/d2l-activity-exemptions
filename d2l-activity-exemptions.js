@@ -77,7 +77,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 	  <div role="main">
 		<d2l-button
 		  class="toggle-exemption-buttons"
-		  role="button"
 		  aria-label$="[[localize('ariaExempt')]]"
 		  primary=""
 		  on-click="exemptSelected"
@@ -87,7 +86,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 
 		<d2l-button
 		  class="toggle-exemption-buttons"
-		  role="button"
 		  aria-label$="[[localize('ariaUnexempt')]]"
 		  on-click="unexemptSelected"
 		>
@@ -105,15 +103,16 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  id="classlist"
 		  role="grid"
 		  summary="[[localize('ariaTableSummary')]]"
+		  aria-label$="[[localize('ariaTableSummary')]]"
 		  sticky-headers=""
 		>
-		  <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
 		  <d2l-thead>
 			<d2l-tr role="row">
 			  <d2l-th>
 				<d2l-input-checkbox
 				  aria-label$="[[localize('ariaSelectUnselectAll')]]"
 				  id="select-all"
+				  aria-label$="[[localize('ariaSelectUnselectAll')]]"
 				  on-change="selectAll"
 				>
 				</d2l-input-checkbox>
