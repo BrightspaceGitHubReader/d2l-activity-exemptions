@@ -106,7 +106,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 		  aria-label$="[[localize('ariaTableSummary')]]"
 		  sticky-headers=""
 		>
-		  <d2l-offscreen>[[localize('ariaTableCaption')]]</d2l-offscreen>
 		  <d2l-thead>
 			<d2l-tr role="row">
 			  <d2l-th>
