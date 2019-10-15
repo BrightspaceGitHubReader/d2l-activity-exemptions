@@ -30,6 +30,32 @@ describe('d2l-activity-exemptions', function() {
 		});
 	});
 
+	it('should mark a row as selected', function(done) {
+		element.userData = [
+			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
+			{'Identifier': 2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
+			{'Identifier': 3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
+			{'Identifier': 4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
+		];
+
+		flush(function() {
+			var items = element.root.querySelectorAll('.row-user');
+			const itemUnderTest = items[2];
+			expect(items.length).to.equal(4);
+
+			let checkbox = itemUnderTest.querySelector('d2l-input-checkbox');
+			checkbox = checkbox.$$('input');
+			checkbox.addEventListener('click', function() {
+				flush(function() {
+					expect(itemUnderTest.querySelector('d2l-input-checkbox').checked).to.equal(true);
+					expect(itemUnderTest.selected).to.equal(true);
+					done();
+				});
+			});
+			MockInteractions.tap(checkbox);
+		});
+	});
+
 	it('should select all checkboxes', function(done) {
 		element.userData = [
 			{'Identifier': 1, 'FirstName':'Benjamin', 'LastName':'Liam', 'IsExempt':true},
@@ -49,6 +75,7 @@ describe('d2l-activity-exemptions', function() {
 				flush(function() {
 					items.forEach(function(row) {
 						expect(row.querySelector('d2l-input-checkbox').checked).to.equal(true);
+						expect(row.selected).to.equal(true);
 					});
 					done();
 				});
@@ -119,7 +146,12 @@ describe('d2l-activity-exemptions', function() {
 				{'Identifier':2, 'FirstName':'Isabella', 'LastName':'Madison', 'IsExempt':true},
 				{'Identifier':3, 'FirstName':'Ethan', 'LastName':'Avery', 'IsExempt':false},
 				{'Identifier':4, 'FirstName':'David', 'LastName':'Aubrey', 'IsExempt':true}
-			]
+			].map (
+				x=> {
+					x.isSelected = false;
+					return x;
+				}
+			)
 		);
 
 		done();
