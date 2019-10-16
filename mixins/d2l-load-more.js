@@ -26,11 +26,11 @@ const LoadMoreExemptionsBehaviorImpl = {
 		},
 		classlistItems: {
 			type: Array,
-			value: []
+			value: function() { return []; }
 		},
 		userData: {
 			type: Array,
-			value: [],
+			value: function() { return []; },
 			notify: true
 		},
 		page: {
