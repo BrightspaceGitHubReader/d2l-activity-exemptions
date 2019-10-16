@@ -138,6 +138,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 				<d2l-td>
 				  <d2l-input-checkbox
 					class="checkbox-user"
+					checked=[[item.isSelected]]
 					on-click="_toggleSelectedStatus"
 					aria-label$="[[getCheckboxAriaLabel(item.IsExempt, item.DisplayName)]]"
 				  >
