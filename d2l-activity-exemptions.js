@@ -101,10 +101,8 @@ class D2LActivityExemptions extends mixinBehaviors(
 
 		<d2l-table
 		  id="classlist"
-		  role="grid"
 		  summary="[[localize('ariaTableSummary')]]"
 		  aria-label$="[[localize('ariaTableSummary')]]"
-		  sticky-headers=""
 		>
 		  <d2l-thead>
 			<d2l-tr role="row">
