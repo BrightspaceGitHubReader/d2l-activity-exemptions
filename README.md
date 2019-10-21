@@ -2,7 +2,7 @@
 
 # \<d2l-activity-exemptions\>
 
-Activity exemptions
+Activity exemptions component
 
 ## Install the Polymer-CLI
 
