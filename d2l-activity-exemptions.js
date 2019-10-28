@@ -201,6 +201,11 @@ class D2LActivityExemptions extends mixinBehaviors(
 	`;
 	}
 
+	constructor() {
+		super();
+		this._openListener = this._onOpen.bind(this);
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener('d2l-simple-overlay-opening', this._openListener);
@@ -213,7 +218,6 @@ class D2LActivityExemptions extends mixinBehaviors(
 
 	ready() {
 		super.ready();
-		this._openListener = this._onOpen.bind(this);
 		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
 	}
 
