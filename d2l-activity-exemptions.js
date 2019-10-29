@@ -76,6 +76,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 
 	  <div role="main">
 		<d2l-button
+		  id="exemptBtn"
 		  class="toggle-exemption-buttons"
 		  aria-label$="[[localize('ariaExempt')]]"
 		  primary=""
@@ -85,6 +86,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		</d2l-button>
 
 		<d2l-button
+		  id="unexemptBtn"
 		  class="toggle-exemption-buttons"
 		  aria-label$="[[localize('ariaUnexempt')]]"
 		  on-click="unexemptSelected"
@@ -199,12 +201,32 @@ class D2LActivityExemptions extends mixinBehaviors(
 	`;
 	}
 
+	constructor() {
+		super();
+		this._openListener = this._onOpen.bind(this);
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		window.addEventListener('d2l-simple-overlay-opening', this._openListener);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('d2l-simple-overlay-opening', this._openListener);
+	}
+
 	ready() {
 		super.ready();
 		this.$.search.addEventListener('d2l-input-search-searched', this.doSearch.bind(this));
 	}
+
 	_getSelected(isSelected) {
 		return !!isSelected;
+	}
+
+	_onOpen() {
+		this.$.exemptBtn.focus();
 	}
 
 	doSearch(e) {
