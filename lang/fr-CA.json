@@ -13,6 +13,7 @@
    "btnUnexempt" : "Annuler l'exemption",
    "lblAnonymousUser" : "Utilisateur anonyme",
    "lblCheckSpelling" : "Veuillez vérifier l'orthographe ou modifier votre recherche.",
+   "lblDisplayName" : "Nom d’affichage",
    "lblExempt" : "Exemption",
    "lblExemptStatus" : "État d'exemption",
    "lblExemptionCount" : "Exemptions : {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Recherche de…",
    "lblUser" : "Utilisateur",
    "toastCouldNotLoad" : "Échec de chargement des données d'exemption de l'activité",
-   "toastExempt" : "Enregistrement réussi. Échec de l'enregistrement | Enregistrement réussi. 1 utilisateur exempté. | Enregistrement réussi. {count} utilisateurs exemptés.",
-   "toastUnexempt" : "Enregistrement réussi. Échec de l'enregistrement | Enregistrement réussi. Annulation de l'exemption d'un utilisateur. | Enregistrement réussi. Annulation de l'exemption de {count} utilisateurs."
+   "toastExempt" : "Enregistrement réussi. {count, plural, =0 {Rien n’a été enregistré. } one {1 utilisateur exempté.} other { {count} utilisateurs exemptés.}}",
+   "toastUnexempt" : "Enregistrement réussi. {count, plural, =0 {Rien n’a été enregistré. } one {1 utilisateur non exempté.} other { {count} utilisateurs non exemptés.}}"
 }

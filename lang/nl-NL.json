@@ -13,6 +13,7 @@
    "btnUnexempt" : "Vrijstelling opheffen",
    "lblAnonymousUser" : "Anonieme gebruiker",
    "lblCheckSpelling" : "Controleer de spelling of wijzig uw zoekopdracht.",
+   "lblDisplayName" : "Schermnaam",
    "lblExempt" : "Vrijstellen",
    "lblExemptStatus" : "Vrijstellingsstatus",
    "lblExemptionCount" : "Vrijstellingen: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Zoeken naar...",
    "lblUser" : "Gebruiker",
    "toastCouldNotLoad" : "Vrijstellingsgegevens van activiteit kunnen niet worden geladen",
-   "toastExempt" : "Opgeslagen. Niets opgeslagen | Opgeslagen. Vrijstelling voor 1 gebruiker. | Opgeslagen. Vrijstelling voor {count} gebruikers.",
-   "toastUnexempt" : "Opgeslagen. Niets opgeslagen | Opgeslagen. Vrijstelling voor 1 gebruiker opgeheven. | Opgeslagen. Vrijstelling voor {count} gebruikers opgeheven."
+   "toastExempt" : "Opgeslagen. {count, plural, =0 {Niets opgeslagen. } one {1 gebruiker vrijgesteld.} other { {count} gebruikers vrijgesteld.}}",
+   "toastUnexempt" : "Opgeslagen. {count, plural, =0 {Niets opgeslagen. } one {1 gebruiker niet vrijgesteld.} other { {count} gebruikers niet vrijgesteld.}}"
 }

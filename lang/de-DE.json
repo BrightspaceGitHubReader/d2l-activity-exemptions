@@ -13,6 +13,7 @@
    "btnUnexempt" : "Nicht ausgenommen",
    "lblAnonymousUser" : "Anonymer Benutzer",
    "lblCheckSpelling" : "Prüfen Sie Ihre Rechtschreibung, oder ändern Sie Ihre Suche.",
+   "lblDisplayName" : "Anzeigename",
    "lblExempt" : "Ausgenommen",
    "lblExemptStatus" : "Ausnahmestatus",
    "lblExemptionCount" : "Ausnahmen: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Suchen nach …",
    "lblUser" : "Benutzer",
    "toastCouldNotLoad" : "Es konnten keine Aktivitäts-Ausnahmedaten geladen werden.",
-   "toastExempt" : "Gespeichert. Nichts gespeichert | Gespeichert. 1 Benutzer ausgenommen. | Gespeichert. {count} Benutzer ausgenommen.",
-   "toastUnexempt" : "Gespeichert. Nichts gespeichert | Gespeichert. 1 Benutzer nicht ausgenommen. | Gespeichert. {count} Benutzer nicht ausgenommen."
+   "toastExempt" : "Erfolgreich gespeichert. {count, plural, =0 {Nichts gespeichert. } one {1 Benutzer ausgenommen.} other { {count} Benutzer ausgenommen.}}",
+   "toastUnexempt" : "Erfolgreich gespeichert. {count, plural, =0 {Nichts gespeichert. } one {1 Benutzer ist nicht ausgenommen.} other { {count} Benutzer sind nicht ausgenommen.}}"
 }

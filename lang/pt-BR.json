@@ -13,6 +13,7 @@
    "btnUnexempt" : "Não isento",
    "lblAnonymousUser" : "Usuário Anônimo",
    "lblCheckSpelling" : "Verifique a ortografia ou modifique a pesquisa.",
+   "lblDisplayName" : "Nome de Exibição",
    "lblExempt" : "Isento",
    "lblExemptStatus" : "Status de Isento",
    "lblExemptionCount" : "Isenções: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Pesquisar…",
    "lblUser" : "Usuário",
    "toastCouldNotLoad" : "Não foi possível carregar dados de isenção da atividade",
-   "toastExempt" : "Salvo com sucesso. Nada foi salvo | Salvo com sucesso. 1 usuário isento. | Salvo com sucesso. {count} usuários isentos.",
-   "toastUnexempt" : "Salvo com sucesso. Nada foi salvo | Salvo com sucesso. 1 usuário não isento. | Salvo com sucesso. {count} usuários não isentos."
+   "toastExempt" : "Salvo com êxito. {count, plural, =0 {Nada salvo. } one {1 usuário isento.} other { {count} usuários isentos.}}",
+   "toastUnexempt" : "Salvo com êxito. {count, plural, =0 {Nada salvo. } one {1 usuário isento.} other { {count} usuários isentos.}}"
 }
