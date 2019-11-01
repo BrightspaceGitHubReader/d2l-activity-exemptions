@@ -13,6 +13,7 @@
    "btnUnexempt" : "No eximido",
    "lblAnonymousUser" : "Usuario anónimo",
    "lblCheckSpelling" : "Verifique la ortografía o modifique la búsqueda.",
+   "lblDisplayName" : "Nombre en pantalla",
    "lblExempt" : "Eximir",
    "lblExemptStatus" : "Estado de eximición",
    "lblExemptionCount" : "Eximiciones: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Buscar…",
    "lblUser" : "Usuario",
    "toastCouldNotLoad" : "No se pudieron cargar los datos de eximición de actividades",
-   "toastExempt" : "Se guardó correctamente. No se guardó información | Se guardó correctamente. Un usuario eximido. | Se guardado correctamente. {count} usuarios eximidos.",
-   "toastUnexempt" : "Se guardó correctamente. No se guardó información | Se guardó correctamente. Un usuario no eximido. | Se guardado correctamente. {count} usuarios no eximidos."
+   "toastExempt" : "Guardado correctamente. {count, plural, =0 {No se guardó información. } one {1 usuario eximido.} other { {count} usuarios eximidos.}}",
+   "toastUnexempt" : "Guardado correctamente. {count, plural, =0 {No se guardó información. } one {1 usuario no eximido.} other { {count} usuarios no eximidos.}}"
 }

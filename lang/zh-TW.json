@@ -13,6 +13,7 @@
    "btnUnexempt" : "取消免除",
    "lblAnonymousUser" : "匿名使用者",
    "lblCheckSpelling" : "請檢查拼字或修改搜尋。",
+   "lblDisplayName" : "顯示名稱",
    "lblExempt" : "免除",
    "lblExemptStatus" : "免除狀態",
    "lblExemptionCount" : "免修學分：{exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "搜尋…",
    "lblUser" : "使用者",
    "toastCouldNotLoad" : "無法載入活動免除學分資料",
-   "toastExempt" : "已成功儲存。沒有儲存任何項目 | 已成功儲存。1 位使用者已免除。| 已成功儲存。{count} 位使用者已免除。",
-   "toastUnexempt" : "已成功儲存。沒有儲存任何項目 | 已成功儲存。1 位使用者已取消免除。| 已成功儲存。{count} 位使用者已取消免除。"
+   "toastExempt" : "已成功儲存。{count, plural, =0 {未儲存任何項目。} one {已免除 1 位使用者。} other {已免除 {count} 位使用者。}}",
+   "toastUnexempt" : "已成功儲存。{count, plural, =0 {未儲存任何項目。} one {已取消免除 1 位使用者。} other {已取消免除 {count} 位使用者。}}"
 }

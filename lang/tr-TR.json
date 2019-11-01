@@ -13,6 +13,7 @@
    "btnUnexempt" : "Muafiyetini Kaldır",
    "lblAnonymousUser" : "Anonim Kullanıcı",
    "lblCheckSpelling" : "Lütfen yazım hatası yapıp yapmadığınızı kontrol edin veya aramanızı değiştirin.",
+   "lblDisplayName" : "Görünen Ad",
    "lblExempt" : "Muaf Tut",
    "lblExemptStatus" : "Muafiyet Durumu",
    "lblExemptionCount" : "Muafiyetler: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Ara:",
    "lblUser" : "Kullanıcı",
    "toastCouldNotLoad" : "Etkinlik muafiyeti verileri yüklenemedi",
-   "toastExempt" : "Başarıyla kaydedildi. Hiçbir şey kaydedilmedi | Başarıyla kaydedildi. 1 kullanıcı muaf tutuldu. | Başarıyla kaydedildi. {Count} kullanıcı muaf tutuldu.",
-   "toastUnexempt" : "Başarıyla kaydedildi. Hiçbir şey kaydedilmedi | Başarıyla kaydedildi. 1 kullanıcının muafiyeti kaldırıldı. | Başarıyla kaydedildi. {Count} kullanıcının muafiyeti kaldırıldı."
+   "toastExempt" : "Başarıyla kaydedildi. {count, plural, =0 {Hiçbir şey kaydedilmedi. } one {1 kullanıcı muaf.} other { {count} kullanıcı muaf.}}",
+   "toastUnexempt" : "Başarıyla kaydedildi. {count, plural, =0 {Hiçbir şey kaydedilmedi. } one {1 kullanıcı muafiyeti kaldırıldı.} other { {count} kullanıcının muafiyeti kaldırıldı.}}"
 }

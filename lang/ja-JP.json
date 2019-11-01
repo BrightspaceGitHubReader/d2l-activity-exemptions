@@ -13,6 +13,7 @@
    "btnUnexempt" : "免除解除",
    "lblAnonymousUser" : "匿名ユーザー",
    "lblCheckSpelling" : "スペルに誤りがないか確認してください。または検索する内容を変更してください。",
+   "lblDisplayName" : "表示名",
    "lblExempt" : "免除",
    "lblExemptStatus" : "免除ステータス",
    "lblExemptionCount" : "免除数: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "検索対象…",
    "lblUser" : "ユーザー",
    "toastCouldNotLoad" : "アクティビティ免除データを読み込めませんでした",
-   "toastExempt" : "正常に保存されました。保存するものはありませんでした。 | 正常に保存されました。1 人のユーザーが免除されました。 | 正常に保存されました。{count} 人のユーザーが免除されました。",
-   "toastUnexempt" : "正常に保存されました。保存するものはありませんでした。 | 正常に保存されました。1 人のユーザーが免除解除されました。 | 正常に保存されました。{count} 人のユーザーが免除解除されました。"
+   "toastExempt" : "正常に保存されました。{count, plural, =0 {保存されていません。} one {1 人のユーザーが免除されました。} other { {count} 人のユーザーが免除されました。}}",
+   "toastUnexempt" : "正常に保存されました。{count, plural, =0 {保存されていません。} one {1 人のユーザーが免除解除されました。} other { {count} 人のユーザーが免除解除されました。}}"
 }

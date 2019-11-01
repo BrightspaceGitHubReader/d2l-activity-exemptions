@@ -13,6 +13,7 @@
    "btnUnexempt" : "면제 취소",
    "lblAnonymousUser" : "익명 사용자",
    "lblCheckSpelling" : "철자를 확인하거나 검색 내용을 수정해 보십시오.",
+   "lblDisplayName" : "표시 이름",
    "lblExempt" : "면제",
    "lblExemptStatus" : "면제 상태",
    "lblExemptionCount" : "면제: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "검색 내용...",
    "lblUser" : "사용자",
    "toastCouldNotLoad" : "활동 면제 데이터를 로드할 수 없음",
-   "toastExempt" : "성공적으로 저장되었습니다. 저장된 항목이 없습니다. | 성공적으로 저장되었습니다. 사용자 1명이 면제되었습니다. | 성공적으로 저장되었습니다. 사용자 {count}명이 면제되었습니다.",
-   "toastUnexempt" : "성공적으로 저장되었습니다. 저장된 항목이 없습니다. | 성공적으로 저장되었습니다. 사용자 1명이 면제 취소되었습니다. | 성공적으로 저장되었습니다. 사용자 {count}명이 면제 취소되었습니다."
+   "toastExempt" : "성공적으로 저장되었습니다. {count, plural, =0 {저장된 것이 없습니다. } 하나 {한 명의 사용자가 면제되었습니다.} 다른 {{count}명의 사용자가 면제되었습니다.}}",
+   "toastUnexempt" : "성공적으로 저장되었습니다. {count, plural, =0 {저장된 것이 없습니다. } 하나 {한 명의 사용자가 면제 취소되었습니다.} 다른 {{count}명의 사용자가 면제 취소되었습니다.}}"
 }

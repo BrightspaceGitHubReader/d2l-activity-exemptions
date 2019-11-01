@@ -13,6 +13,7 @@
    "btnUnexempt" : "إلغاء الإعفاء",
    "lblAnonymousUser" : "مستخدم مجهول",
    "lblCheckSpelling" : "يرجى إجراء تدقيق إملائي أو تعديل البحث.",
+   "lblDisplayName" : "اسم العرض",
    "lblExempt" : "إعفاء",
    "lblExemptStatus" : "حالة الإعفاء",
    "lblExemptionCount" : "الإعفاءات: {exemptionCount}",
@@ -23,10 +24,10 @@
    "lblNoResultsFound" : "لم يتم العثور على نتائج لـ <strong>{queryTerm}</strong>.",
    "lblNoUsers" : "لم يتم العثور على مستخدمين.",
    "lblNotExempt" : "غير معفى",
-   "lblOrgDefinedId" : "معرِّف المؤسسة المحدد",
+   "lblOrgDefinedId" : "معرِّف المؤسسة المحدد",
    "lblSearchPlaceholder" : "البحث عن...",
    "lblUser" : "المستخدم",
    "toastCouldNotLoad" : "يتعذّر تحميل بيانات إعفاء النشاط",
-   "toastExempt" : "تم الحفظ بنجاح. لم يتم حفظ أي شيء | تم الحفظ بنجاح. تم إعفاء مستخدم واحد. | تم الحفظ بنجاح. تم إعفاء {count} من المستخدمين.",
-   "toastUnexempt" : "تم الحفظ بنجاح. لم يتم حفظ أي شيء | تم الحفظ بنجاح. تم إلغاء إعفاء مستخدم واحد. | تم الحفظ بنجاح. تم إلغاء إعفاء {count} من المستخدمين."
+   "toastExempt" : "تم الحفظ بنجاح. {count, plural, =0 {لم يتم حفظ أي عنصر. } one {تم إعفاء مستخدم واحد.} other { {count} من المستخدمين المعفيين.}}",
+   "toastUnexempt" : "تم الحفظ بنجاح. {count, plural, =0 {لم يتم حفظ أي عنصر. } one {تم إعفاء مستخدم واحد.} other { {count} من المستخدمين المعفيين.}}"
 }

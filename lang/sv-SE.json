@@ -13,6 +13,7 @@
    "btnUnexempt" : "Inte undantagen",
    "lblAnonymousUser" : "Anonym användare",
    "lblCheckSpelling" : "Kontrollera stavningen eller ändra sökningen.",
+   "lblDisplayName" : "Visningsnamn",
    "lblExempt" : "Undantagen",
    "lblExemptStatus" : "Undantagsstatus",
    "lblExemptionCount" : "Undantag: {exemptionCount}",
@@ -27,6 +28,6 @@
    "lblSearchPlaceholder" : "Sök efter ...",
    "lblUser" : "Användare",
    "toastCouldNotLoad" : "Det gick inte att läsa in undantagsdata för aktiviteten",
-   "toastExempt" : "Har sparats. Inget sparades | Har sparats. 1 användare undantas. | Har sparats. {Count} användare undantas.",
-   "toastUnexempt" : "Har sparats. Inget sparades | Har sparats. 1 användare undantas inte. | Har sparats. {Count} användare undantas inte."
+   "toastExempt" : "Sparat. {count, plural, =0 {Inget sparat. } one {1 användare undantogs.} other { {count} användare undantogs.}}",
+   "toastUnexempt" : "Sparat. {count, plural, =0 {Inget sparat. } one {1 användare undantogs inte.} other { {count} användare undantogs inte.}}"
 }
