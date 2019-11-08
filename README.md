@@ -45,5 +45,5 @@ All version changes should obey [semantic versioning](https://semver.org/) rules
 
 Include either `[increment major]`, `[increment minor]` or `[increment patch]` in your merge commit message to automatically increment the `package.json` version and create a tag during the next build.
 
-[ci-url]: https://travis-ci.org/Brightspace/d2l-activity-exemptions	
-[ci-image]: https://img.shields.io/travis/Brightspace/d2l-activity-exemptions/master.svg
+[ci-url]: https://travis-ci.com/Brightspace/d2l-activity-exemptions	
+[ci-image]: https://travis-ci.com/Brightspace/d2l-activity-exemptions.svg?branch=master
