@@ -308,7 +308,7 @@ class D2LActivityExemptions extends mixinBehaviors(
 		var userList = Array.from(this.$.classlist.querySelectorAll('.row-user'));
 		var filteredSelection = userList.filter(
 			element =>
-				element.querySelector('.checkbox-user[checked]') &&
+				element.querySelector('.checkbox-user').checked &&
 			element.data['IsExempt'] !== isExempt
 		);
 		var token = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
